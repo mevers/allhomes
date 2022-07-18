@@ -58,13 +58,13 @@ I haven't found an automated way to obtain locality IDs for a specific suburb. T
 
 ### Allhomes past sales data
 
-Allhomes past sale data are stored in fairly awkward;y-formatted HTML tables. Data for every sale is stored within a `<tbody>` element; within every `<tbody>` element, individual values (address, price, dates, block size, etc.) are spread across 3 lines, each contained within a `<td>` element; unfortunately, the format of every line is not consistent.
+Allhomes past sale data are stored in fairly awkwardly-formatted HTML tables. Data for every sale is stored within a `<tbody>` element; within every `<tbody>` element, individual values (address, price, dates, block size, etc.) are spread across 3 lines, each contained within a `<td>` element; unfortunately, the format of every line is not consistent.
 
 There are two different approaches to parsing the data: (1) We can make no assumptions about the column names and structure and infer this from splitting/parsing data by looking for key fields; this requires sanity checks to ensure that data are consistent; or (2) we can assume a specific column structure with specific column names, and then extract data conditional on this data structure. The advantage of (1) is that parsing the data should still work even if allhomes were to change the structure; however, this approach is computationally slow. The advantage of (2) is speed, at the risk of catastrophic failure should allhomes change the format of their past sales data tables. Currently, `get_past_sales_data()` uses approach (2).
 
 
 ## Disclaimer
 
-This project is neither related to nor endorsed by the allhomes.com.au. With changes to how the BOM manages and formats data, some or all of the functions might break at any time.
+This project is neither related to nor endorsed by allhomes.com.au. With changes to how the BOM manages and formats data, some or all of the functions might break at any time.
 
 All data provided are subject to the [allhomes Advertising Sales Agreement terms and conditions](https://www.allhomes.com.au/ah/advertising-terms/).
