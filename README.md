@@ -22,7 +22,7 @@ To make life a bit easier (and as a proof of concept), `allhomes` provides a `lo
 ```r
 library(tidyverse)
 library(allhomes)
-Í
+
 # Get data for three suburbs from the last 5 years 
 data <- localities_act %>%
     filter(locality %in% c("Watson", "Ainslie", "Downer")) %>%
