@@ -1,15 +1,4 @@
-#' Tokenise column data
-#'
-#' @param df A `tibble`.
-#' @param col A column as unquoted expression.
-#' @param col_names An `character` vector with column names.
-#'
-#' @return A `tibble`.
-#'
-#' @importFrom magrittr "%>%"
-#' @importFrom rlang .data .env
-#'
-#' @keywords internal
+# Helper function to tokenise data in column
 # library(tibble)
 # df <- tibble(a = 1, b = c(" Address: SomethingNumber: 4Text field: empty"))
 # tokenise_column(df, b, c("Address", "Number", "Text field"))
@@ -27,14 +16,16 @@ tokenise_column <- function(df, col, col_names) {
 }
 
 
-#' Get Allhomes past sales data
+#' Extract Allhomes past sales data for a single suburb + ID + year.
 #'
-#' Get Allhomes past sales data
+#' Extract Allhomes past sales data for a suburb + ID + year. This is an
+#' internal function that gets called by vectorised `get_past_sales_data()`.
+#' This function is currently exported but this may change in the future.
 #'
 #' @param suburb A `character` string denoting the suburb.
 #' @param id An `integer` scalar denoting the Allhomes locality ID
 #' @param year An `integer` scalar denoting the year.
-#' @param quiet If `TRUE` then messages are suppressed.
+#' @param quiet If `TRUE` then messages are suppressed. Currently ignored.
 #'
 #' @return A `tibble`.
 #'
@@ -43,10 +34,10 @@ tokenise_column <- function(df, col, col_names) {
 #'
 #' @examples
 #' \dontrun{
-#' get_past_sales_data("ainslie", 14743, 2021)
+#' extract_past_sales_data("ainslie", 14743, 2021)
 #' }
 #' @export
-get_past_sales_data <- function(suburb, id, year, quiet = FALSE) {
+extract_past_sales_data <- function(suburb, id, year, quiet = FALSE) {
 
     if (stringr::str_detect(suburb, "\\s")) return(NULL)
     if (is.na(id)) return(NULL)
@@ -62,57 +53,106 @@ get_past_sales_data <- function(suburb, id, year, quiet = FALSE) {
             suburb,
             (1200000 + id) * 100 + 12,
             year))
-    raw_table <- htmltab::htmltab(url, which = 1L)
+    raw_table <- tryCatch(
+        htmltab::htmltab(url, which = 1L),
+        error = function(cond) {
+            message(cond)
+            message("\nSkipping...\n")
+            return(NULL)
+        })
 
-    # Top row
-    top_cols <- c(
-        "Address", "Bedrooms", "Bathrooms",
-        "Ensuites", "Garages", "Carports")
-    top <- raw_table %>%
-        dplyr::slice(which(dplyr::row_number() %% 3L == 1L)) %>%
-        dplyr::select(tmp = 1) %>%
-        tokenise_column(.data$tmp, top_cols)
+    if (!is.null(raw_table)) {
 
-    # Bottom row
-    bottom_cols <- c(
-        "Contract Date", "Transfer Date", "List Date",
-        "Price", "Block Size", "Transfer Type")
-    bottom <- raw_table %>%
-        dplyr::slice(which(dplyr::row_number() %% 3L == 2L)) %>%
-        magrittr::set_names(bottom_cols)
+        # Top row
+        top_cols <- c(
+            "Address", "Bedrooms", "Bathrooms",
+            "Ensuites", "Garages", "Carports")
+        top <- raw_table %>%
+            dplyr::slice(which(dplyr::row_number() %% 3L == 1L)) %>%
+            dplyr::select(tmp = 1) %>%
+            tokenise_column(.data$tmp, top_cols)
 
-    # Data in hidden (extra) row
-    extra_cols <- c(
-        "Full Sale Price", "Days on Market", "Sale Type", "Sale Record Source",
-        "Building Size", "Land Type", "Property Type", "Purpose",
-        "Unimproved Value", "Unimproved Value Ratio")
-    extra <- raw_table %>%
-        dplyr::slice(which(dplyr::row_number() %% 3L == 0L)) %>%
-        dplyr::select(tmp = 1) %>%
-        tokenise_column(.data$tmp, extra_cols)
+        # Bottom row
+        bottom_cols <- c(
+            "Contract Date", "Transfer Date", "List Date",
+            "Price", "Block Size", "Transfer Type")
+        bottom <- raw_table %>%
+            dplyr::slice(which(dplyr::row_number() %% 3L == 2L)) %>%
+            magrittr::set_names(bottom_cols)
 
-    # Combine top, bottom and extra
-    ret <- dplyr::bind_cols(top, bottom, extra) %>%
-        # Replace "–" with NA (note this is not a minus sign but \u2013
-        dplyr::mutate(dplyr::across(
-            dplyr::everything(), dplyr::na_if, "\u2013")) %>%
-        # Remove units from values (m2 from `size_block`, $ from `price`)
-        dplyr::mutate(dplyr::across(
-            dplyr::matches("(Price|Value|Size)"),
-            stringr::str_remove_all, "(\\$|\\,|m2|m)")) %>%
-        # Auto-guess data types in all columns
-        dplyr::mutate(dplyr::across(
-            dplyr::everything(), readr::parse_guess)) %>%
-        # Add locality, locality id and year
-        dplyr::mutate(
-            locality = suburb,
-            locality_id = id,
-            year = year,
-            .before = 1) %>%
-        # Give tidy column names
-        dplyr::rename_with(
-            ~ stringr::str_to_lower(.x) %>% stringr::str_replace_all(" ", "_"))
+        # Data in hidden (extra) row
+        extra_cols <- c(
+            "Full Sale Price", "Days on Market", "Sale Type",
+            "Sale Record Source", "Building Size", "Land Type",
+            "Property Type", "Purpose", "Unimproved Value",
+            "Unimproved Value Ratio")
+        extra <- raw_table %>%
+            dplyr::slice(which(dplyr::row_number() %% 3L == 0L)) %>%
+            dplyr::select(tmp = 1) %>%
+            tokenise_column(.data$tmp, extra_cols)
 
-    return(ret)
+        # Combine top, bottom and extra
+        ret <- dplyr::bind_cols(top, bottom, extra) %>%
+            # Replace "–" with NA (note this is not a minus sign but \u2013
+            dplyr::mutate(dplyr::across(
+                dplyr::everything(), dplyr::na_if, "\u2013")) %>%
+            # Remove units from values (m2 from `size_block`, $ from `price`)
+            dplyr::mutate(dplyr::across(
+                dplyr::matches("(Price|Value|Size)"),
+                stringr::str_remove_all, "(\\$|\\,|m2|m)")) %>%
+            # Auto-guess data types in all columns
+            dplyr::mutate(dplyr::across(
+                dplyr::everything(), readr::parse_guess)) %>%
+            # Add locality, locality id and year
+#            dplyr::mutate(
+#                locality = suburb,
+#                locality_id = id,
+#                year = year,
+#                .before = 1) %>%
+            # Give tidy column names
+            dplyr::rename_with(
+                ~ stringr::str_to_lower(.x) %>%
+                    stringr::str_replace_all(" ", "_"))
+
+        return(ret)
+    }
+
+}
+
+
+#' Extract Allhomes past sales data for a/multiple suburb(s) and year(s).
+#'
+#' Extract Allhomes past sales data for a/multiple suburb(s) and year(s).
+#'
+#' @param suburb A `character` vector denoting a/multiple suburbs. Format for
+#' every entry must be "suburb_name, state/territory_abbrevation", e.g.
+#' "Balmain, ACT".
+#' @param year An `integer` vector denoting the year(s).
+#' @param quiet If `TRUE` then messages are suppressed. Currently ignored.
+#'
+#' @return A `tibble`.
+#'
+#' @importFrom magrittr "%>%"
+#' @importFrom rlang .data .env
+#'
+#' @examples
+#' \dontrun{
+#' get_past_sales_data(
+#'     c("Balmain, NSW", "Acton, ACT", "Nowra, NSW"),
+#'     2020L:2021L)
+#' }
+#' @export
+get_past_sales_data <- function(suburb, year, quiet = FALSE) {
+
+    suburb %>%
+        purrr::map_dfr(
+            ~ get_ah_division_ids(.x) %>%
+                dplyr::mutate(year = list(.env$year)) %>%
+                tidyr::unnest(.data$year) %>%
+                dplyr::mutate(data = purrr::pmap(
+                    list(.data$division, .data$value, .data$year, .env$quiet),
+                    extract_past_sales_data)) %>%
+                tidyr::unnest(data)
+        )
 
 }

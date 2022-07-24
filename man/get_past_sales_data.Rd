@@ -2,27 +2,29 @@
 % Please edit documentation in R/get_past_sales_data.R
 \name{get_past_sales_data}
 \alias{get_past_sales_data}
-\title{Get Allhomes past sales data}
+\title{Extract Allhomes past sales data for a/multiple suburb(s) and year(s).}
 \usage{
-get_past_sales_data(suburb, id, year, quiet = FALSE)
+get_past_sales_data(suburb, year, quiet = FALSE)
 }
 \arguments{
-\item{suburb}{A \code{character} string denoting the suburb.}
+\item{suburb}{A \code{character} vector denoting a/multiple suburbs. Format for
+every entry must be "suburb_name, state/territory_abbrevation", e.g.
+"Balmain, ACT".}
 
-\item{id}{An \code{integer} scalar denoting the Allhomes locality ID}
+\item{year}{An \code{integer} vector denoting the year(s).}
 
-\item{year}{An \code{integer} scalar denoting the year.}
-
-\item{quiet}{If \code{TRUE} then messages are suppressed.}
+\item{quiet}{If \code{TRUE} then messages are suppressed. Currently ignored.}
 }
 \value{
 A \code{tibble}.
 }
 \description{
-Get Allhomes past sales data
+Extract Allhomes past sales data for a/multiple suburb(s) and year(s).
 }
 \examples{
 \dontrun{
-get_past_sales_data("ainslie", 14743, 2021)
+get_past_sales_data(
+    c("Balmain, NSW", "Acton, ACT", "Nowra, NSW"),
+    2020L:2021L)
 }
 }

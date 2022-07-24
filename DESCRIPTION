@@ -1,6 +1,6 @@
 Package: allhomes
 Title: Extract past sales data from allhomes.com.au
-Version: 0.0.1
+Version: 0.1.0
 Authors@R: 
     person("Maurits", "Evers", , "maurits.evers@gmail.com", role = c("aut", "cre"))
 Description: Extract past sales data for specific suburb and year from allhomes.com.au.
@@ -9,7 +9,8 @@ Depends: R (>= 4.0)
 Imports: 
     dplyr,
     htmltab,
-    lubridate,
+    httr,
+    jsonlite,
     magrittr,
     purrr,
     readr,
@@ -19,4 +20,4 @@ Imports:
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.1

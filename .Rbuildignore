@@ -1,4 +1,5 @@
 ^allhomes\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
-example.png
+.+.png
+^data-raw$
