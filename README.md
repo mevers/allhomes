@@ -74,7 +74,6 @@ ggsave("example_NSW.png", height = 4, width = 7)
 ![](example_NSW.png)
 
 
-```
 ## Further comments
 
 ### Allhomes localities
