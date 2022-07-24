@@ -68,7 +68,7 @@ data %>%
         labels = scales::label_dollar(scale = 1e-6, suffix = "M")) +
     facet_wrap(~ division)
 
-ggsave("example_ACT.png", height = 4, width = 7)
+ggsave("example_NSW.png", height = 4, width = 7)
 ```
 
 ![](example_NSW.png)
