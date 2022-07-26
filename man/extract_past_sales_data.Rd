@@ -2,14 +2,11 @@
 % Please edit documentation in R/get_past_sales_data.R
 \name{extract_past_sales_data}
 \alias{extract_past_sales_data}
-\title{Extract Allhomes past sales data for a single suburb + ID + year.}
+\title{Extract Allhomes past sales data for a single division ID and year.}
 \usage{
-extract_past_sales_data(division_name, division_id, year, quiet = FALSE)
+extract_past_sales_data(division_id, year, quiet = FALSE)
 }
 \arguments{
-\item{division_name}{A \code{character} string denoting the Allhomes division
-name (suburb).}
-
 \item{division_id}{An \code{integer} scalar denoting the Allhomes division ID.}
 
 \item{year}{An \code{integer} scalar denoting the year.}
@@ -20,12 +17,13 @@ name (suburb).}
 A \code{tibble}.
 }
 \description{
-Extract Allhomes past sales data for a suburb + ID + year. This is an
-internal function that gets called by vectorised \code{get_past_sales_data()}.
-This function is currently exported but this may change in the future.
+Extract Allhomes past sales data for a division ID and year. The division
+ID is the ID for a specific division (suburb). This is an internal function
+that gets called by vectorised \code{get_past_sales_data()}. This function is
+currently exported but this may change in the future.
 }
 \examples{
 \dontrun{
-extract_past_sales_data("ainslie", 14743, 2021)
+extract_past_sales_data(14743, 2021)
 }
 }

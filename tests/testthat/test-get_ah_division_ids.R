@@ -19,10 +19,10 @@ test_that("Invalid search returns an error", {
 
 })
 
-test_that("Non-sense query returns empty tibble", {
+test_that("Non-sense query returns empty `tibble`/`data.frame`", {
     expect_equal(
-        get_ah_division_ids("New York, NY", quiet = TRUE),
-        tibble::tibble())
+        nrow(get_ah_division_ids("New York, NY", quiet = TRUE)),
+        0L)
     expect_equal(
         nrow(get_ah_division_ids(
             c("New York, NY", "Boston, MA"), quiet = TRUE)),
