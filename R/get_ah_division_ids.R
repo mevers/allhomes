@@ -41,15 +41,23 @@ get_ah_division_ids <- function(x, quiet = FALSE) {
         rlang::set_names(nm = x) %>%
         purrr::imap_dfr(function(entry, nm) {
             if (length(entry) != 2) {
-                stop("Must give '<suburb>, <state_abbr/territory_abbr>'")
+                stop(sprintf(
+                    "Wrong format for '%s'; must be '<suburb>, <state/terr>'",
+                    nm),
+                    call. = FALSE)
             } else {
-                data <- sprintf(
+                if (!quiet)
+                    message(sprintf(
+                        "[%s] Looking up division ID for suburb='%s'...",
+                        Sys.time(), nm))
+                url <- sprintf(
                     "%s/searchallbyname?st=%s&n=%s",
                     base_url,
                     entry[2],
-                    stringr::str_to_lower(stringr::str_replace_all(
-                        entry[1], "( |\u2019|')", "-"))) %>%
-                    print() %>%
+                    format_ah_division_name(entry[1]))
+                if (!quiet)
+                    message(sprintf("[%s] URL: %s", Sys.time(), url))
+                data <- url %>%
                     get_data() %>%
                     purrr::pluck("division")
                 if (!is.null(data)) {

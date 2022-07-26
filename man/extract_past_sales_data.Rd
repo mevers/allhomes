@@ -4,12 +4,13 @@
 \alias{extract_past_sales_data}
 \title{Extract Allhomes past sales data for a single suburb + ID + year.}
 \usage{
-extract_past_sales_data(suburb, id, year, quiet = FALSE)
+extract_past_sales_data(division_name, division_id, year, quiet = FALSE)
 }
 \arguments{
-\item{suburb}{A \code{character} string denoting the suburb.}
+\item{division_name}{A \code{character} string denoting the Allhomes division
+name (suburb).}
 
-\item{id}{An \code{integer} scalar denoting the Allhomes locality ID}
+\item{division_id}{An \code{integer} scalar denoting the Allhomes division ID.}
 
 \item{year}{An \code{integer} scalar denoting the year.}
 

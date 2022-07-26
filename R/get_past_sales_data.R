@@ -16,14 +16,14 @@ tokenise_column <- function(df, col, col_names) {
 }
 
 
-#' Extract Allhomes past sales data for a single suburb + ID + year.
+#' Extract Allhomes past sales data for a single division ID and year.
 #'
-#' Extract Allhomes past sales data for a suburb + ID + year. This is an
-#' internal function that gets called by vectorised `get_past_sales_data()`.
-#' This function is currently exported but this may change in the future.
+#' Extract Allhomes past sales data for a division ID and year. The division
+#' ID is the ID for a specific division (suburb). This is an internal function
+#' that gets called by vectorised `get_past_sales_data()`. This function is
+#' currently exported but this may change in the future.
 #'
-#' @param suburb A `character` string denoting the suburb.
-#' @param id An `integer` scalar denoting the Allhomes locality ID
+#' @param division_id An `integer` scalar denoting the Allhomes division ID.
 #' @param year An `integer` scalar denoting the year.
 #' @param quiet If `TRUE` then messages are suppressed. Currently ignored.
 #'
@@ -34,30 +34,46 @@ tokenise_column <- function(df, col, col_names) {
 #'
 #' @examples
 #' \dontrun{
-#' extract_past_sales_data("ainslie", 14743, 2021)
+#' extract_past_sales_data(14743, 2021)
 #' }
 #' @export
-extract_past_sales_data <- function(suburb, id, year, quiet = FALSE) {
+extract_past_sales_data <- function(division_id,
+                                    year,
+                                    quiet = FALSE) {
 
-    if (stringr::str_detect(suburb, "\\s")) return(NULL)
-    if (is.na(id)) return(NULL)
+    # Sanity checks
+    if (missing(division_id)) {
+        stop("Must provide `division_id` argument.", call. = FALSE)
+    }
+    if (missing(year)) {
+        stop("Must provide `year` argument.", call. = FALSE)
+    }
+    if (length(division_id) != 1) {
+        stop("`division_id` must be an `integer` scalar.", call. = FALSE)
+    }
+    if (length(year) != 1) {
+        stop("`year` must be an `integer` scalar.", call. = FALSE)
+    }
 
     # Extract table with `htmltab::htmltab`; this needs cleaning
     if (!quiet)
         message(sprintf(
-            "[%s] Parsing data for %s, %s", Sys.time(), suburb, year))
+            "[%s] Finding data for ID=%s, year=%s...",
+            Sys.time(), division_id, year))
     baseurl <- "https://www.allhomes.com.au/ah/research"
     url <- baseurl %>%
         paste0(sprintf(
-            "/%s/%s/sale-history?year=%s",
-            suburb,
-            (1200000 + id) * 100 + 12,
+            "/_/%s/sale-history?year=%s",
+            (1200000 + division_id) * 100 + 12,
             year))
+    if (!quiet)
+        message(sprintf("[%s] URL: %s", Sys.time(), url))
     raw_table <- tryCatch(
         htmltab::htmltab(url, which = 1L),
         error = function(cond) {
-            message(cond)
-            message("\nSkipping...\n")
+            #message(cond)
+            if (!quiet)
+                message(sprintf("[%s] No data, skipping.", Sys.time()))
             return(NULL)
         })
 
@@ -103,16 +119,13 @@ extract_past_sales_data <- function(suburb, id, year, quiet = FALSE) {
             # Auto-guess data types in all columns
             dplyr::mutate(dplyr::across(
                 dplyr::everything(), readr::parse_guess)) %>%
-            # Add locality, locality id and year
-#            dplyr::mutate(
-#                locality = suburb,
-#                locality_id = id,
-#                year = year,
-#                .before = 1) %>%
             # Give tidy column names
             dplyr::rename_with(
                 ~ stringr::str_to_lower(.x) %>%
                     stringr::str_replace_all(" ", "_"))
+
+        if (!quiet)
+            message(sprintf("[%s] Found %s entries.", Sys.time(), nrow(ret)))
 
         return(ret)
     }
@@ -146,11 +159,11 @@ get_past_sales_data <- function(suburb, year, quiet = FALSE) {
 
     suburb %>%
         purrr::map_dfr(
-            ~ get_ah_division_ids(.x) %>%
+            ~ get_ah_division_ids(.x, quiet = quiet) %>%
                 dplyr::mutate(year = list(.env$year)) %>%
                 tidyr::unnest(.data$year) %>%
                 dplyr::mutate(data = purrr::pmap(
-                    list(.data$division, .data$value, .data$year, .env$quiet),
+                    list(.data$value, .data$year, .env$quiet),
                     extract_past_sales_data)) %>%
                 tidyr::unnest(data)
         )
