@@ -78,7 +78,7 @@ ggsave("example_NSW.png", height = 4, width = 7)
 
 ### Allhomes localities
 
-The Allhomes API distinguishes between different types of "localities"; in increasing level of granularity there are: state > region > district > division > street > address.
+The Allhomes API distinguishes between different types of "localities"; in increasing level of granularity there are: state > region > district > division > street > address. Regions seem to coincide with Statistical Regions (SRs)
 
 
 ### Allhomes past sales data
