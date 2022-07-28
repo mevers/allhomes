@@ -1,14 +1,3 @@
-# Helper function to get JSON data from Allhomes API query
-get_data <- function(url) {
-    url %>%
-        httr::GET() %>%
-        purrr::pluck("content") %>%
-        rawToChar() %>%
-        jsonlite::fromJSON()
-
-}
-
-
 #' Get Allhomes division (suburb) IDs (name, state, postcode, ID).
 #'
 #' Get Allhomes division (suburb) names and IDs for a (vector of) suburb(s).
