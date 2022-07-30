@@ -2,8 +2,11 @@
 
 export(extract_past_sales_data)
 export(get_ACT_UV_data)
+export(get_NSW_UV_data)
 export(get_ah_division_ids)
 export(get_past_sales_data)
 importFrom(magrittr,"%>%")
 importFrom(rlang,.data)
 importFrom(rlang,.env)
+importFrom(utils,download.file)
+importFrom(utils,unzip)

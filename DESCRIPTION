@@ -12,6 +12,7 @@ Imports:
     httr,
     jsonlite,
     magrittr,
+    progress,
     purrr,
     readr,
     rlang,

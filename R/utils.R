@@ -1,3 +1,6 @@
+# Silence "no visible binding for global variable ‘.’"
+utils::globalVariables(".")
+
 # Helper function to convert (vector of) suburbs to Allhomes-compatible names
 format_ah_division_name <- function(x) {
 
