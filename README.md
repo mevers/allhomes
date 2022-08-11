@@ -44,7 +44,7 @@ get_past_sales_data("Balmain, NSW", 2019) %>% print(width = 100)
 
 Under the hood, the function `get_past_sales_data()` first calls a helper function that determines for every `suburb` entry the Allhomes "division" name and ID. The division ID is then used to extract past sales data from the Allhomes website.
 
-Currently, there are limited sanity checks in place to verify if past sales data are available for a particular suburb and year. Allhomes does not have data for all suburbs and years.
+Currently, there are limited sanity checks in place to verify if past sales data are available for a particular suburb and year. Allhomes does not have data for all suburbs and years (for example, Allhomes past sales data for Victoria is pretty much absent).
 
 `allhomes` also provides two datasets `divisions_ACT` and `divisions_NSW` that list division names and IDs for all Allhomes divisions (suburbs) in the ACT and NSW, respectively.
 
@@ -114,26 +114,26 @@ ggsave("example_NSW.png", height = 4, width = 7)
 
 ## Case study: Modelling the unimproved value in the ACT’s Woden Valley
 
-[HTML vignette](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mevers/allhomes/main/vignettes/UV_model.html)
+A more complex modelling case study involving unimproved value data for suburbs in Canberra's south can be found in an [HTML vignette](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mevers/allhomes/main/vignettes/UV_model.html)
+
 
 ## Further comments
 
 ### Allhomes localities
 
-The Allhomes API distinguishes between different types of "localities"; in increasing level of granularity there are: state > region > district > division > street > address. Regions seem to coincide with Statistical Regions (SRs)
-
+The (inofficial) Allhomes API distinguishes between different types of "localities"; in increasing level of granularity there are: state > region > district > division > street > address. Regions seem to coincide with Statistical Regions (SRs); divisions correspond to suburbs. The `allhomes` package pulls in past sales data at the division (i.e. suburb) level.
 
 ### Allhomes past sales data
 
-Allhomes (which is part of [Domain Group](https://en.wikipedia.org/wiki/Domain_Group)) receives historical past sales data from relevant state departments. Some details on Allhomes' data retention are given [here](https://help.allhomes.com.au/hc/en-us/articles/360055268773-Removal-of-historical-sales-data).
+Allhomes (which is part of [Domain Group](https://en.wikipedia.org/wiki/Domain_Group)) receives historical past sales data from relevant state departments. Some details on Allhomes' data retention are given [here](https://help.allhomes.com.au/hc/en-us/articles/360055268773-Removal-of-historical-sales-data). 
 
-Allhomes past sale data are stored in fairly awkwardly-formatted HTML tables. Data for every sale is stored within a `<tbody>` element; within every `<tbody>` element, individual values (address, price, dates, block size, etc.) are spread across 3 lines, each contained within a `<td>` element; unfortunately, the format of every line is not consistent.
+While there seems to exist an (inofficial) Allhomes API to query IDs (which are necessary for looking up past sales data), past sales data themselves need to be scraped from somewhat awkwardly-formatted HTML tables. Data for every sale is stored within a `<tbody>` element; within every `<tbody>` element, individual values (address, price, dates, block size, etc.) are spread across 3 lines, each contained within a `<td>` element; unfortunately, the format of every line is not consistent.
 
-There are two different approaches to parsing the data: (1) We can make no assumptions about the column names and structure and infer this from splitting/parsing data by looking for key fields; this requires sanity checks to ensure that data are consistent; or (2) we can assume a specific column structure with specific column names, and then extract data conditional on this data structure. The advantage of (1) is that parsing the data should still work even if allhomes were to change the structure; however, this approach is computationally slow. The advantage of (2) is speed, at the risk of catastrophic failure should allhomes change the format of their past sales data tables. Currently, `get_past_sales_data()` uses approach (2).
+There are two different approaches to parsing the data: (1) We can make no assumptions about the column names and structure and infer this from splitting/parsing data by looking for key fields; this requires sanity checks to ensure that data are consistent; or (2) we can assume a specific column structure with specific column names, and then extract data conditional on this data structure. The advantage of (1) is that parsing the data should still work even if allhomes were to change the structure; however, this approach is slow. The advantage of (2) is speed, at the risk of catastrophic failure should allhomes change the format of their past sales data tables. Currently, `get_past_sales_data()` uses approach (2).
 
 
 ## Disclaimer
 
-This project is neither related to nor endorsed by [allhomes.com.au](allhomes.com.au). With changes to how Allhomes (and Domain group) manages and formats data, some or all of the functions might break at any time.
+This project is neither related to nor endorsed by [allhomes.com.au](allhomes.com.au). With changes to how Allhomes (and Domain group) manages and formats data, some or all of the functions might break at any time. There is also no guarantee that historical past sales data won't change.
 
 All data provided are subject to the [allhomes Advertising Sales Agreement terms and conditions](https://www.allhomes.com.au/ah/advertising-terms/).
