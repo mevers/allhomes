@@ -471,7 +471,7 @@ block size value across all past sale records.</p>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> data_model)</span></code></pre></div>
 <div id="model-diagnostics" class="section level2">
 <h2>Model diagnostics</h2>
-<p>We inspects pairwise correlations between the fixed-effect parameter
+<p>We inspect pairwise correlations between the fixed-effect parameter
 estimates in bivariate scatter plots. This is useful for identifying
 divergencies, collinearities and multiplicative
 non-identifiabilities.</p>
@@ -611,7 +611,7 @@ of values which are then used as input to the model;
 <code>tidybayes::add_predicted_draws()</code> then draws samples from
 the posterior predictive distribution conditional on the generated input
 data.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data_pred_2020 <span class="ot">&lt;-</span> data_model <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data_pred <span class="ot">&lt;-</span> data_model <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data_grid</span>(</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">division =</span> <span class="fu">unique</span>(division),</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">year_since =</span> <span class="fu">c</span>(2010L, 2020L, 2030L) <span class="sc">-</span> 2019L,</span>
@@ -626,7 +626,7 @@ data.</p>
 <p>We draw the median and 95% quantile intervals of the UV predictions
 as a function of block size for every division (suburb) and each of the
 three years. The red dots are the recorded UVs for 2020.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data_pred_2020 <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data_pred <span class="sc">%&gt;%</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">as.factor</span>(year)) <span class="sc">%&gt;%</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(block_size, <span class="fu">exp</span>(.prediction), <span class="at">colour =</span> year, <span class="at">fill =</span> year)) <span class="sc">+</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(</span>
@@ -652,23 +652,29 @@ three years. The red dots are the recorded UVs for 2020.</p>
 <li><p>Properties of around 1000 <span class="math inline">\(m^2\)</span> have the highest UV in the suburbs
 Phillip, Swinger Hill and Garran.</p>
 <pre><code>#&gt; # A tibble: 3 × 4
-#&gt;   division `2010` `2020` `2030`
-#&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; 
-#&gt; 1 Chifley  $435k  $544k  $686k 
-#&gt; 2 Curtin   $507k  $633k  $793k 
-#&gt; 3 Farrer   $451k  $556k  $684k</code></pre>
-<p>Lyons, Mawson and Torrens properties of the same size have the lowest
-UV.</p>
-<pre><code>#&gt; # A tibble: 3 × 4
 #&gt;   division     `2010` `2020` `2030`
 #&gt;   &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; 
 #&gt; 1 Phillip      $932k  $1120k $1350k
 #&gt; 2 Swinger Hill $694k  $852k  $1030k
-#&gt; 3 Torrens      $413k  $512k  $628k</code></pre></li>
+#&gt; 3 Garran       $605k  $732k  $893k</code></pre>
+<p>Lyons, Mawson and Torrens properties of the same size have the lowest
+UV.</p>
+<pre><code>#&gt; # A tibble: 3 × 4
+#&gt;   division `2010` `2020` `2030`
+#&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; 
+#&gt; 1 Lyons    $440k  $540k  $666k 
+#&gt; 2 Mawson   $428k  $532k  $666k 
+#&gt; 3 Torrens  $413k  $512k  $628k</code></pre></li>
 <li><p>The suburbs Phillip, Swinger Hill and Hughes (are predicted to)
-show the largest change in UV between 2010 and 2030; the suburbs
-Torrens, Mawson and Lyons show the smallest change in UV during that
-period.</p></li>
+show the largest <strong>change in UV</strong> between 2010 and 2030;
+the suburbs Torrens, Mawson and Lyons show the smallest change in UV
+during that period.</p>
+<pre><code>#&gt; # A tibble: 3 × 4
+#&gt;   division     `2010` `2020` `2030`
+#&gt;   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; 
+#&gt; 1 Phillip          NA $189k  $228k 
+#&gt; 2 Swinger Hill     NA $158k  $176k 
+#&gt; 3 Hughes           NA $143k  $179k</code></pre></li>
 </ol>
 </div>
 </div>

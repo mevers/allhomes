@@ -71,7 +71,7 @@ effect_random <- broom.mixed::tidy(model, "ran_pars", conf.int = TRUE)
 effect_random
 
 ## ----plot-forecast-2020, fig.width = 7, fig.height = 7------------------------
-data_pred_2020 %>%
+data_pred %>%
     mutate(year = as.factor(year)) %>%
     ggplot(aes(block_size, exp(.prediction), colour = year, fill = year)) +
     geom_point(
@@ -93,15 +93,31 @@ data_pred_2020 %>%
     theme(legend.position = "top")
 
 ## ----table-max-UV, echo=FALSE-------------------------------------------------
-UV_1000sqm_2020 <- data_pred_2020 %>% 
+UV_1000sqm <- data_pred %>% 
     filter(between(block_size, 990, 1000)) %>% 
-    arrange(desc(.prediction)) %>%
-    mutate(UV = sprintf("$%sk", signif(exp(.prediction) / 1000, 3))) %>%
-    select(division, year, UV) %>%
+    select(division, year, UV = .prediction) %>%
     arrange(division, year) %>%
-    pivot_wider(values_from = "UV", names_from = "year")
-UV_1000sqm_2020 %>% head(3)
+    pivot_wider(values_from = "UV", names_from = "year") %>%
+    arrange(desc(`2020`)) %>%
+    mutate(across(
+        matches("\\d{4}"), 
+        ~sprintf("$%sk", signif(exp(.x) / 1000, 3))))
+UV_1000sqm %>% head(3)
 
 ## ----table-min-UV, echo=FALSE-------------------------------------------------
-UV_1000sqm_2020 %>% tail(3)
+UV_1000sqm %>% tail(3)
+
+## ----table-change-UV, echo=FALSE----------------------------------------------
+change_UV_1000sqm <- data_pred %>% 
+    filter(between(block_size, 990, 1000)) %>% 
+    group_by(division) %>%
+    mutate(delta_UV = c(NA, diff(exp(.prediction)))) %>%
+    ungroup() %>%
+    select(division, year, delta_UV) %>%
+    pivot_wider(values_from = "delta_UV", names_from = "year") %>%
+    arrange(desc(`2020`)) %>%
+    mutate(across(
+        `2020`:`2030`,
+        ~sprintf("$%sk", signif(.x / 1000, 3))))
+change_UV_1000sqm %>% head(3)    
 
