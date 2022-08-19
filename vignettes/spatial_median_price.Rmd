@@ -1,0 +1,49 @@
+---
+title: "Median sales prices across Canberra"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Median sales prices across Canberra}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(allhomes)
+library(tidyverse)
+library(absmapsdata)
+library(sf)
+```
+
+
+```{r spatial-data-ACT}
+data_spatial <- sa22021 %>%
+    filter(
+        state_name_2021 == "Australian Capital Territory",
+        sa3_name_2021 %in% c(
+            "Belconnen", "Gungahlin", "North Canberra", "South Canberra",
+            "Tuggeranong", "Weston Creek", "Woden Valley", "Molonglo"))
+sa2_names <- data_spatial %>% 
+    pull(sa2_name_2021) %>% 
+    unique() %>% 
+    sort() %>%
+    str_remove_all("\\s\\(ACT\\).*$")
+```
+
+
+```{r get-allhomes-data}
+data <- get_past_sales_data(sa2_names %>% paste0(", ACT"), 2022L)
+
+```
+
+```{r plot-ACT}
+data_spatial %>%
+    ggplot() +
+    geom_sf(aes(geometry = geometry))
+```
