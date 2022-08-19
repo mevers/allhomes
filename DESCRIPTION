@@ -1,6 +1,6 @@
 Package: allhomes
 Title: Extract past sales data from allhomes.com.au
-Version: 0.2.1
+Version: 0.2.2
 Authors@R: 
     person("Maurits", "Evers", , "maurits.evers@gmail.com", role = c("aut", "cre"))
 Description: Extract past sales data for specific suburb and year from allhomes.com.au.
@@ -15,6 +15,7 @@ Imports:
     purrr,
     readr,
     rlang,
+    tibble,
     tidyr,
     stringr
 Encoding: UTF-8

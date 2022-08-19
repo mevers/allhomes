@@ -75,6 +75,17 @@ get_ah_division_ids <- function(x, quiet = FALSE) {
                             .data$postcode,
                             .data$value)
                     return(ret)
+                } else {
+                    warning(
+                        sprintf(
+                            "[%s] Could not find ID for '%s'. Skipping.",
+                            Sys.time(), nm),
+                        call. = FALSE)
+                    return(tibble::tibble(
+                        division = character(),
+                        state = character(),
+                        postcode = character(),
+                        value = integer()))
                 }
             }
         })
