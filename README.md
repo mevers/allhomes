@@ -114,7 +114,11 @@ ggsave("example_NSW.png", height = 4, width = 7)
 
 ## Case study: Modelling the unimproved value in the ACT’s Woden Valley
 
-A more complex modelling case study involving unimproved value data for suburbs in Canberra's south can be found in an [HTML vignette](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mevers/allhomes/main/vignettes/UV_model.html)
+A more complex modelling case study involving unimproved value data for suburbs in Canberra's south can be found in the vignette [Case study: Modelling the unimproved value in the ACT’s Woden Valley](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mevers/allhomes/main/vignettes/UV_model.html)
+
+## Case study: Variability of the unimproved value per sqm across the ACT
+
+A case study combining functionality from a range of packages to visualise Allhomes data can be found in the vignette [Case study: Variability of the unimproved value per sqm across the ACT](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mevers/allhomes/main/vignettes/spatial_median_price.html)
 
 
 ## Further comments
