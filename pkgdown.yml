@@ -1,0 +1,13 @@
+pandoc: 2.14.2
+pkgdown: 2.0.6
+pkgdown_sha: ~
+articles:
+  UV_model: UV_model.html
+  median_price_Leichhardt: median_price_Leichhardt.html
+  price_bedrooms: price_bedrooms.html
+  spatial_median_price: spatial_median_price.html
+last_built: 2022-09-01T03:51Z
+urls:
+  reference: https://mevers.github.io/allhomes/reference
+  article: https://mevers.github.io/allhomes/articles
+
