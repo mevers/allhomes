@@ -4,6 +4,16 @@
 
 This is the repository for the `allhomes` R package. The main function that the package provides is `get_past_sales_data()` which extracts past sales data from [allhomes.com.au](allhomes.com.au) for a (or multiple) suburb(s) and year(s).
 
+
+## Installation
+
+Install the package directly from GitHub
+
+```r
+remotes::install_github("mevers/allhomes")
+```
+
+
 ## Details
 
 The function `get_past_sales_data()` takes the following two arguments:
@@ -42,90 +52,18 @@ get_past_sales_data("Balmain, NSW", 2019) %>% print(width = 100)
 ## ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names
 ```
 
-Under the hood, the function `get_past_sales_data()` first calls a helper function that determines for every `suburb` entry the Allhomes "division" name and ID. The division ID is then used to extract past sales data from the Allhomes website.
+Under the hood, the function `get_past_sales_data()` first calls a helper function `get_ah_division_ids()` that determines for every `suburb` entry the Allhomes "division" name and ID. The division ID is then used to extract past sales data from the Allhomes website using the low-level function `extract_past_sales_data()`.
 
 Currently, there are limited sanity checks in place to verify if past sales data are available for a particular suburb and year. Allhomes does not have data for all suburbs and years (for example, Allhomes past sales data for Victoria is pretty much absent).
 
 `allhomes` also provides two datasets `divisions_ACT` and `divisions_NSW` that list division names and IDs for all Allhomes divisions (suburbs) in the ACT and NSW, respectively.
 
 
-## Example use cases
-
-### Price as a function of the no. of bedrooms across three North Canberra suburbs
-
-We show the distribution of sale prices as a function of the number of bedrooms
-across three northern Canberra suburbs based on sales over the last 5 years.
-
-```r
-library(tidyverse)
-library(allhomes)
-
-# Get data for three ACT suburbs from the last 5 years 
-suburbs <- c("Watson, ACT", "Ainslie, ACT", "Downer, ACT")
-years <- 2018L:2022L
-data <- get_past_sales_data(suburbs, years)
-
-# Plot
-data %>%
-    filter(!is.na(bedrooms), bedrooms > 0, price > 0) %>%
-    ggplot(aes(as.factor(bedrooms), price)) +
-    geom_boxplot() +
-    scale_y_continuous(
-        labels = scales::label_dollar(scale = 1e-6, suffix = "M")) +
-    facet_wrap(~ division)
-
-ggsave("example_ACT.png", height = 4, width = 7)
-```
-
-![](example_ACT.png)
-
-
-### Median sale price across Sydney Leichhardt suburbs in 2021
-
-We show the distribution and median value of sale prices of properties across
-different suburbs in the Sydney Leichhardt area in 2021.
-
-```r
-library(tidyverse)
-library(allhomes)
-
-# Get data for Leichhard suburbs
-suburbs <- divisions_NSW %>%
-    filter(sa3_name_2016 == "Leichhardt") %>%
-    unite(suburb, division, state, sep = ", ") %>%
-    pull(suburb)
-years <- 2021L
-data <- get_past_sales_data(suburbs, years)
-
-# Plot
-library(ggbeeswarm)
-data %>%
-    filter(!is.na(price), price > 1e3) %>%
-    ggplot(aes(division, price)) +
-    geom_quasirandom() +
-    stat_summary(fun = median, geom = "crossbar", lwd = 0.5) +
-    scale_y_continuous(
-        labels = scales::label_dollar(scale = 1e-6, suffix = "M"))
-
-ggsave("example_NSW.png", height = 4, width = 7)
-```
-
-![](example_NSW.png)
-
-## Case study: Modelling the unimproved value in the ACT’s Woden Valley
-
-A more complex modelling case study involving unimproved value data for suburbs in Canberra's south can be found in the vignette [Case study: Modelling the unimproved value in the ACT’s Woden Valley](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mevers/allhomes/main/vignettes/UV_model.html)
-
-## Case study: Variability of the unimproved value per sqm across the ACT
-
-A case study combining functionality from a range of packages to visualise Allhomes data can be found in the vignette [Case study: Variability of the unimproved value per sqm across the ACT](https://htmlpreview.github.io/?https://raw.githubusercontent.com/mevers/allhomes/main/vignettes/spatial_median_price.html)
-
-
 ## Further comments
 
 ### Allhomes localities
 
-The (inofficial) Allhomes API distinguishes between different types of "localities"; in increasing level of granularity there are: state > region > district > division > street > address. Regions seem to coincide with Statistical Regions (SRs); divisions correspond to suburbs. The `allhomes` package pulls in past sales data at the division (i.e. suburb) level.
+The (inofficial) Allhomes API distinguishes between different types of "localities"; in increasing level of granularity these are: state > region > district > division > street > address. Regions seem to coincide with Statistical Regions (SRs);  divisions correspond to suburbs. The `allhomes` package pulls in past sales data at the division (i.e. suburb) level.
 
 ### Allhomes past sales data
 

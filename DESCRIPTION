@@ -1,6 +1,6 @@
 Package: allhomes
 Title: Extract past sales data from allhomes.com.au
-Version: 0.2.3
+Version: 0.2.4
 Authors@R: 
     person("Maurits", "Evers", , "maurits.evers@gmail.com", role = c("aut", "cre"))
 Description: Extract past sales data for specific suburb and year from allhomes.com.au.
@@ -28,3 +28,4 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+URL: https://mevers.github.io/allhomes/

@@ -1,0 +1,15 @@
+url: https://mevers.github.io/allhomes/
+template:
+#  bootstrap: 5
+
+articles:
+- title: Simple examples
+  navbar: Simple examples
+  contents:
+  - articles/price_bedrooms
+  - articles/median_price_Leichhardt
+- title: Case studies
+  navbar: Case studies
+  contents:
+  - articles/UV_model
+  - articles/spatial_median_price

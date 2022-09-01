@@ -1,5 +1,9 @@
 ^allhomes\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
-.+.png
 ^data-raw$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^vignettes/articles$
+^\.github$

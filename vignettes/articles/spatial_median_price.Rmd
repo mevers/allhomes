@@ -1,0 +1,118 @@
+---
+title: "Variability of the unimproved value per sqm across the ACT"
+author: Maurits Evers
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Variability of the unimproved value per sqm across the ACT}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+# Goal
+
+The goal of this case study is to show how to combine functionalities from a range of external packages to gain insight into the variability of the unimproved value (UV) based on Allhomes past sales in the ACT. Key packages are 
+
+- [`allhomes`](https://github.com/mevers/allhomes) for extracting Allhomes past sales data, 
+- [`strayr`](https://github.com/runapp-aus/strayr) for getting ABS geometries of [SA2 regions](https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/main-structure-and-greater-capital-city-statistical-areas/statistical-area-level-2) (which -- within cities -- usually represent suburbs), and
+- [`leaflet`](https://github.com/rstudio/leaflet) for drawing interactive Leaflet maps in R.
+
+
+# Prerequisities
+
+We load necessary non-base R libraries.
+
+```{r setup, warning=FALSE, message=FALSE}
+library(allhomes)
+library(tidyverse)
+library(strayr)
+library(sf)
+library(leaflet)
+library(htmltools)
+```
+
+
+# Raw data
+
+## Geospatial data
+
+We obtain 2021 statistical area 2 (SA2) geospatial data provided by the ABS through `strayr`, and only keep records for areas in the ACT. SA2 names sometimes include the territory name, so we clean names by removing the territory name if present. We then store all cleaned SA2 names in preparation for using these names in the past sales `allhomes` search.
+
+```{r spatial-data-ACT, cache = TRUE, message = FALSE, warning = FALSE}
+data_spatial <- read_absmap("sa22021") %>%
+    filter(state_name_2021 == "Australian Capital Territory") %>%
+    mutate(sa2_name_2021 = str_remove_all(sa2_name_2021, "\\s\\(ACT\\).*$"))
+sa2_names <- data_spatial %>% pull(sa2_name_2021) %>% unique() %>% sort()
+```
+
+## Allhomes past sales data
+
+We now get past sales data for all suburbs as given in `sa2_names` for the years 2021 and 2022. Since `get_past_sale_data()` requires suburbs to be specified in format "suburb_name, state/territory_abbrevation", we append `", ACT"` to entries in `sa2_names`. This process may take a few minutes.
+
+```{r get-allhomes-data, message = FALSE, cache = TRUE}
+data_allhomes <- get_past_sales_data(sa2_names %>% paste0(", ACT"), 2021L:2022L)
+```
+
+
+# Plotting
+
+We now combine geospatial and Allhomes past sales data; we use an inner-join to filter out suburbs without any UV data, and summarise UV data per property sale to give a median as well as upper and lower 95% quantile band values for the UV per square metre for every suburb. Prior to aggregating UV data we keep only those entries where the block size is between 100 and 2000 sqm and the unimproved value exceeds $100; this is to filter out large scale commercial sales and zero-UV-value outliers.
+
+```{r join-data-for-plotting}
+data <- data_spatial %>%
+    inner_join(
+        data_allhomes %>%
+            filter(between(block_size, 100, 2000), unimproved_value > 100) %>%
+            mutate(UV_per_sqm = unimproved_value / block_size) %>%
+            group_by(division) %>%
+            summarise(
+                UV_per_sqm = quantile(
+                    UV_per_sqm, probs = c(0.025, 0.5, 0.975), na.rm = TRUE),
+                quant = c("l", "m", "h"),
+                .groups = "drop") %>%
+            pivot_wider(names_from = "quant", values_from = "UV_per_sqm"),
+        by = c("sa2_name_2021" = "division"))
+```
+
+We can now visualise median UV values per sqm for every suburb in a Leaflet map. The 95% quantile band and median values for every suburb are detailed on mouse hover.
+
+```{r plot-interactive-ACT, out.width = "100%"}
+pal <- colorNumeric("YlOrRd", domain = data$m)
+leaflet(data = data, height = 1000) %>%
+    addTiles() %>%
+    addPolygons(
+        fillColor = ~pal(m),
+        fillOpacity = 0.7,
+        color = "white",
+        weight = 1,
+        smoothFactor = 0.2,
+        highlightOptions = highlightOptions(
+            weight = 5,
+            color = "#666",
+            fillOpacity = 0.7,
+            bringToFront = TRUE),
+        label = sprintf(
+            "<strong>%s</strong><br/>UV per sqm: %s<br/>95%% CI: [%s, %s]",
+            data$sa2_name_2021, 
+            sprintf("$%.0f", data$m),
+            sprintf("$%.0f", data$l), sprintf("$%.0f", data$h)) %>% 
+            map(HTML),
+        labelOptions = labelOptions(
+            style = list("font-weight" = "normal", padding = "3px 8px"),
+            textsize = "15px",
+            direction = "auto")) %>%
+    addLegend(
+        pal = pal, 
+        values = ~m, 
+        opacity = 0.7, 
+        title = "Unimproved value per sqm",
+        position = "bottomright")
+```
