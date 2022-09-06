@@ -21,7 +21,7 @@ library(allhomes)
 library(tidyverse)
 ```
 
-Download past sale data for three northern Canberra suburbs from the last 5 years.
+Download past sales data for three northern Canberra suburbs from the last 5 years.
 
 ```{r download-data, cache = TRUE}
 # Get data for three ACT suburbs from the last 5 years 
@@ -32,7 +32,7 @@ data <- get_past_sales_data(suburbs, years)
 
 We show the distribution of sale prices as a function of the number of bedrooms.
 
-```{r plot-sales-prices}
+```{r plot-sales-prices, fig.height = 5, out.width = "100%"}
 # Plot
 data %>%
     filter(!is.na(bedrooms), bedrooms > 0, price > 0) %>%
