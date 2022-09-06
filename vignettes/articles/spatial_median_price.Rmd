@@ -100,7 +100,7 @@ leaflet(data = data, height = 1000) %>%
             fillOpacity = 0.7,
             bringToFront = TRUE),
         label = sprintf(
-            "<strong>%s</strong><br/>UV per sqm: %s<br/>95%% CI: [%s, %s]",
+            "<strong>%s</strong><br/>UV per m²: %s<br/>95%% CI: [%s, %s]",
             data$sa2_name_2021, 
             sprintf("$%.0f", data$m),
             sprintf("$%.0f", data$l), sprintf("$%.0f", data$h)) %>% 
@@ -113,6 +113,6 @@ leaflet(data = data, height = 1000) %>%
         pal = pal, 
         values = ~m, 
         opacity = 0.7, 
-        title = "Unimproved value per sqm",
+        title = "Unimproved Value (UV) per m²",
         position = "bottomright")
 ```
