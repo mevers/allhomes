@@ -1,8 +1,8 @@
 ---
-title: "Median sale prices across Sydney Leichhard suburbs in 2021"
+title: "Median sale prices across Sydney Leichhardt suburbs in 2021"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Median sale prices across Sydney Leichhard suburbs in 2021}
+  %\VignetteIndexEntry{Median sale prices across Sydney Leichhardt suburbs in 2021}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -22,21 +22,24 @@ library(tidyverse)
 library(ggbeeswarm)
 ```
 
-Download 2021 past sale data for all Leichhardt suburbs.
+Download 2021 past sales data for all Leichhardt suburbs. We use the internal dataset `divisions_NSW` to create a `character` vector of all suburbs within the SA3 Leichhardt area.
 
 ```{r download-data, cache = TRUE}
-# Get data for Leichhard suburbs
+# Get all Leichhardt suburbs
 suburbs <- divisions_NSW %>%
     filter(sa3_name_2016 == "Leichhardt") %>%
     unite(suburb, division, state, sep = ", ") %>%
     pull(suburb)
+suburbs
+
+# Get data for Leichhardt suburbs
 years <- 2021L
 data <- get_past_sales_data(suburbs, years)
 ```
 
 We show the distribution and median value of sale prices of properties across different suburbs in the Sydney Leichhardt area in 2021.
 
-```{r plot-sales-data}
+```{r plot-sales-data, fig.height = 5, out.width = "100%"}
 # Plot
 data %>%
     filter(!is.na(price), price > 1e3) %>%
