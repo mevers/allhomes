@@ -5,7 +5,7 @@ test_that("Valid search returns `data.frame`/`tibble`", {
 })
 
 test_that("Empty search returns zero-row `tibble`", {
-    expect_equal(
-        nrow(get_past_sales_data("Arboretrum, ACT", 2020)),
-        0L)
+    expect_warning(
+        get_past_sales_data("Arboretrum, ACT", 2020),
+        "Could not find")
 })
