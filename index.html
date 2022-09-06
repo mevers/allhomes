@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">allhomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.5</span>
       </span>
     </div>
 
@@ -56,7 +56,7 @@
       <a href="articles/price_bedrooms.html">Price as a function of the no. of bedrooms across three North Canberra suburbs</a>
     </li>
     <li>
-      <a href="articles/median_price_Leichhardt.html">Median sale prices across Sydney Leichhard suburbs in 2021</a>
+      <a href="articles/median_price_Leichhardt.html">Median sale prices across Sydney Leichhardt suburbs in 2021</a>
     </li>
     <li class="divider">
     </li>
@@ -88,7 +88,7 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>This is the repository for the <code>allhomes</code> R package. The main function that the package provides is <code><a href="reference/get_past_sales_data.html">get_past_sales_data()</a></code> which extracts past sales data from <a href="allhomes.com.au">allhomes.com.au</a> for a (or multiple) suburb(s) and year(s).</p>
+<p>This is the repository for the <code>allhomes</code> R package. The main function that the package provides is <code><a href="reference/get_past_sales_data.html">get_past_sales_data()</a></code> which extracts past sales data from <a href="https://www.allhomes.com.au/" class="external-link">allhomes.com.au</a> for a (or multiple) suburb(s) and year(s).</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -103,7 +103,8 @@
 <p>The function <code><a href="reference/get_past_sales_data.html">get_past_sales_data()</a></code> takes the following two arguments:</p>
 <ul>
 <li>
-<code>suburb</code>: This is a <code>character</code> vector denoting a (or multiple) suburbs. Every entry must be of the form “suburb_name, state/territory_abbreviation”, e.g. “Balmain, NSW”.</li>
+<code>suburb</code>: This is a <code>character</code> vector denoting a (or multiple) suburbs. Every entry must be of the form “<suburb_name>, <state>”, e.g. “Balmain, NSW”.</state></suburb_name>
+</li>
 <li>
 <code>year</code>: This is an <code>numeric</code> or <code>integer</code> vector of the the year(s) of the sales history.</li>
 </ul>
@@ -145,21 +146,20 @@
 <div class="section level3">
 <h3 id="allhomes-localities">Allhomes localities<a class="anchor" aria-label="anchor" href="#allhomes-localities"></a>
 </h3>
-<p>The (inofficial) Allhomes API distinguishes between different types of “localities”; in increasing level of granularity these are: state &gt; region &gt; district &gt; division &gt; street &gt; address. Regions seem to coincide with Statistical Regions (SRs); divisions correspond to suburbs. The <code>allhomes</code> package pulls in past sales data at the division (i.e. suburb) level.</p>
+<p>The (inofficial) Allhomes API distinguishes between different types of “localities”; in increasing level of granularity these are: state &gt; region &gt; district &gt; division &gt; street &gt; address. Divisions (roughly) correspond to suburbs. The <code>allhomes</code> package pulls in past sales data at the division (i.e. suburb) level.</p>
 </div>
 <div class="section level3">
 <h3 id="allhomes-past-sales-data">Allhomes past sales data<a class="anchor" aria-label="anchor" href="#allhomes-past-sales-data"></a>
 </h3>
 <p>Allhomes (which is part of <a href="https://en.wikipedia.org/wiki/Domain_Group" class="external-link">Domain Group</a>) receives historical past sales data from relevant state departments. Some details on Allhomes’ data retention are given <a href="https://help.allhomes.com.au/hc/en-us/articles/360055268773-Removal-of-historical-sales-data" class="external-link">here</a>.</p>
-<p>While there seems to exist an (inofficial) Allhomes API to query IDs (which are necessary for looking up past sales data), past sales data themselves need to be scraped from somewhat awkwardly-formatted HTML tables. Data for every sale is stored within a <code>&lt;tbody&gt;</code> element; within every <code>&lt;tbody&gt;</code> element, individual values (address, price, dates, block size, etc.) are spread across 3 lines, each contained within a <code>&lt;td&gt;</code> element; unfortunately, the format of every line is not consistent.</p>
-<p>There are two different approaches to parsing the data: (1) We can make no assumptions about the column names and structure and infer this from splitting/parsing data by looking for key fields; this requires sanity checks to ensure that data are consistent; or (2) we can assume a specific column structure with specific column names, and then extract data conditional on this data structure. The advantage of (1) is that parsing the data should still work even if allhomes were to change the structure; however, this approach is slow. The advantage of (2) is speed, at the risk of catastrophic failure should allhomes change the format of their past sales data tables. Currently, <code><a href="reference/get_past_sales_data.html">get_past_sales_data()</a></code> uses approach (2).</p>
+<p>While there seems to exist an (inofficial) Allhomes API to query IDs (which are necessary for looking up past sales data), past sales data themselves need to be scraped from somewhat awkwardly-formatted static HTML tables. Data for every sale is stored within a <code>&lt;tbody&gt;</code> element; within every <code>&lt;tbody&gt;</code> element, individual values (address, price, dates, block size, etc.) are spread across 3 lines, each contained within a <code>&lt;td&gt;</code> element; unfortunately, the format of every line is not consistent.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="disclaimer">Disclaimer<a class="anchor" aria-label="anchor" href="#disclaimer"></a>
 </h2>
-<p>This project is neither related to nor endorsed by <a href="allhomes.com.au">allhomes.com.au</a>. With changes to how Allhomes (and Domain group) manages and formats data, some or all of the functions might break at any time. There is also no guarantee that historical past sales data won’t change.</p>
-<p>All data provided are subject to the <a href="https://www.allhomes.com.au/ah/advertising-terms/" class="external-link">allhomes Advertising Sales Agreement terms and conditions</a>.</p>
+<p>This project is neither related to nor endorsed by <a href="https://www.allhomes.com.au/" class="external-link">allhomes.com.au</a>. With changes to how Allhomes (and Domain group) manages and formats data, some or all of the functions might break at any time. There is also no guarantee that historical past sales data won’t change.</p>
+<p>All data provided are subject to the <a href="https://www.allhomes.com.au/ah/advertising-terms/" class="external-link">allhomes “Advertising Sales Agreement terms and conditions - All Homes Pty Ltd”</a>.</p>
 </div>
 </div>
   </div>
