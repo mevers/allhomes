@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is the repository for the `allhomes` R package. The main function that the package provides is `get_past_sales_data()` which extracts past sales data from [allhomes.com.au](allhomes.com.au) for a (or multiple) suburb(s) and year(s).
+This is the repository for the `allhomes` R package. The main function that the package provides is `get_past_sales_data()` which extracts past sales data from [allhomes.com.au](https://www.allhomes.com.au/) for a (or multiple) suburb(s) and year(s).
 
 
 ## Installation
@@ -18,7 +18,7 @@ remotes::install_github("mevers/allhomes")
 
 The function `get_past_sales_data()` takes the following two arguments:
 
-- `suburb`: This is a `character` vector denoting a (or multiple) suburbs. Every entry must be of the form "suburb_name, state/territory_abbreviation", e.g. "Balmain, NSW".
+- `suburb`: This is a `character` vector denoting a (or multiple) suburbs. Every entry must be of the form "<suburb_name>, <state/territory_abbreviation>", e.g. "Balmain, NSW".
 - `year`: This is an `numeric` or `integer` vector of the the year(s) of the sales history.
 
 Example:
@@ -63,19 +63,17 @@ Currently, there are limited sanity checks in place to verify if past sales data
 
 ### Allhomes localities
 
-The (inofficial) Allhomes API distinguishes between different types of "localities"; in increasing level of granularity these are: state > region > district > division > street > address. Regions seem to coincide with Statistical Regions (SRs);  divisions correspond to suburbs. The `allhomes` package pulls in past sales data at the division (i.e. suburb) level.
+The (inofficial) Allhomes API distinguishes between different types of "localities"; in increasing level of granularity these are: state > region > district > division > street > address. Divisions (roughly) correspond to suburbs. The `allhomes` package pulls in past sales data at the division (i.e. suburb) level.
 
 ### Allhomes past sales data
 
-Allhomes (which is part of [Domain Group](https://en.wikipedia.org/wiki/Domain_Group)) receives historical past sales data from relevant state departments. Some details on Allhomes' data retention are given [here](https://help.allhomes.com.au/hc/en-us/articles/360055268773-Removal-of-historical-sales-data). 
+Allhomes (which is part of [Domain Group](https://en.wikipedia.org/wiki/Domain_Group)) receives historical past sales data from relevant state departments. Some details on Allhomes' data retention are given [here](https://help.allhomes.com.au/hc/en-us/articles/360055268773-Removal-of-historical-sales-data).
 
-While there seems to exist an (inofficial) Allhomes API to query IDs (which are necessary for looking up past sales data), past sales data themselves need to be scraped from somewhat awkwardly-formatted HTML tables. Data for every sale is stored within a `<tbody>` element; within every `<tbody>` element, individual values (address, price, dates, block size, etc.) are spread across 3 lines, each contained within a `<td>` element; unfortunately, the format of every line is not consistent.
-
-There are two different approaches to parsing the data: (1) We can make no assumptions about the column names and structure and infer this from splitting/parsing data by looking for key fields; this requires sanity checks to ensure that data are consistent; or (2) we can assume a specific column structure with specific column names, and then extract data conditional on this data structure. The advantage of (1) is that parsing the data should still work even if allhomes were to change the structure; however, this approach is slow. The advantage of (2) is speed, at the risk of catastrophic failure should allhomes change the format of their past sales data tables. Currently, `get_past_sales_data()` uses approach (2).
+While there seems to exist an (inofficial) Allhomes API to query IDs (which are necessary for looking up past sales data), past sales data themselves need to be scraped from somewhat awkwardly-formatted static HTML tables. Data for every sale is stored within a `<tbody>` element; within every `<tbody>` element, individual values (address, price, dates, block size, etc.) are spread across 3 lines, each contained within a `<td>` element; unfortunately, the format of every line is not consistent.
 
 
 ## Disclaimer
 
-This project is neither related to nor endorsed by [allhomes.com.au](allhomes.com.au). With changes to how Allhomes (and Domain group) manages and formats data, some or all of the functions might break at any time. There is also no guarantee that historical past sales data won't change.
+This project is neither related to nor endorsed by [allhomes.com.au](https://www.allhomes.com.au/). With changes to how Allhomes (and Domain group) manages and formats data, some or all of the functions might break at any time. There is also no guarantee that historical past sales data won't change.
 
-All data provided are subject to the [allhomes Advertising Sales Agreement terms and conditions](https://www.allhomes.com.au/ah/advertising-terms/).
+All data provided are subject to the [allhomes "Advertising Sales Agreement terms and conditions - All Homes Pty Ltd"](https://www.allhomes.com.au/ah/advertising-terms/).
