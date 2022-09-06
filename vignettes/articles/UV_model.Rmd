@@ -82,7 +82,7 @@ data_model
 
 ## Model formulation
 
-We now use `rstanarm` to fit a model using full Bayesian inference in Stan. We assume that the effects that the log-transformed block size and the (shifted) year have on the log-tranformed UV vary by division (i.e. suburb). To model this, we consider a fixed and a random effect component to both the overall intercept and predictor coefficient estimates: The fixed effects characterise the effects that are *common across divisions*, and the random effects are expressed as deviations from the fixed effects that *vary across divisions*.
+We now use `rstanarm` to fit a model using full Bayesian inference in Stan. We assume that the effects that the log-transformed block size and the (shifted) year have on the log-transformed UV vary by division (i.e. suburb). To model this, we consider a fixed and a random effect component to both the overall intercept and predictor coefficient estimates: The fixed effects characterise the effects that are *common across divisions*, and the random effects are expressed as deviations from the fixed effects that *vary across divisions*.
 
 Written out, the model takes the following form
 
@@ -187,7 +187,7 @@ We note the wider uncertainty intervals in the fixed-effect estimates of the mix
 
 ## Interpretation of random effect estimates
 
-Random-effect estimates are shown as standard deviations of the underlying (normal) distributions and correlation coefficients of the covariance matrix. The following table summarises those estimates including the residual standard deviaton $\sigma$.
+Random-effect estimates are shown as standard deviations of the underlying (normal) distributions and correlation coefficients of the covariance matrix. The following table summarises those estimates including the residual standard deviation $\sigma$.
 
 ```{r random-effect}
 effect_random <- broom.mixed::tidy(model, "ran_pars", conf.int = TRUE)

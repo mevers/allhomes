@@ -55,7 +55,7 @@ sa2_names <- data_spatial %>% pull(sa2_name_2021) %>% unique() %>% sort()
 
 ## Allhomes past sales data
 
-We now get past sales data for all suburbs as given in `sa2_names` for the years 2021 and 2022. Since `get_past_sale_data()` requires suburbs to be specified in format "suburb_name, state/territory_abbrevation", we append `", ACT"` to entries in `sa2_names`. This process may take a few minutes.
+We now get past sales data for all suburbs as given in `sa2_names` for the years 2021 and 2022. Since `get_past_sale_data()` requires suburbs to be specified in format "suburb_name, state/territory_abbreviation", we append `", ACT"` to entries in `sa2_names`. This process may take a few minutes.
 
 ```{r get-allhomes-data, message = FALSE, cache = TRUE}
 data_allhomes <- get_past_sales_data(sa2_names %>% paste0(", ACT"), 2021L:2022L)

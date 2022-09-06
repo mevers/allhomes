@@ -138,7 +138,7 @@ extract_past_sales_data <- function(division_id,
 #' Extract Allhomes past sales data for a/multiple suburb(s) and year(s).
 #'
 #' @param suburb A `character` vector denoting a/multiple suburbs. Format for
-#' every entry must be "suburb_name, state/territory_abbrevation", e.g.
+#' every entry must be "suburb_name, state/territory_abbreviation", e.g.
 #' "Balmain, ACT".
 #' @param year An `integer` vector denoting the year(s).
 #' @param quiet If `TRUE` then messages are suppressed. Currently ignored.

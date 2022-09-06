@@ -63,7 +63,7 @@ Currently, there are limited sanity checks in place to verify if past sales data
 
 ### Allhomes localities
 
-The (inofficial) Allhomes API distinguishes between different types of "localities"; in increasing level of granularity these are: state > region > district > division > street > address. Divisions (roughly) correspond to suburbs. The `allhomes` package pulls in past sales data at the division (i.e. suburb) level.
+The (unofficial) Allhomes API distinguishes between different types of "localities"; in increasing level of granularity these are: state > region > district > division > street > address. Divisions (roughly) correspond to suburbs. The `allhomes` package pulls in past sales data at the division (i.e. suburb) level.
 
 ### Allhomes past sales data
 

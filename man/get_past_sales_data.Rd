@@ -8,7 +8,7 @@ get_past_sales_data(suburb, year, quiet = FALSE)
 }
 \arguments{
 \item{suburb}{A \code{character} vector denoting a/multiple suburbs. Format for
-every entry must be "suburb_name, state/territory_abbrevation", e.g.
+every entry must be "suburb_name, state/territory_abbreviation", e.g.
 "Balmain, ACT".}
 
 \item{year}{An \code{integer} vector denoting the year(s).}
