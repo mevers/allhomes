@@ -18,13 +18,13 @@ knitr::opts_chunk$set(
 
 # Goal
 
-The goal of this case study is to show how to use `allhomes` to pull in past sales data for various ACT suburbs and then fit a mixed-effect model using Stan to predict the unimproved value (UV, i.e. the value of the plot of land itself) as a function of the block size (in square-meters), the year of the sale and the suburb. We then explore the output of the model and interpret its results.
+The goal of this case study is to show how to use [`allhomes`](https://github.com/mevers/allhomes) to pull in past sales data for various ACT suburbs and then fit a mixed-effect model using Stan to predict the unimproved value (UV, i.e. the value of the plot of land itself) as a function of the block size (in square-meters), the year of the sale and the suburb. We then explore the output of the model and interpret its results.
 
 Taking inspiration from examples & modelling discussions given in [Gelman, Hill and Vehtari, Regression and Other Stories](https://avehtari.github.io/ROS-Examples/), this case study also serves as an example of how to fit a mixed-effect model to real-world data and interpret results; as will become clear, the model fit is not particularly good in the sense that a lot of the observed variability remains unexplained by the model's input variables. However, the case study is useful in the context of exploring model results and different aspects of the model fit, and represents the kind of analysis one might perform when exploring a new real-world dataset. 
 
 # Prerequisities
 
-We load necessary non-base R libraries.
+We load necessary non-base R libraries, optimise the use of multiple cores for running the `rstanarm` model, and define a colour palette based on the nice [`wesanderson`](https://github.com/karthik/wesanderson) package.
 
 ```{r setup, warning = FALSE, message = FALSE}
 library(allhomes)
@@ -34,6 +34,7 @@ library(bayesplot)
 library(tidybayes)
 library(modelr)
 library(wesanderson)
+library(plotly)
 options(mc.cores = parallel::detectCores())
 pal <- wes_palette("GrandBudapest1", n = 3)
 ```
@@ -121,7 +122,7 @@ model <- stan_glmer(
 
 We inspect pairwise correlations between the fixed-effect parameter estimates in bivariate scatter plots. This is useful for identifying divergencies, collinearities and multiplicative non-identifiabilities.
 
-```{r pairs, fig.height = 4, fig.width = 7}
+```{r pairs, fig.height = 4, out.width = "100%"}
 bayesplot_theme_set(theme_minimal())
 color_scheme_set(scheme = c(pal, pal))
 pairs(
@@ -134,7 +135,7 @@ We note that there are no divergent transitions, and the Gaussian blobs/clouds s
 
 Next, we compare samples drawn from the posterior predictive distribution with $\mathtt{log\_UV}$ values, and show the distribution of [leave-one-out (LOO)-adjusted R-squared](http://www.stat.columbia.edu/~gelman/research/published/bayes_R2_v3.pdf) values $R^2_s$.
 
-```{r loo-r-squared, fig.height = 4, fig.show = "hold", out.width = "47%"}
+```{r loo-r-squared, fig.height = 3, fig.show = "hold", out.width = "100%"}
 ppc_dens_overlay(data_model$log_UV, posterior_predict(model)) +
     labs(
         x = "log(UV)",
@@ -201,14 +202,14 @@ effect_random
 
 ## Forecasts
 
-We use the model to predict UV values across all Woden valley suburbs for three years (2010, 2020 and 2030) as a function of block size. This is easy to do by using `modelr::data_grid()` to create a grid of values which are then used as input to the model; `tidybayes::add_predicted_draws()` then draws samples from the posterior predictive distribution conditional on the generated input data.
+We use the model to predict UV values across all Woden valley suburbs as a function of block size and for every 5 years between 2010 and 2030 . This is easy to do by using `modelr::data_grid()` to create a grid of values which are then used as input to the model; `tidybayes::add_predicted_draws()` then draws samples from the posterior predictive distribution conditional on the generated input data.
 
-```{r forecast-2020, cache = TRUE}
+```{r forecast, cache = TRUE}
 data_pred <- data_model %>%
     data_grid(
         division = unique(division),
-        year_since = c(2010L, 2020L, 2030L) - 2019L,
-        log_block_size_std = seq_range(log_block_size_std, n = 100)) %>%
+        year_since = seq(2010L, 2030L, by = 5) - 2019L,
+        log_block_size_std = log(seq(100, 2000, by = 10)) - log(850)) %>%
     add_predicted_draws(model) %>%
     group_by(division, year_since, log_block_size_std) %>%
     median_qi() %>%
@@ -218,10 +219,79 @@ data_pred <- data_model %>%
         block_size = exp(log_block_size_std + log(850)))
 ```
 
-We draw the median and 95% quantile intervals of the UV predictions as a function of block size for every division (suburb) and each of the three years. The red dots are the recorded UVs for 2020.
+### Dynamic visualisation
 
-```{r plot-forecast-2020, fig.width = 7, fig.height = 7}
+We now draw median and 95% quantile intervals of the UV predictions as a function of block size for every division (suburb) and year. We use [`plotly`](https://plotly.com/r/) to produce an interactive visualisation, with details given on mouse-hover.
+
+```{r plot-forecast-interactive, out.width = "100%"}
+# Create nested data
+data_pl <- data_pred %>%
+    group_by(division) %>%
+    nest() %>%
+    ungroup()
+# Silence warnings that originate from using `frame`
+options(warn = -1)
+# Create plotly subplots
+map2(
+    data_pl$division, data_pl$data,
+    function(suburb, df) {
+    df %>% 
+        plot_ly(
+            x = ~block_size, 
+            frame = ~year,
+            customdata = ~ sprintf(
+                "<b>%s</b>, %i m²<br>Median UV: A$ %ik<br>95%% CI [%ik, %ik]<extra></extra>", 
+                suburb, round(block_size),
+                round(exp(.prediction) / 1e3),
+                round(exp(.lower) / 1e3), round(exp(.upper) / 1e3)),
+            height = 1000) %>%
+        add_lines(
+            y = ~exp(.prediction), 
+            line = list(color = pal[1]),
+            showlegend = FALSE,
+            hovertemplate = "%{customdata}") %>%
+        add_ribbons(
+            ymin = ~exp(.lower), ymax = ~exp(.upper), 
+            color = NA,
+            fillcolor = pal[1],
+            opacity = 0.2,
+            showlegend = FALSE,
+            hoverinfo = "none") %>%
+        layout(
+            yaxis = list(
+                title = "",
+                range = c(0, max(exp(df$.upper)))),
+            xaxis = list(title = ""),
+            annotations = list(list(
+                x = 0.5, 
+                y = 1, 
+                text = suburb,
+                xref = "paper",  
+                yref = "paper",  
+                xanchor = "center",  
+                yanchor = "bottom",  
+                showarrow = FALSE))
+        ) 
+    }) %>%
+    subplot(
+        nrows = 5, 
+        shareX = TRUE) %>%
+    layout(
+        margin = list(t = 50, r = 10, t = 10, b = 10),
+        xaxis = list(title = "Block size [m²]"),
+        yaxis = list(title = "Unimproved Value (UV) [A$]")) %>%
+    animation_button(visible = FALSE)
+```
+
+### Static visualisation
+
+We also show a static version for years 2010, 2020 and 2030, and include recorded UV data from 2020 sales.
+
+```{r plot-forecast, out.width = "100%", fig.height = 7}
+# Reset warning level to default
+options(warn = 0)
 data_pred %>%
+    filter(year %in% c(2010, 2020, 2030)) %>%
     mutate(year = as.factor(year)) %>%
     ggplot(aes(block_size, exp(.prediction), colour = year, fill = year)) +
     geom_point(
@@ -238,56 +308,59 @@ data_pred %>%
         labels=scales::dollar_format(accuracy = 1, scale = 1e-3, suffix = "k")) +
     theme_minimal() +
     labs(
-        x = "Block size [m²]", y = "Unimproved Value (UV)", 
+        x = "Block size [m²]", y = "Unimproved Value (UV) [A$]", 
         fill = "Year", colour = "Year") +
     theme(legend.position = "top")
 ```
 
+### Observations
+
 We note a few observations:
 
-1. Properties of around 1000 $m^2$ have the **highest UV** in the suburbs Phillip, Swinger Hill and Garran. 
+1. Properties of block size 1000 $m^2$ have the **highest UV** in the suburbs Phillip, Swinger Hill and Garran in 2030.
 
     ```{r table-max-UV, echo = FALSE}
     UV_1000sqm <- data_pred %>% 
-        filter(between(block_size, 990, 1000)) %>% 
+        filter(round(block_size) == 1000) %>%
         select(division, year, UV = .prediction) %>%
         arrange(division, year) %>%
         pivot_wider(values_from = "UV", names_from = "year") %>%
-        arrange(desc(`2020`)) %>%
+        arrange(desc(`2030`)) %>%
         mutate(across(
             matches("\\d{4}"), 
             ~sprintf("$%sk", signif(exp(.x) / 1000, 3))))
     UV_1000sqm %>% head(3)
     ```
 
-    Lyons, Mawson and Torrens properties of the same size have the **lowest UV**.
+    Lyons, Mawson and Torrens properties of the same size are predicted to have the **lowest UV** om 2030.
     
     ```{r table-min-UV, echo = FALSE}
     UV_1000sqm %>% tail(3)
     ```
     
-2. The suburbs Phillip, Swinger Hill and Hughes (are predicted to) show the **largest change in UV** between 2010 and 2030.
+2. The suburbs Phillip, Swinger Hill and Hughes are predicted to show the **largest change in UV** in 2030 relative to 2025.
 
     ```{r table-max-change-UV, echo = FALSE}
     change_UV_1000sqm <- data_pred %>% 
-        filter(between(block_size, 990, 1000)) %>% 
+        filter(round(block_size) == 1000) %>%
         group_by(division) %>%
-        mutate(delta_UV = c(NA, diff(exp(.prediction)))) %>%
+        mutate(
+            delta_UV = c(NA, diff(exp(.prediction))),
+            delta_year = sprintf("%s - %s", year, lag(year))) %>%
         ungroup() %>%
-        select(division, year, delta_UV) %>%
-        filter(year > 2010) %>%
+        select(division, delta_year, delta_UV) %>%
+        filter(!is.na(delta_UV)) %>%
         pivot_wider(
             values_from = "delta_UV", 
-            names_from = "year", 
-            names_glue = "{year} relative to previous") %>%
-        arrange(desc(`2020 relative to previous`)) %>%
+            names_from = "delta_year") %>%
+        arrange(desc(across(starts_with("2030")))) %>%
         mutate(across(
             matches("\\d{4}"), 
             ~ sprintf("$%sk", signif(.x / 1000, 3))))
     change_UV_1000sqm %>% head(3)    
     ```
 
-    The suburbs Torrens, Lyons, and Mawson show the **smallest change in UV** during that period
+    The suburbs Lyons, Mawson, and Pearce are predicted to show the **smallest change in UV** during that period.
     
     ```{r table-min-change-UV-min, echo = FALSE}
     change_UV_1000sqm %>% tail(3)

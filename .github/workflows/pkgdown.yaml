@@ -43,6 +43,7 @@ jobs:
             any::ggbeeswarm
             any::modelr
             any::wesanderson
+            any::plotly
             any::sf
             any::leaflet
             any::htmltools
