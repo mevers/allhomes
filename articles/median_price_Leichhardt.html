@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">allhomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
       </span>
     </div>
 
@@ -68,6 +68,9 @@
       <a href="../articles/spatial_median_price.html">Variability of the unimproved value per sqm across the ACT</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right"></ul>
@@ -113,41 +116,41 @@
 <span><span class="co"># Get data for Leichhardt suburbs</span></span>
 <span><span class="va">years</span> <span class="op">&lt;-</span> <span class="fl">2021L</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_past_sales_data.html">get_past_sales_data</a></span><span class="op">(</span><span class="va">suburbs</span>, <span class="va">years</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:26] Looking up division ID for suburb='Annandale, NSW'...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:26] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=NSW&amp;n=annandale</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:27] Finding data for ID=7476, year=2021...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:27] URL: https://www.allhomes.com.au/ah/research/_/120747612/sale-history?year=2021</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:28] Found 84 entries.</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:28] Looking up division ID for suburb='Balmain, NSW'...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:28] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=NSW&amp;n=balmain</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:29] Finding data for ID=7857, year=2021...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:29] URL: https://www.allhomes.com.au/ah/research/_/120785712/sale-history?year=2021</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:29] Found 92 entries.</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:29] Looking up division ID for suburb='Balmain East, NSW'...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:29] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=NSW&amp;n=balmain-east</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:30] Finding data for ID=8706, year=2021...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:30] URL: https://www.allhomes.com.au/ah/research/_/120870612/sale-history?year=2021</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:30] Found 14 entries.</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:30] Looking up division ID for suburb='Birchgrove, NSW'...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:30] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=NSW&amp;n=birchgrove</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:31] Finding data for ID=8355, year=2021...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:31] URL: https://www.allhomes.com.au/ah/research/_/120835512/sale-history?year=2021</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:31] Found 26 entries.</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:31] Looking up division ID for suburb='Leichhardt, NSW'...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:31] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=NSW&amp;n=leichhardt</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:31] Finding data for ID=8320, year=2021...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:31] URL: https://www.allhomes.com.au/ah/research/_/120832012/sale-history?year=2021</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:33] Found 157 entries.</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:33] Looking up division ID for suburb='Lilyfield, NSW'...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:33] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=NSW&amp;n=lilyfield</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:33] Finding data for ID=8748, year=2021...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:33] URL: https://www.allhomes.com.au/ah/research/_/120874812/sale-history?year=2021</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:34] Found 61 entries.</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:34] Looking up division ID for suburb='Rozelle, NSW'...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:34] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=NSW&amp;n=rozelle</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:34] Finding data for ID=7500, year=2021...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:34] URL: https://www.allhomes.com.au/ah/research/_/120750012/sale-history?year=2021</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:35] Found 99 entries.</span></span></code></pre></div>
+<span><span class="co">#&gt; [2022-09-07 03:32:08] Looking up division ID for suburb='Annandale, NSW'...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:08] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=NSW&amp;n=annandale</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:09] Finding data for ID=7476, year=2021...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:09] URL: https://www.allhomes.com.au/ah/research/_/120747612/sale-history?year=2021</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:11] Found 84 entries.</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:11] Looking up division ID for suburb='Balmain, NSW'...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:11] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=NSW&amp;n=balmain</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:11] Finding data for ID=7857, year=2021...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:11] URL: https://www.allhomes.com.au/ah/research/_/120785712/sale-history?year=2021</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:12] Found 92 entries.</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:12] Looking up division ID for suburb='Balmain East, NSW'...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:12] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=NSW&amp;n=balmain-east</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:12] Finding data for ID=8706, year=2021...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:12] URL: https://www.allhomes.com.au/ah/research/_/120870612/sale-history?year=2021</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:13] Found 14 entries.</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:13] Looking up division ID for suburb='Birchgrove, NSW'...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:13] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=NSW&amp;n=birchgrove</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:13] Finding data for ID=8355, year=2021...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:13] URL: https://www.allhomes.com.au/ah/research/_/120835512/sale-history?year=2021</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:14] Found 26 entries.</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:14] Looking up division ID for suburb='Leichhardt, NSW'...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:14] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=NSW&amp;n=leichhardt</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:14] Finding data for ID=8320, year=2021...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:14] URL: https://www.allhomes.com.au/ah/research/_/120832012/sale-history?year=2021</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:15] Found 157 entries.</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:15] Looking up division ID for suburb='Lilyfield, NSW'...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:15] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=NSW&amp;n=lilyfield</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:16] Finding data for ID=8748, year=2021...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:16] URL: https://www.allhomes.com.au/ah/research/_/120874812/sale-history?year=2021</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:17] Found 61 entries.</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:17] Looking up division ID for suburb='Rozelle, NSW'...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:17] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=NSW&amp;n=rozelle</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:17] Finding data for ID=7500, year=2021...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:17] URL: https://www.allhomes.com.au/ah/research/_/120750012/sale-history?year=2021</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:18] Found 99 entries.</span></span></code></pre></div>
 <p>We show the distribution and median value of sale prices of properties across different suburbs in the Sydney Leichhardt area in 2021.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot</span></span>

@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">allhomes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
       </span>
     </div>
 
@@ -69,6 +69,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right"></ul>
 </div>
@@ -103,57 +106,57 @@
 <span><span class="va">suburbs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Watson, ACT"</span>, <span class="st">"Ainslie, ACT"</span>, <span class="st">"Downer, ACT"</span><span class="op">)</span></span>
 <span><span class="va">years</span> <span class="op">&lt;-</span> <span class="fl">2018L</span><span class="op">:</span><span class="fl">2022L</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_past_sales_data.html">get_past_sales_data</a></span><span class="op">(</span><span class="va">suburbs</span>, <span class="va">years</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:40] Looking up division ID for suburb='Watson, ACT'...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:40] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=ACT&amp;n=watson</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:40] Finding data for ID=14651, year=2018...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:40] URL: https://www.allhomes.com.au/ah/research/_/121465112/sale-history?year=2018</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:43] Found 298 entries.</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:43] Finding data for ID=14651, year=2019...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:43] URL: https://www.allhomes.com.au/ah/research/_/121465112/sale-history?year=2019</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:46] Found 359 entries.</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:46] Finding data for ID=14651, year=2020...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:46] URL: https://www.allhomes.com.au/ah/research/_/121465112/sale-history?year=2020</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:48] Found 364 entries.</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:48] Finding data for ID=14651, year=2021...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:48] URL: https://www.allhomes.com.au/ah/research/_/121465112/sale-history?year=2021</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:50] Found 318 entries.</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:50] Finding data for ID=14651, year=2022...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:50] URL: https://www.allhomes.com.au/ah/research/_/121465112/sale-history?year=2022</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:51] Found 83 entries.</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:51] Looking up division ID for suburb='Ainslie, ACT'...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:51] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=ACT&amp;n=ainslie</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:51] Finding data for ID=14743, year=2018...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:51] URL: https://www.allhomes.com.au/ah/research/_/121474312/sale-history?year=2018</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:52] Found 104 entries.</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:52] Finding data for ID=14743, year=2019...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:52] URL: https://www.allhomes.com.au/ah/research/_/121474312/sale-history?year=2019</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:53] Found 98 entries.</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:53] Finding data for ID=14743, year=2020...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:53] URL: https://www.allhomes.com.au/ah/research/_/121474312/sale-history?year=2020</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:54] Found 95 entries.</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:54] Finding data for ID=14743, year=2021...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:54] URL: https://www.allhomes.com.au/ah/research/_/121474312/sale-history?year=2021</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:55] Found 106 entries.</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:55] Finding data for ID=14743, year=2022...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:55] URL: https://www.allhomes.com.au/ah/research/_/121474312/sale-history?year=2022</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:56] Found 29 entries.</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:56] Looking up division ID for suburb='Downer, ACT'...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:56] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=ACT&amp;n=downer</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:56] Finding data for ID=14595, year=2018...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:56] URL: https://www.allhomes.com.au/ah/research/_/121459512/sale-history?year=2018</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:57] Found 106 entries.</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:57] Finding data for ID=14595, year=2019...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:57] URL: https://www.allhomes.com.au/ah/research/_/121459512/sale-history?year=2019</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:58] Found 128 entries.</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:58] Finding data for ID=14595, year=2020...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:58] URL: https://www.allhomes.com.au/ah/research/_/121459512/sale-history?year=2020</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:59] Found 152 entries.</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:59] Finding data for ID=14595, year=2021...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:37:59] URL: https://www.allhomes.com.au/ah/research/_/121459512/sale-history?year=2021</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:38:00] Found 116 entries.</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:38:00] Finding data for ID=14595, year=2022...</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:38:00] URL: https://www.allhomes.com.au/ah/research/_/121459512/sale-history?year=2022</span></span>
-<span><span class="co">#&gt; [2022-09-06 15:38:01] Found 39 entries.</span></span></code></pre></div>
+<span><span class="co">#&gt; [2022-09-07 03:32:22] Looking up division ID for suburb='Watson, ACT'...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:22] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=ACT&amp;n=watson</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:23] Finding data for ID=14651, year=2018...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:23] URL: https://www.allhomes.com.au/ah/research/_/121465112/sale-history?year=2018</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:26] Found 298 entries.</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:26] Finding data for ID=14651, year=2019...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:26] URL: https://www.allhomes.com.au/ah/research/_/121465112/sale-history?year=2019</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:28] Found 359 entries.</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:28] Finding data for ID=14651, year=2020...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:28] URL: https://www.allhomes.com.au/ah/research/_/121465112/sale-history?year=2020</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:30] Found 364 entries.</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:30] Finding data for ID=14651, year=2021...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:30] URL: https://www.allhomes.com.au/ah/research/_/121465112/sale-history?year=2021</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:33] Found 318 entries.</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:33] Finding data for ID=14651, year=2022...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:33] URL: https://www.allhomes.com.au/ah/research/_/121465112/sale-history?year=2022</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:33] Found 83 entries.</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:33] Looking up division ID for suburb='Ainslie, ACT'...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:33] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=ACT&amp;n=ainslie</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:34] Finding data for ID=14743, year=2018...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:34] URL: https://www.allhomes.com.au/ah/research/_/121474312/sale-history?year=2018</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:35] Found 104 entries.</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:35] Finding data for ID=14743, year=2019...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:35] URL: https://www.allhomes.com.au/ah/research/_/121474312/sale-history?year=2019</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:36] Found 98 entries.</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:36] Finding data for ID=14743, year=2020...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:36] URL: https://www.allhomes.com.au/ah/research/_/121474312/sale-history?year=2020</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:37] Found 95 entries.</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:37] Finding data for ID=14743, year=2021...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:37] URL: https://www.allhomes.com.au/ah/research/_/121474312/sale-history?year=2021</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:37] Found 106 entries.</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:37] Finding data for ID=14743, year=2022...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:37] URL: https://www.allhomes.com.au/ah/research/_/121474312/sale-history?year=2022</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:38] Found 29 entries.</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:38] Looking up division ID for suburb='Downer, ACT'...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:38] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=ACT&amp;n=downer</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:38] Finding data for ID=14595, year=2018...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:38] URL: https://www.allhomes.com.au/ah/research/_/121459512/sale-history?year=2018</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:39] Found 106 entries.</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:39] Finding data for ID=14595, year=2019...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:39] URL: https://www.allhomes.com.au/ah/research/_/121459512/sale-history?year=2019</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:40] Found 128 entries.</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:40] Finding data for ID=14595, year=2020...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:40] URL: https://www.allhomes.com.au/ah/research/_/121459512/sale-history?year=2020</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:41] Found 152 entries.</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:41] Finding data for ID=14595, year=2021...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:41] URL: https://www.allhomes.com.au/ah/research/_/121459512/sale-history?year=2021</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:42] Found 116 entries.</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:42] Finding data for ID=14595, year=2022...</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:42] URL: https://www.allhomes.com.au/ah/research/_/121459512/sale-history?year=2022</span></span>
+<span><span class="co">#&gt; [2022-09-07 03:32:43] Found 39 entries.</span></span></code></pre></div>
 <p>We show the distribution of sale prices as a function of the number of bedrooms.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot</span></span>
