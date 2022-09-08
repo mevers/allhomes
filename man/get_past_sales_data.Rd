@@ -22,7 +22,7 @@ A \code{tibble}.
 Extract Allhomes past sales data for a/multiple suburb(s) and year(s).
 }
 \examples{
-\dontrun{
+\donttest{
 get_past_sales_data(
     c("Balmain, NSW", "Acton, ACT", "Nowra, NSW"),
     2020L:2021L)

@@ -25,7 +25,7 @@ division names, states, postcodes and IDs. If unsuccessful, it will skip the
 entry.
 }
 \examples{
-\dontrun{
+\donttest{
 get_ah_division_ids(c("Acton, ACT", "Balmain, NSW"))
 }
 }

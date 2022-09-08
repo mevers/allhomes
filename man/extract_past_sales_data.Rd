@@ -23,7 +23,7 @@ that gets called by vectorised \code{get_past_sales_data()}. This function is
 currently exported but this may change in the future.
 }
 \examples{
-\dontrun{
+\donttest{
 extract_past_sales_data(14743, 2021)
 }
 }

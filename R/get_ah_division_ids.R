@@ -29,7 +29,7 @@ get_data <- function(url) {
 #' @importFrom rlang .data .env
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' get_ah_division_ids(c("Acton, ACT", "Balmain, NSW"))
 #' }
 #' @export

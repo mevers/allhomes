@@ -33,7 +33,7 @@ tokenise_column <- function(df, col, col_names) {
 #' @importFrom rlang .data .env
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' extract_past_sales_data(14743, 2021)
 #' }
 #' @export
@@ -149,7 +149,7 @@ extract_past_sales_data <- function(division_id,
 #' @importFrom rlang .data .env
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' get_past_sales_data(
 #'     c("Balmain, NSW", "Acton, ACT", "Nowra, NSW"),
 #'     2020L:2021L)
