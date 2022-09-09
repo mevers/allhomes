@@ -7,7 +7,13 @@ This is the repository for the `allhomes` R package. The main function that the 
 
 ## Installation
 
-Install the package directly from GitHub
+Install the package from CRAN
+
+```r
+install.packages("allhomes")
+```
+
+Or directly from GitHub
 
 ```r
 remotes::install_github("mevers/allhomes")
@@ -69,7 +75,7 @@ The (unofficial) Allhomes API distinguishes between different types of "localiti
 
 Allhomes (which is part of [Domain Group](https://en.wikipedia.org/wiki/Domain_Group)) receives historical past sales data from relevant state departments. Some details on Allhomes' data retention are given [here](https://help.allhomes.com.au/hc/en-us/articles/360055268773-Removal-of-historical-sales-data).
 
-While there seems to exist an (inofficial) Allhomes API to query IDs (which are necessary for looking up past sales data), past sales data themselves need to be scraped from somewhat awkwardly-formatted static HTML tables. Data for every sale is stored within a `<tbody>` element; within every `<tbody>` element, individual values (address, price, dates, block size, etc.) are spread across 3 lines, each contained within a `<td>` element; unfortunately, the format of every line is not consistent.
+While there seems to exist an (unofficial) Allhomes API to query IDs (which are necessary for looking up past sales data), past sales data themselves need to be scraped from somewhat awkwardly-formatted static HTML tables. Data for every sale is stored within a `<tbody>` element; within every `<tbody>` element, individual values (address, price, dates, block size, etc.) are spread across 3 lines, each contained within a `<td>` element; unfortunately, the format of every line is not consistent.
 
 
 ## Disclaimer
