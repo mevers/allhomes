@@ -102,9 +102,547 @@ currently exported but this may change in the future.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu">extract_past_sales_data</span><span class="op">(</span><span class="fl">14743</span>, <span class="fl">2021</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:33] Finding data for ID=14743, year=2021...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:33] URL: https://www.allhomes.com.au/ah/research/_/121474312/sale-history?year=2021</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:36] Found 106 entries.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    address bedrooms bathrooms ensuites garages carports</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       25 Corroboree Park       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        24 Raymond Street        4         2       NA       2        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      18 Higgins Crescent       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      32 Officer Crescent        3         3       NA       1       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     94 Wakefield Gardens       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       49 Campbell Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          26 Angas Street        4         1       NA       2        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         240 Duffy Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         105 Duffy Street        4         2       NA       1        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 Fisher Street        3         2       NA       1        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11       62 Raymond Street        4         3       NA       2        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        104 Duffy Street        4         5       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13          1 Dibbs Street        4         2       NA       2        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14        264 Duffy Street        6         2       NA       1        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15          7 Duffy Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16       44 Foveaux Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17          5 Ebden Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18      31 Chisholm Street        0         0       NA       0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19       1/85 Duffy Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20         83 Duffy Street        4         2       NA       0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21       34 Raymond Street        3         1       NA       0        2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22        139 Duffy Street        6         4       NA       2        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23     62 Limestone Avenue       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24    26 Sherbrooke Street        4         2       NA       0        2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25        45 Cowper Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26     17 Davenport Street        3         1       NA       0        2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27    17A Davenport Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28         9 Bonney Street        4         2       NA       2        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29     2/21A Cowper Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30        198 Duffy Street        4         2       NA       2        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31      26 Paterson Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32         13 Duffy Street        3         1       NA       2        2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33          4 Agnew Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34      45 Campbell Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35        15 Howe Crescent       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36         10 Ebden Street        3         2       NA       1        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37        4 Hoddle Gardens        3         1       NA       2        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38          3 Piper Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39      83 Hannan Crescent       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40       32 Canning Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41        36A Duffy Street        3         2       NA       3        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42       2/36 Duffy Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43         19 Duffy Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44         53 Tyson Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45         93 Ebden Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46         7 Gillen Street        2         2       NA       1        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47         92 Duffy Street        3         1       NA       1        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48    3/10 Paterson Street        3         2       NA       2        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49   19 Shortland Crescent       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50    102 Limestone Avenue       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51         11 Tyson Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52         14 Lalor Street        3         1       NA       1        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53       3 Hannan Crescent        3         1       NA       0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54     54 Limestone Avenue        3         2       NA       1        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55         2A Ebden Street        0         0       NA       0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56     2/6 Chisholm Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57  19 Fairbridge Crescent       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58    1/31A Raymond Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59      31A Raymond Street        3         2       NA       2        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60      43 Campbell Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61    2/15 Chisholm Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62    51 Sherbrooke Street        3         1       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63        187 Duffy Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64      32 Paterson Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65        40 Hawdon Street        3         1       NA       0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66      50 Hannan Crescent        5         3       NA       3        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67        11 Gillen Street        3         1       NA       2        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68     75 Officer Crescent       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69         22 Angas Street        5         2       NA       2        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70        10 Fisher Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71         35 Ebden Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72     30 O'Connell Street        3         1       NA       1        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73         21 Agnew Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74       182 Majura Avenue        3         1       NA       1        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75        136 Duffy Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76      72 Hannan Crescent       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77        10 Gillen Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78       24 Calvert Street        3         1       NA       1       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79    61 Sherbrooke Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80       10 Calvert Street        3         1       NA       1        2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81        74 Majura Avenue       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82       1/6 Cowper Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83         6 Cowper Street        2         1       NA       1        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84     26 O'Connell Street        3         1       NA       0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85    75 Sherbrooke Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86         21 Piper Street        2         1       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87    96 Wakefield Gardens       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88        2/6 Hobson Place       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89       196 Majura Avenue        3         2       NA       2        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90     2/196 Majura Avenue       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91        111 Hannan Place       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92       9 Winnecke Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93       2/95 Ebden Street        2         2       NA       0        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94           6 Bodel Place       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95      18 Campbell Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96     90 Limestone Avenue       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97        13 Hayley Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 98                1 Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 99        56 Majura Avenue       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100         4 Agnew Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 101     6 O'Connell Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 102         5 Ebden Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 103        26 Angas Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 104      2/6B Alt Crescent       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 105    62 Limestone Avenue       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 106     36 Paterson Street       NA        NA       NA      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     contract_date transfer_date  list_date   price block_size transfer_type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      13/11/2021    21/02/2022       &lt;NA&gt; 2775000       1143 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      25/09/2021    01/12/2021 04/09/2021 2440000        759 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      24/07/2021    13/09/2021       &lt;NA&gt; 2400000       1176 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      23/12/2021    01/04/2022 20/09/2021 2350000        839 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      04/03/2021    30/04/2021       &lt;NA&gt; 2220000        806 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      12/11/2021    03/02/2022       &lt;NA&gt; 2200000        947 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7      30/10/2021    21/01/2022 29/09/2021 2170000       1099 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8      29/09/2021    14/01/2022       &lt;NA&gt; 2156000       1085 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9      21/08/2021    20/10/2021 28/07/2021 2110000        952 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10     06/11/2021    07/01/2022 21/10/2021 1960000        725 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11     10/04/2021    20/07/2021 18/03/2021 1955000        564 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12     27/03/2021    22/07/2021 27/02/2021 1950000       1188 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13     30/03/2021    24/06/2021 16/02/2021 1885000        711 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14     18/12/2021    04/03/2022 03/12/2021 1850000        910 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15     12/03/2021    13/07/2021       &lt;NA&gt; 1830000        867 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16     24/07/2021    06/09/2021       &lt;NA&gt; 1811000        953 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17     13/11/2021    09/02/2022       &lt;NA&gt; 1755000        903 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18     04/05/2021          &lt;NA&gt; 09/04/2021 1751000        861 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19     19/11/2021    10/01/2022       &lt;NA&gt; 1750000       1294 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20     19/11/2021          &lt;NA&gt; 07/10/2021 1750000          0 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21     22/12/2021    15/03/2022 25/11/2021 1750000       1011 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22     03/03/2021    06/08/2021 03/03/2021 1735000       1160 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23     27/05/2021    13/09/2021       &lt;NA&gt; 1720000       1102 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24     17/04/2021    14/07/2021 25/03/2021 1710000        832 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25     24/09/2021    09/12/2021       &lt;NA&gt; 1702000       1134 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26     24/07/2021          &lt;NA&gt; 02/07/2021 1695000          0 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27     24/07/2021    25/10/2021       &lt;NA&gt; 1695000       1165 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28     27/02/2021    18/05/2021 03/02/2021 1691000       1054 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29     17/07/2021    24/09/2021       &lt;NA&gt; 1690000       1140 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30     09/06/2021    29/07/2021 20/05/2021 1685000       1035 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31     13/03/2021    17/05/2021       &lt;NA&gt; 1680000        697 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32     04/12/2021    03/02/2022 11/11/2021 1675000        844 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33     28/05/2021    08/12/2021       &lt;NA&gt; 1670000        706 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34     10/09/2021    28/10/2021       &lt;NA&gt; 1660000        982 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35     10/02/2021    30/04/2021       &lt;NA&gt; 1650000        830 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36     28/01/2021    01/04/2021 11/01/2021 1621000        831 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37     25/09/2021    09/12/2021 04/08/2021 1610000        743 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38     23/10/2021    17/12/2021       &lt;NA&gt; 1600000        661 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39     21/05/2021    22/07/2021       &lt;NA&gt; 1590000        694 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40     11/03/2021    25/05/2021       &lt;NA&gt; 1570000        826 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41     04/02/2021          &lt;NA&gt; 26/11/2020 1560000        404 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42     04/02/2021    23/04/2021       &lt;NA&gt; 1560000        809 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43     19/02/2021    23/06/2021       &lt;NA&gt; 1550000        867 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44     19/06/2021    15/09/2021       &lt;NA&gt; 1515000       1281 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45     24/02/2021    22/04/2021       &lt;NA&gt; 1485000        836 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46     19/01/2021    08/04/2021 27/11/2020 1485000        641 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47     13/03/2021    26/05/2021 18/02/2021 1460000        689 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48     15/12/2021    25/01/2022 24/11/2021 1455000       4877 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49     17/04/2021    13/07/2021       &lt;NA&gt; 1436000        725 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50     16/06/2021    24/08/2021       &lt;NA&gt; 1427000       1040 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51     16/10/2021    17/12/2021       &lt;NA&gt; 1405000        988 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52     16/10/2021    16/12/2021 01/10/2021 1405000        562 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53     15/12/2021    02/03/2022 25/11/2021 1400000        613 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54     14/04/2021    15/07/2021 17/03/2021 1400000       1508 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55     04/05/2021          &lt;NA&gt; 09/04/2021 1385000        720 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56     24/07/2021    03/11/2021       &lt;NA&gt; 1372500       1301 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57     24/06/2021    02/09/2021       &lt;NA&gt; 1355000       1126 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58     23/09/2021    16/12/2021       &lt;NA&gt; 1335000        906 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59     23/09/2021          &lt;NA&gt; 01/09/2021 1335000        439 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60     14/04/2021    16/07/2021       &lt;NA&gt; 1330000        808 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61     08/05/2021    27/07/2021       &lt;NA&gt; 1322000       1114 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62     28/05/2021    03/08/2021 06/05/2021 1320000        721 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63     23/06/2021    30/08/2021       &lt;NA&gt; 1310000        877 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64     24/02/2021    04/06/2021       &lt;NA&gt; 1305000        697 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65     13/03/2021    21/05/2021 24/02/2021 1301000        711 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66     02/10/2021    01/12/2021 21/09/2021 1300000        557 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67     28/05/2021    23/07/2021 14/05/2021 1286000        757 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68     27/03/2021    26/05/2021       &lt;NA&gt; 1271000        654 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69     13/01/2021    07/04/2021 23/10/2020 1250000       1054 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70     04/06/2021    15/10/2021       &lt;NA&gt; 1250000        725 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71     08/02/2021    22/03/2021       &lt;NA&gt; 1225000        801 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72     19/05/2021    23/07/2021 05/05/2021 1220000        837 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73     14/04/2021    23/08/2021       &lt;NA&gt; 1220000        729 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74     13/11/2021    17/03/2022 25/10/2021 1211000        664 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75     27/03/2021    22/06/2021       &lt;NA&gt; 1205000        835 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76     22/05/2021    20/09/2021       &lt;NA&gt; 1200000        654 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77     08/05/2021    15/07/2021       &lt;NA&gt; 1200000        705 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78     13/03/2021    07/06/2021 16/02/2021 1183000        660 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79     31/03/2021    04/06/2021       &lt;NA&gt; 1175000        656 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80     30/01/2021    17/03/2021 07/01/2021 1165000        867 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81     14/04/2021    10/08/2021       &lt;NA&gt; 1151200        464 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82     27/02/2021    19/05/2021       &lt;NA&gt; 1126000        904 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83     27/02/2021          &lt;NA&gt; 04/02/2021 1126000        655 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84     31/03/2021    11/06/2021 03/03/2021 1125000        834 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85     10/02/2021    03/05/2021       &lt;NA&gt; 1120000        595 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86     25/05/2021    24/08/2021 06/05/2021 1100000        565 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87     04/03/2021    19/07/2021       &lt;NA&gt; 1035000        892 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88     24/06/2021    16/09/2021       &lt;NA&gt; 1025000       1090 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89     13/03/2021          &lt;NA&gt; 18/02/2021  950000          0 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90     13/03/2021    18/05/2021       &lt;NA&gt;  950000        915 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91     11/11/2021    24/11/2021       &lt;NA&gt;  900000        716 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92     23/06/2021    17/08/2021       &lt;NA&gt;  890000        572 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93     18/02/2021    15/03/2021 27/01/2021  735000       1103 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94     25/03/2021    04/06/2021       &lt;NA&gt;  720000        284 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95     03/06/2021    19/07/2021       &lt;NA&gt;  635000        811 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96     04/03/2021    30/03/2021       &lt;NA&gt;  575000       1189 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97     30/03/2021    28/06/2021       &lt;NA&gt;  450000        725 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 98     28/07/2021          &lt;NA&gt; 11/01/2021  250000         NA Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 99     15/08/2021    07/02/2022       &lt;NA&gt;       0        516 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100    30/01/2021    21/05/2021       &lt;NA&gt;       0        706 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 101    17/11/2021    16/03/2022       &lt;NA&gt;       0       1017 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 102    23/05/2021    30/11/2021       &lt;NA&gt;       0        903 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 103    01/06/2021    29/11/2021       &lt;NA&gt;       0       1099 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 104    03/05/2021    20/10/2021       &lt;NA&gt;       0       1544 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 105    17/01/2021    27/07/2021       &lt;NA&gt;       0       1102 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 106    25/10/2021    02/03/2022       &lt;NA&gt;       0        697 Full transfer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     full_sale_price days_on_market sale_type sale_record_source building_size</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1           2775000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2           2440000             21        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3           2400000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4           2350000             94        NA    Combined Record           160</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5           2220000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6           2200000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7           2170000             31        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8           2156000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9           2110000             24        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10          1960000             16        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11          1955000             23        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12          1950000             28        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13          1885000             42        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14          1850000             15        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15          1830000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16          1811000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17          1755000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18          1751000             25        NA    Allhomes Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19          1750000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20          1750000             43        NA    Allhomes Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21          1750000             27        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22          1735000             NA        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23          1720000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24          1710000             23        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25          1702000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26          1695000             22        NA    Allhomes Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27          1695000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28          1691000             24        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29          1690000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30          1685000             20        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31          1680000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32          1675000             23        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33          1670000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34          1660000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35          1650000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36          1621000             17        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37          1610000             52        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38          1600000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39          1590000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40          1570000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41          1560000             70        NA    Allhomes Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42          1560000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43          1550000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44          1515000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45          1485000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46          1485000             53        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47          1460000             23        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48          1455000             21        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49          1436000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50          1427000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51          1405000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52          1405000             15        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53          1400000             20        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54          1400000             28        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55          1385000             25        NA    Allhomes Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56          1372500             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57          1355000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58          1335000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59          1335000             22        NA    Allhomes Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60          1330000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61          1322000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62          1320000             22        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63          1310000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64          1305000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65          1301000             17        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66          1300000             11        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67          1286000             14        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68          1271000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69          1250000             82        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70          1250000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71          1225000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72          1220000             14        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73          1220000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74          1211000             19        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75          1205000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76          1200000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77          1200000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78          1183000             25        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79          1175000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80          1165000             23        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81          1151200             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82          1126000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83          1126000             23        NA    Allhomes Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84          1125000             28        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85          1120000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86          1100000             19        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87          1035000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88          1025000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89           950000             23        NA    Allhomes Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90           950000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91           900000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92           890000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93           735000             22        NA    Combined Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94           720000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95           635000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96           575000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97           450000             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 98           250000            198        NA    Allhomes Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 99                0             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100               0             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 101               0             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 102               0             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 103               0             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 104               0             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 105               0             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 106               0             NA        NA  Government Record            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     land_type property_type                        purpose unimproved_value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          NA            NA    Single residential dwelling           791000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          NA            NA    Single residential dwelling           800000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          NA            NA    Single residential dwelling           824000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          NA            NA    Single residential dwelling           860000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10         NA            NA    Single residential dwelling           792000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11         NA            NA    Single residential dwelling           637000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12         NA            NA    Single residential dwelling           908000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13         NA            NA    Single residential dwelling           622000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14         NA            NA    Single residential dwelling           984000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18         NA            NA                           &lt;NA&gt;           622000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19         NA            NA         Multiple unit dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20         NA            NA                           &lt;NA&gt;               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21         NA            NA    Single residential dwelling           949000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22         NA            NA    Single residential dwelling           920000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24         NA            NA    Single residential dwelling           667000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26         NA            NA                           &lt;NA&gt;           693000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27         NA            NA Single residential dwelling...               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28         NA            NA Single residential dwelling...           851000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29         NA            NA         Multiple unit dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30         NA            NA    Single residential dwelling           832000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32         NA            NA    Single residential dwelling           873000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36         NA            NA    Single residential dwelling           873000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37         NA            NA    Single residential dwelling           743000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38         NA            NA Single residential dwelling...               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41         NA            NA                           &lt;NA&gt;               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42         NA            NA         Multiple unit dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46         NA            NA    Single residential dwelling           717000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47         NA            NA    Single residential dwelling           792000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48         NA            NA         Multiple unit dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52         NA            NA    Single residential dwelling           589000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53         NA            NA    Single residential dwelling           664000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54         NA            NA    Single residential dwelling           989000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55         NA            NA                           &lt;NA&gt;           802000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56         NA            NA         Multiple unit dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58         NA            NA         Multiple unit dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59         NA            NA                           &lt;NA&gt;           951000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60         NA            NA Single residential dwelling...               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61         NA            NA         Multiple unit dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62         NA            NA Single residential dwelling...           582000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63         NA            NA Single residential dwelling...               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65         NA            NA Single residential dwelling...           636000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66         NA            NA    Single residential dwelling           550000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67         NA            NA Single residential dwelling...           791000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69         NA            NA    Single residential dwelling           824000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72         NA            NA    Single residential dwelling           770000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74         NA            NA    Single residential dwelling           546000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78         NA            NA    Single residential dwelling           672000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80         NA            NA    Single residential dwelling           741000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82         NA            NA         Multiple unit dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83         NA            NA                           &lt;NA&gt;           823000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84         NA            NA    Single residential dwelling           770000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86         NA            NA Single residential dwelling...           550000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88         NA            NA         Multiple unit dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89         NA            NA                           &lt;NA&gt;           676000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90         NA            NA         Multiple unit dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93         NA            NA         Multiple unit dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95         NA            NA Single residential dwelling...               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97         NA            NA Single residential dwelling...               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 98         NA            NA                           &lt;NA&gt;               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 99         NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100        NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 101        NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 102        NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 103        NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 104        NA            NA         Multiple unit dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 105        NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 106        NA            NA    Single residential dwelling               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     unimproved_value_ratio</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                     0.32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                     0.34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                     0.38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                     0.41</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                    0.40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                    0.33</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                    0.47</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                    0.33</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                    0.53</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18                    0.36</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21                    0.54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22                    0.53</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24                    0.39</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26                    0.41</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28                    0.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30                    0.49</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32                    0.52</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36                    0.54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37                    0.46</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46                    0.48</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47                    0.54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52                    0.42</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53                    0.47</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54                    0.71</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55                    0.58</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59                    0.71</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62                    0.44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65                    0.49</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66                    0.42</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67                    0.62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69                    0.66</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72                    0.63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74                    0.45</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78                    0.57</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80                    0.64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83                    0.73</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84                    0.68</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86                    0.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89                    0.71</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 98                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 99                      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 101                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 102                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 103                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 104                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 105                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 106                     NA</span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>

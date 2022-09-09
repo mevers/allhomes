@@ -104,9 +104,16 @@ postcode, and ID.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu">get_ah_division_ids</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Acton, ACT"</span>, <span class="st">"Balmain, NSW"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:37] Looking up division ID for suburb='Acton, ACT'...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:37] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=ACT&amp;n=acton</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:37] Looking up division ID for suburb='Balmain, NSW'...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:37] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=NSW&amp;n=balmain</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   division state postcode value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    Acton   ACT     2601 14512</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Balmain   NSW     2041  7857</span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>

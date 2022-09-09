@@ -98,11 +98,55 @@ every entry must be "suburb_name, state/territory_abbreviation", e.g.
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu">get_past_sales_data</span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Balmain, NSW"</span>, <span class="st">"Acton, ACT"</span>, <span class="st">"Nowra, NSW"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    <span class="fl">2020L</span><span class="op">:</span><span class="fl">2021L</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:37] Looking up division ID for suburb='Balmain, NSW'...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:37] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=NSW&amp;n=balmain</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:38] Finding data for ID=7857, year=2020...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:38] URL: https://www.allhomes.com.au/ah/research/_/120785712/sale-history?year=2020</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:39] Found 211 entries.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:39] Finding data for ID=7857, year=2021...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:39] URL: https://www.allhomes.com.au/ah/research/_/120785712/sale-history?year=2021</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:40] Found 92 entries.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:40] Looking up division ID for suburb='Acton, ACT'...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:40] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=ACT&amp;n=acton</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:40] Finding data for ID=14512, year=2020...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:40] URL: https://www.allhomes.com.au/ah/research/_/121451212/sale-history?year=2020</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:41] Found 2 entries.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:41] Finding data for ID=14512, year=2021...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:41] URL: https://www.allhomes.com.au/ah/research/_/121451212/sale-history?year=2021</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:41] Found 2 entries.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:41] Looking up division ID for suburb='Nowra, NSW'...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:41] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=NSW&amp;n=nowra</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:41] Finding data for ID=14674, year=2020...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:41] URL: https://www.allhomes.com.au/ah/research/_/121467412/sale-history?year=2020</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:43] Found 279 entries.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:43] Finding data for ID=14674, year=2021...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:43] URL: https://www.allhomes.com.au/ah/research/_/121467412/sale-history?year=2021</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [2022-09-09 08:22:45] Found 248 entries.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 834 × 27</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    division state postcode value  year address   bedro…¹ bathr…² ensui…³ garages</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Balmain  NSW   2041      <span style="text-decoration: underline;">7</span>857  <span style="text-decoration: underline;">2</span>020 24 Wisbe…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Balmain  NSW   2041      <span style="text-decoration: underline;">7</span>857  <span style="text-decoration: underline;">2</span>020 1 Campbe…       6       3      <span style="color: #BB0000;">NA</span>       3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Balmain  NSW   2041      <span style="text-decoration: underline;">7</span>857  <span style="text-decoration: underline;">2</span>020 73 Beatt…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Balmain  NSW   2041      <span style="text-decoration: underline;">7</span>857  <span style="text-decoration: underline;">2</span>020 73 Smith…       5       2      <span style="color: #BB0000;">NA</span>       3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Balmain  NSW   2041      <span style="text-decoration: underline;">7</span>857  <span style="text-decoration: underline;">2</span>020 33 Campb…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Balmain  NSW   2041      <span style="text-decoration: underline;">7</span>857  <span style="text-decoration: underline;">2</span>020 70 Campb…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Balmain  NSW   2041      <span style="text-decoration: underline;">7</span>857  <span style="text-decoration: underline;">2</span>020 11 Jane …      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Balmain  NSW   2041      <span style="text-decoration: underline;">7</span>857  <span style="text-decoration: underline;">2</span>020 8 Grafto…       4       3      <span style="color: #BB0000;">NA</span>       2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Balmain  NSW   2041      <span style="text-decoration: underline;">7</span>857  <span style="text-decoration: underline;">2</span>020 350 Darl…      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Balmain  NSW   2041      <span style="text-decoration: underline;">7</span>857  <span style="text-decoration: underline;">2</span>020 1 Macqua…       5       2      <span style="color: #BB0000;">NA</span>       2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 824 more rows, 17 more variables: carports &lt;dbl&gt;, contract_date &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   transfer_date &lt;chr&gt;, list_date &lt;chr&gt;, price &lt;dbl&gt;, block_size &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   transfer_type &lt;chr&gt;, full_sale_price &lt;dbl&gt;, days_on_market &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   sale_type &lt;lgl&gt;, sale_record_source &lt;chr&gt;, building_size &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   land_type &lt;lgl&gt;, property_type &lt;lgl&gt;, purpose &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   unimproved_value &lt;lgl&gt;, unimproved_value_ratio &lt;lgl&gt;, and abbreviated</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   variable names ¹​bedrooms, ²​bathrooms, ³​ensuites</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
