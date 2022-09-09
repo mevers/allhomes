@@ -65,6 +65,11 @@ Currently, there are limited sanity checks in place to verify if past sales data
 `allhomes` also provides two datasets `divisions_ACT` and `divisions_NSW` that list division names and IDs for all Allhomes divisions (suburbs) in the ACT and NSW, respectively.
 
 
+## Getting involved
+
+Please report any bugs as [GitHub issues](https://github.com/mevers/allhomes/issues). If you like to get involved, please get in touch and/or submit a PR.
+
+
 ## Further comments
 
 ### Allhomes localities
