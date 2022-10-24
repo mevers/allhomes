@@ -1,5 +1,11 @@
 # allhomes
 
+## Update October 2022
+
+**In mid October 2022, there was a major & breaking change to how Allhomes/Domain Group makes past sales data available through [allhomes.com.au](https://www.allhomes.com.au/). As a result, all methods provided by the `allhomes` package to extract past sales data have been invalidated. Until I have had an opportunity to carefully review these changes, I cannot say if or when a fix will be possible. Until then, sadly, you will not be able to download Allhomes past sales data through `allhomes`.**
+
+---
+
 ## Overview
 
 This is the repository for the `allhomes` R package. The main function that the package provides is `get_past_sales_data()` which extracts past sales data from [allhomes.com.au](https://www.allhomes.com.au/) for a (or multiple) suburb(s) and year(s).
