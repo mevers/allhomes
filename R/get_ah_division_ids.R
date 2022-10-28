@@ -66,14 +66,14 @@ get_ah_division_ids <- function(x, quiet = FALSE) {
                             stringr::str_to_lower(.data$name),
                             stringr::str_to_lower(.env$nm))) %>%
                         tidyr::separate(
-                            .data$name,
+                            "name",
                             c("division", "state", "postcode"),
                             sep = ", ") %>%
                         dplyr::select(
-                            .data$division,
-                            .data$state,
-                            .data$postcode,
-                            .data$value)
+                            "division",
+                            "state",
+                            "postcode",
+                            "value")
                     return(ret)
                 } else {
                     warning(

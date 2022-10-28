@@ -6,11 +6,11 @@ tokenise_column <- function(df, col, col_names) {
 
     df %>%
         tidyr::separate(
-            !!rlang::enquo(col),
+            {{ col }},
             c("tmp", col_names),
             sep = sprintf(
                 "(%s)", paste0(paste0(col_names, ":"), collapse = "|"))) %>%
-        dplyr::select(-.data$tmp) %>%
+        dplyr::select(-"tmp") %>%
         dplyr::mutate(dplyr::across(dplyr::everything(), stringr::str_trim))
 
 }
@@ -86,7 +86,7 @@ extract_past_sales_data <- function(division_id,
         top <- raw_table %>%
             dplyr::slice(which(dplyr::row_number() %% 3L == 1L)) %>%
             dplyr::select(tmp = 1) %>%
-            tokenise_column(.data$tmp, top_cols)
+            tokenise_column("tmp", top_cols)
 
         # Bottom row
         bottom_cols <- c(
@@ -105,7 +105,7 @@ extract_past_sales_data <- function(division_id,
         extra <- raw_table %>%
             dplyr::slice(which(dplyr::row_number() %% 3L == 0L)) %>%
             dplyr::select(tmp = 1) %>%
-            tokenise_column(.data$tmp, extra_cols)
+            tokenise_column("tmp", extra_cols)
 
         # Combine top, bottom and extra
         ret <- dplyr::bind_cols(top, bottom, extra) %>%
@@ -161,7 +161,7 @@ get_past_sales_data <- function(suburb, year, quiet = FALSE) {
         purrr::map_dfr(
             ~ get_ah_division_ids(.x, quiet = quiet) %>%
                 dplyr::mutate(year = list(.env$year)) %>%
-                tidyr::unnest(.data$year) %>%
+                tidyr::unnest("year") %>%
                 dplyr::mutate(data = purrr::pmap(
                     list(.data$value, .data$year, .env$quiet),
                     extract_past_sales_data)) %>%
