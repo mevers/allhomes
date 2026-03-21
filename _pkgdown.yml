@@ -11,5 +11,4 @@ articles:
 - title: Case studies
   navbar: Case studies
   contents:
-  - articles/UV_model
   - articles/spatial_median_price
