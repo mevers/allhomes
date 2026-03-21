@@ -2,12 +2,11 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/mevers/allhomes/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mevers/allhomes/actions/workflows/R-CMD-check.yaml)
-[![Codecov test coverage](https://codecov.io/gh/mevers/allhomes/branch/main/graph/badge.svg)](https://app.codecov.io/gh/mevers/allhomes?branch=main)
 [![Codecov test coverage](https://codecov.io/gh/mevers/allhomes/graph/badge.svg)](https://app.codecov.io/gh/mevers/allhomes)
 <!-- badges: end -->
 
 
-The goal of allhomes is to extract past sales data for specific suburb(s) and year(s) from the Australian property website [allhomes.com.au](https://www.allhomes.com.au/). Allhomes data include the address and property details, date and price of the sale, block size and unimproved value of properties mainly in the ACT and NSW.
+The goal of `allhomes` is to extract past sales data for specific suburb(s) and year(s) from the Australian property website [allhomes.com.au](https://www.allhomes.com.au/). Allhomes data include the address and property details, date and price of the sale, block size and unimproved value of properties mainly in the ACT and NSW.
 
 ## Installation
 
@@ -59,7 +58,7 @@ Changes to the Allhomes website have required the data extraction method to shif
 - **Reliability**: GraphQL allows for more consistent data retrieval, reducing the risk of breakage from website layout changes. However, this reliability depends on the SHA256 hash for persisted queries not changing; if the server-side hash changes, requests will fail. 
 - **Efficiency**: Paginated data is fetched directly, avoiding the need to scrape multiple HTML pages.
 
-For technical details on the GraphQL implementation, refer to the internal documentation (`allhomes_graphql_scraping_brief.md`).
+For technical details on the GraphQL implementation, refer to the [data extraction brief](https://github.com/mevers/allhomes/blob/main/allhomes_data_extraction_brief.md).
 
 ## Datasets
 

@@ -26,9 +26,9 @@ Download 2021 past sales data for all Leichhardt suburbs. We use the internal da
 
 ```{r download-data, cache = TRUE}
 # Get all Leichhardt suburbs
-suburbs <- divisions_NSW %>%
-    filter(sa3_name_2016 == "Leichhardt") %>%
-    unite(suburb, division, state, sep = ", ") %>%
+suburbs <- divisions_NSW |>
+    filter(sa3_name_2016 == "Leichhardt") |>
+    unite(suburb, division, state, sep = ", ") |>
     pull(suburb)
 suburbs
 
