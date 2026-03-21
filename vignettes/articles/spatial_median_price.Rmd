@@ -33,7 +33,7 @@ We load necessary non-base R libraries.
 ```{r setup, warning=FALSE, message=FALSE}
 library(allhomes)
 library(tidyverse)
-library(strayr)
+library(strayr)    # Install with `remotes::install_github("runapp-aus/strayr")`
 library(sf)
 library(leaflet)
 library(htmltools)
@@ -47,10 +47,14 @@ library(htmltools)
 We obtain 2021 statistical area 2 (SA2) geospatial data provided by the ABS through `strayr`, and only keep records for areas in the ACT. SA2 names sometimes include the territory name, so we clean names by removing the territory name if present. We then store all cleaned SA2 names in preparation for using these names in the past sales `allhomes` search.
 
 ```{r spatial-data-ACT, cache = TRUE, message = FALSE, warning = FALSE}
-data_spatial <- read_absmap("sa22021") %>%
-    filter(state_name_2021 == "Australian Capital Territory") %>%
+data_spatial <- read_absmap("sa22021") |>
+    filter(state_name_2021 == "Australian Capital Territory") |>
     mutate(sa2_name_2021 = str_remove_all(sa2_name_2021, "\\s\\(ACT\\).*$"))
-sa2_names <- data_spatial %>% pull(sa2_name_2021) %>% unique() %>% sort()
+sa2_names <- data_spatial |> 
+    pull(sa2_name_2021) %>% 
+    unique() |> 
+    sort() |>
+    str_subset("-|No usual", negate = TRUE)
 ```
 
 ## Allhomes past sales data
@@ -58,7 +62,9 @@ sa2_names <- data_spatial %>% pull(sa2_name_2021) %>% unique() %>% sort()
 We now get past sales data for all suburbs as given in `sa2_names` for the years 2021 and 2022. Since `get_past_sale_data()` requires suburbs to be specified in format "suburb_name, state/territory_abbreviation", we append `", ACT"` to entries in `sa2_names`. This process may take a few minutes.
 
 ```{r get-allhomes-data, message = FALSE, cache = TRUE}
-data_allhomes <- get_past_sales_data(sa2_names %>% paste0(", ACT"), 2021L:2022L)
+data_allhomes <- sa2_names |> paste0(", ACT") |> 
+    map_dfr(function(burb) 
+        map_dfr(2021L:2022L, function(yr) get_past_sales_data(burb, yr)))
 ```
 
 
@@ -67,17 +73,16 @@ data_allhomes <- get_past_sales_data(sa2_names %>% paste0(", ACT"), 2021L:2022L)
 We now combine geospatial and Allhomes past sales data; we use an inner-join to filter out suburbs without any UV data, and summarise UV data per property sale to give a median as well as upper and lower 95% quantile band values for the UV per square metre for every suburb. Prior to aggregating UV data we keep only those entries where the block size is between 100 and 2000 sqm and the unimproved value exceeds $100; this is to filter out large scale commercial sales and zero-UV-value outliers.
 
 ```{r join-data-for-plotting}
-data <- data_spatial %>%
+data <- data_spatial |>
     inner_join(
-        data_allhomes %>%
-            filter(between(block_size, 100, 2000), unimproved_value > 100) %>%
-            mutate(UV_per_sqm = unimproved_value / block_size) %>%
-            group_by(division) %>%
-            summarise(
+        data_allhomes |>
+            filter(between(block_size, 100, 2000), unimproved_value > 100) |>
+            mutate(UV_per_sqm = unimproved_value / block_size) |>
+            reframe(
                 UV_per_sqm = quantile(
                     UV_per_sqm, probs = c(0.025, 0.5, 0.975), na.rm = TRUE),
                 quant = c("l", "m", "h"),
-                .groups = "drop") %>%
+                .by = division) |>
             pivot_wider(names_from = "quant", values_from = "UV_per_sqm"),
         by = c("sa2_name_2021" = "division"))
 ```

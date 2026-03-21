@@ -2,29 +2,30 @@
 % Please edit documentation in R/get_past_sales_data.R
 \name{get_past_sales_data}
 \alias{get_past_sales_data}
-\title{Extract Allhomes past sales data for a/multiple suburb(s) and year(s).}
+\title{Extract historical Allhomes past sales data for an ACT/NSW suburb.}
 \usage{
-get_past_sales_data(suburb, year, quiet = FALSE)
+get_past_sales_data(suburb, year, max_entries = 5000)
 }
 \arguments{
-\item{suburb}{A \code{character} vector denoting a/multiple suburbs. Format for
-every entry must be "suburb_name, state/territory_abbreviation", e.g.
-"Balmain, ACT".}
+\item{suburb}{A \code{character} scalar denoting a specific suburb. Format must
+be "<suburb_name>, <state/territory_abbreviation>", e.g. "Balmain, ACT".}
 
-\item{year}{An \code{integer} vector denoting the year(s).}
+\item{year}{An \code{integer} scalar denoting the year. If \code{NULL}, then \emph{all}
+historical data for \code{suburb} are returned. Otherwise sales data for the
+indicated \code{year} are returned.}
 
-\item{quiet}{If \code{TRUE} then messages are suppressed. Currently ignored.}
+\item{max_entries}{The maximum number of records returned. Defaults to 5000.}
 }
 \value{
 A \code{tibble}.
 }
 \description{
-Extract Allhomes past sales data for a/multiple suburb(s) and year(s).
+Extract historical Allhomes past sales data for an ACT/NSW suburb.
 }
 \examples{
 \donttest{
 get_past_sales_data(
-    c("Balmain, NSW", "Acton, ACT", "Nowra, NSW"),
-    2020L:2021L)
+    "Balmain, NSW",
+    2020L)
 }
 }

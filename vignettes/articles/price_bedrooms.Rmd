@@ -27,7 +27,9 @@ Download past sales data for three northern Canberra suburbs from the last 5 yea
 # Get data for three ACT suburbs from the last 5 years 
 suburbs <- c("Watson, ACT", "Ainslie, ACT", "Downer, ACT")
 years <- 2018L:2022L
-data <- get_past_sales_data(suburbs, years)
+data <- suburbs |> 
+    map_dfr(function(burb) 
+        map_dfr(years, function(yr) get_past_sales_data(burb, yr)))
 ```
 
 We show the distribution of sale prices as a function of the number of bedrooms.

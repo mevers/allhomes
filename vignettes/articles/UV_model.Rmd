@@ -45,23 +45,24 @@ pal <- wes_palette("GrandBudapest1", n = 3)
 We get past sales for all suburbs in ACT's Woden Valley from the last 10 years. This is easily done by using the `allhomes::divisions_ACT` dataset, and then filter divisions (i.e. suburbs) based on their corresponding [SA3 regions](https://www.abs.gov.au/ausstats/abs@.nsf/Lookup/by%20Subject/1270.0.55.001~July%202016~Main%20Features~Statistical%20Area%20Level%203%20(SA3)~10015).
 
 ```{r data, message = FALSE, cache = TRUE}
-data <- get_past_sales_data(
-    divisions_ACT %>%
-        filter(sa3_name_2016 == "Woden Valley") %>%
-        unite(suburb, division, state, sep = ", ") %>%
-        pull(suburb),
-    2011L:2020L)
+suburbs <- divisions_ACT |>
+        filter(sa3_name_2016 == "Woden Valley") |>
+        unite(suburb, division, state, sep = ", ") |>
+        pull(suburb)
+data <- suburbs |> 
+    map_dfr(function(burb) 
+        map_dfr(2011L:2020L, function(yr) get_past_sales_data(burb, yr)))
 ```
 
 
 # Data processing
 
-Since we want to build a predictive model that allows us to estimate the residential unimproved value (UV) of a property based on its block size and location, we keep only those records where we have data for the UV and block size (i.e. we
-omit records where any of these fields are `NA`) and further limit block sizes to less than 2000 sqm and UVs to less than 2 million dollars (this is to exclude large commercial purchases).
+Since we want to build a predictive model that allows us to estimate the residential unimproved value (UV) of a property based on its block size and location, we keep only those records where we have data for the UV and block size (i.e. we omit records where any of these fields are `NA`) and further limit block sizes to less than 2000 sqm and UVs to less than 2 million dollars (this is to exclude large commercial purchases).
 
 ```{r data-model}
-data_model <- data %>%
-    select(division, unimproved_value, block_size, year) %>%
+data_model <- data |>
+    mutate(year = as.integer(year(contract_date))) |>
+    select(division, unimproved_value, block_size, year) |>
     filter(
         if_all(everything(), ~ !is.na(.x) & .x > 0),
         block_size < 2000, unimproved_value < 2e6) %>%

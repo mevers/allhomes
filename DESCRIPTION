@@ -1,28 +1,24 @@
 Package: allhomes
 Title: Extract Past Sales Data from Allhomes.com.au
-Version: 0.3.0
+Version: 0.4.0
 Authors@R: 
     person("Maurits", "Evers", , "maurits.evers@gmail.com", role = c("aut", "cre"))
 Description: Extract past sales data for specific suburb(s) and year(s) from the Australian property website <https://www.allhomes.com.au>. Allhomes data include the address and property details, date and price of the sale, block size and unimproved value of properties mainly in the ACT and NSW.
 Language: en-AU
 License: MIT + file LICENSE
-Depends: R (>= 4.0)
+Depends: R (>= 4.1.0)
 Imports: 
     dplyr,
-    htmltab,
-    httr,
+    httr2,
     jsonlite,
-    magrittr,
     purrr,
-    readr,
-    rlang,
-    tibble,
     tidyr,
+    tibble,
     stringr
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.3
 Suggests: 
     knitr,
     rmarkdown,

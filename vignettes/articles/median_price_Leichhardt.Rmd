@@ -33,19 +33,21 @@ suburbs <- divisions_NSW %>%
 suburbs
 
 # Get data for Leichhardt suburbs
-years <- 2021L
-data <- get_past_sales_data(suburbs, years)
+data <- suburbs |> map(get_past_sales_data, year = 2021L) |> bind_rows()
 ```
 
 We show the distribution and median value of sale prices of properties across different suburbs in the Sydney Leichhardt area in 2021.
 
 ```{r plot-sales-data, fig.height = 5, out.width = "100%"}
 # Plot
-data %>%
-    filter(!is.na(price), price > 1e3) %>%
-    ggplot(aes(division, price)) +
-    geom_quasirandom() +
-    stat_summary(fun = median, geom = "crossbar", lwd = 0.5) +
+data |>
+    filter(!is.na(price), price > 1e3) |>
+    mutate(median_price = median(price), .by = property_type) |>
+    ggplot(aes(division, price, colour = property_type)) +
+    geom_quasirandom(dodge.width = 0.8) +
+    geom_errorbar(
+        aes(ymin = median_price, ymax = median_price), 
+        position = position_dodge(width = 0.8)) +
     scale_y_continuous(
         labels = scales::label_dollar(scale = 1e-6, suffix = "M")) +
     labs(x = "Leichhardt suburb", y = "Sales price") +

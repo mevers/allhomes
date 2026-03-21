@@ -1,96 +1,76 @@
 # allhomes
 
-## Update October 2022
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/mevers/allhomes/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mevers/allhomes/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/mevers/allhomes/branch/main/graph/badge.svg)](https://app.codecov.io/gh/mevers/allhomes?branch=main)
+<!-- badges: end -->
 
-**In mid October 2022, there was a major & breaking change to how Allhomes/Domain Group makes past sales data available through [allhomes.com.au](https://www.allhomes.com.au/). As a result, all methods provided by the `allhomes` package to extract past sales data have been invalidated. Until I have had an opportunity to carefully review these changes, I cannot say if or when a fix will be possible. Until then, sadly, you will not be able to download Allhomes past sales data through `allhomes`.**
 
----
-
-## Overview
-
-This is the repository for the `allhomes` R package. The main function that the package provides is `get_past_sales_data()` which extracts past sales data from [allhomes.com.au](https://www.allhomes.com.au/) for a (or multiple) suburb(s) and year(s).
-
+The goal of allhomes is to extract past sales data for specific suburb(s) and year(s) from the Australian property website [allhomes.com.au](https://www.allhomes.com.au/). Allhomes data include the address and property details, date and price of the sale, block size and unimproved value of properties mainly in the ACT and NSW.
 
 ## Installation
 
-Install the package from CRAN
+You can install allhomes from [GitHub](https://github.com/mevers/allhomes) with:
 
-```r
-install.packages("allhomes")
-```
-
-Or directly from GitHub
-
-```r
+``` r
+# install.packages("remotes")
 remotes::install_github("mevers/allhomes")
 ```
 
+(Note: The package is no longer available on CRAN.)
 
-## Details
+## Usage
 
-The function `get_past_sales_data()` takes the following two arguments:
+The main function is `get_past_sales_data()`, which extracts past sales data for a given suburb and year.
 
-- `suburb`: This is a `character` vector denoting a (or multiple) suburbs. Every entry must be of the form "<suburb_name>, <state/territory_abbreviation>", e.g. "Balmain, NSW".
-- `year`: This is an `numeric` or `integer` vector of the the year(s) of the sales history.
+``` r
+library(allhomes)
 
-Example:
-
-```r
-get_past_sales_data("Balmain, NSW", 2019) %>% print(width = 100)
-#[2022-07-27 14:52:47] Looking up division ID for suburb='Balmain, NSW'...
-#[2022-07-27 14:52:47] URL: https://www.allhomes.com.au/svc/locality/searchallbyname?st=NSW&n=balmain
-#[2022-07-27 14:52:47] Finding data for ID=7857, year=2019...
-#[2022-07-27 14:52:47] URL: https://www.allhomes.com.au/ah/research/_/120785712/sale-history?year=2019
-#[2022-07-27 14:52:48] Found 229 entries.
-## A tibble: 229 × 27
-#   divis…¹ state postc…² value  year address bedro…³ bathr…⁴ ensui…⁵ garages carpo…⁶ contr…⁷ trans…⁸
-#   <chr>   <chr> <chr>   <int> <dbl> <chr>     <dbl>   <dbl> <lgl>     <dbl> <lgl>   <chr>   <chr>  
-# 1 Balmain NSW   2041     7857  2019 1 Long…      NA      NA NA           NA NA      06/12/… 02/04/…
-# 2 Balmain NSW   2041     7857  2019 7 Alex…      NA      NA NA           NA NA      30/08/… 16/10/…
-# 3 Balmain NSW   2041     7857  2019 29 Bir…      NA      NA NA           NA NA      25/10/… 06/12/…
-# 4 Balmain NSW   2041     7857  2019 2 Well…       6       3 NA            4 NA      25/05/… 26/08/…
-# 5 Balmain NSW   2041     7857  2019 109 Mo…       4       2 NA            2 NA      25/02/… 08/04/…
-# 6 Balmain NSW   2041     7857  2019 10 Tha…       4       2 NA            4 NA      05/10/… 16/12/…
-# 7 Balmain NSW   2041     7857  2019 3/100 …      NA      NA NA           NA NA      18/07/… 06/09/…
-# 8 Balmain NSW   2041     7857  2019 160 Be…       5       4 NA            1 NA      18/10/… 13/12/…
-# 9 Balmain NSW   2041     7857  2019 25 Isa…      NA      NA NA           NA NA      01/05/… 02/09/…
-#10 Balmain NSW   2041     7857  2019 71 Mor…       4       2 NA            2 NA      24/05/… 05/07/…
-## … with 219 more rows, 14 more variables: list_date <chr>, price <dbl>, block_size <dbl>,
-##   transfer_type <chr>, full_sale_price <dbl>, days_on_market <dbl>, sale_type <lgl>,
-##   sale_record_source <chr>, building_size <lgl>, land_type <lgl>, property_type <lgl>,
-##   purpose <chr>, unimproved_value <lgl>, unimproved_value_ratio <lgl>, and abbreviated variable
-##   names ¹​division, ²​postcode, ³​bedrooms, ⁴​bathrooms, ⁵​ensuites, ⁶​carports, ⁷​contract_date,
-##   ⁸​transfer_date
-## ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names
+# Get sales data for Balmain, NSW in 2019
+sales <- get_past_sales_data("Balmain, NSW", 2019)
+sales
+## A tibble: 286 × 22
+#   contract_date address     division state postcode url   property_type purpose bedrooms bathrooms parking building_size block_size
+#   <date>        <chr>       <chr>    <chr> <chr>    <chr> <chr>         <chr>      <int>     <int>   <int> <lgl>              <int>
+# 1 2019-11-16    2 Adolphus… Balmain  NSW   2041     http… NA            "RESID…       NA        NA      NA NA                   234
+# 2 NA            1 Wisbeach… Balmain  NSW   2041     http… HOUSE          NA            1         1       0 NA                    NA
+# 3 2019-11-19    75/24 Buch… Balmain  NSW   2041     http… NA            "RESID…       NA        NA      NA NA                    NA
+# 4 2019-12-23    73-79 Beat… Balmain  NSW   2041     http… NA            "RESID…       NA        NA      NA NA                   278
+# 5 2019-10-24    4 Gladston… Balmain  NSW   2041     http… HOUSE         "RESID…        2         1       0 NA                    87
+# 6 2019-11-07    128/85 Rey… Balmain  NSW   2041     http… NA            "RESID…       NA        NA      NA NA                    NA
+# 7 2019-11-01    21 Phillip… Balmain  NSW   2041     http… HOUSE         "RESID…        2         2       0 NA                   127
+# 8 2019-11-24    43 Beattie… Balmain  NSW   2041     http… NA            "RESID…       NA        NA      NA NA                   133
+# 9 NA            491 Darlin… Balmain  NSW   2041     http… NA            ""            NA        NA      NA NA                   118
+#10 2019-11-15    26 Little … Balmain  NSW   2041     http… NA            "RESID…       NA        NA      NA NA                   126
+## ℹ 276 more rows
+## ℹ 9 more variables: eer <int>, list_date <date>, transfer_date <date>, days_on_market <int>, label <chr>, price <int>,
+##   agent <chr>, unimproved_value <int>, unimproved_value_ratio <dbl>
+## ℹ Use `print(n = ...)` to see more rows
 ```
 
-Under the hood, the function `get_past_sales_data()` first calls a helper function `get_ah_division_ids()` that determines for every `suburb` entry the Allhomes "division" name and ID. The division ID is then used to extract past sales data from the Allhomes website using the low-level function `extract_past_sales_data()`.
+**Note:** As of March 2026, the function arguments `suburb` and `year` must be scalars. Users are responsible for looping over multiple suburbs and/or years if needed.
 
-Currently, there are limited sanity checks in place to verify if past sales data are available for a particular suburb and year. Allhomes does not have data for all suburbs and years (for example, Allhomes past sales data for Victoria is pretty much absent).
+## Data extraction changes
 
-`allhomes` also provides two datasets `divisions_ACT` and `divisions_NSW` that list division names and IDs for all Allhomes divisions (suburbs) in the ACT and NSW, respectively.
+Changes to the Allhomes website have required the data extraction method to shift from scraping (static) HTML pages to using Allhomes' GraphQL API. This change leverages the website's dynamic data loading via a GraphQL endpoint (`/graphql`), which provides structured JSON responses for sales history data. Key improvements include:
 
+- **Direct API Access**: Instead of parsing rendered HTML, the package now queries the GraphQL API with persisted queries and variables (e.g., locality slug, filters, pagination).
+- **Reliability**: GraphQL allows for more consistent data retrieval, reducing the risk of breakage from website layout changes. However, this reliability depends on the SHA256 hash for persisted queries not changing; if the server-side hash changes, requests will fail. 
+- **Efficiency**: Paginated data is fetched directly, avoiding the need to scrape multiple HTML pages.
 
-## Getting involved
+For technical details on the GraphQL implementation, refer to the internal documentation (`allhomes_graphql_scraping_brief.md`).
 
-Please report any bugs as [GitHub issues](https://github.com/mevers/allhomes/issues). If you like to get involved, please get in touch and/or submit a PR.
+## Datasets
 
+allhomes also provides two datasets:
 
-## Further comments
+- `divisions_ACT`: Division names and IDs for the ACT.
+- `divisions_NSW`: Division names and IDs for NSW.
 
-### Allhomes localities
+## Contributing
 
-The (unofficial) Allhomes API distinguishes between different types of "localities"; in increasing level of granularity these are: state > region > district > division > street > address. Divisions (roughly) correspond to suburbs. The `allhomes` package pulls in past sales data at the division (i.e. suburb) level.
-
-### Allhomes past sales data
-
-Allhomes (which is part of [Domain Group](https://en.wikipedia.org/wiki/Domain_Group)) receives historical past sales data from relevant state departments. Some details on Allhomes' data retention are given [here](https://help.allhomes.com.au/hc/en-us/articles/360055268773-Removal-of-historical-sales-data).
-
-While there seems to exist an (unofficial) Allhomes API to query IDs (which are necessary for looking up past sales data), past sales data themselves need to be scraped from somewhat awkwardly-formatted static HTML tables. Data for every sale is stored within a `<tbody>` element; within every `<tbody>` element, individual values (address, price, dates, block size, etc.) are spread across 3 lines, each contained within a `<td>` element; unfortunately, the format of every line is not consistent.
-
+Please report bugs and request features on [GitHub](https://github.com/mevers/allhomes/issues). Pull requests are welcome!
 
 ## Disclaimer
 
-This project is neither related to nor endorsed by [allhomes.com.au](https://www.allhomes.com.au/). With changes to how Allhomes (and Domain group) manages and formats data, some or all of the functions might break at any time. There is also no guarantee that historical past sales data won't change.
-
-All data provided are subject to the [allhomes "Advertising Sales Agreement terms and conditions - All Homes Pty Ltd"](https://www.allhomes.com.au/ah/advertising-terms/).
+This package is not affiliated with or endorsed by [allhomes.com.au](https://www.allhomes.com.au/). Functions may break if the website changes its data format. Historical data may also be updated or removed by Allhomes. All data provided are subject to the [Domain General Terms and Conditions](https://www.domain.com.au/group/domain-general-terms-and-conditions/).
