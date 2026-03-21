@@ -44,3 +44,31 @@ format_slug <- function(suburb) {
 }
 
 
+#' @importFrom rlang :=
+unnest_wider_safe <- function(data, col) {
+
+    col <- dplyr::enquo(col)
+    if (dplyr::quo_name(col) %in% names(data)) {
+        data |> tidyr::unnest_wider(!!col, names_sep = "_")
+    } else {
+        data |> dplyr::mutate(!!dplyr::quo_name(col) := NA)
+    }
+
+}
+
+
+#' @importFrom rlang :=
+select_rename_safe <- function(data, ...) {
+
+    cols <- dplyr::enquos(...)
+    ret <- data
+    for (i in seq_along(cols)) {
+        if (!dplyr::quo_name(cols[[i]]) %in% names(ret)) {
+            ret <- ret |> dplyr::mutate(!!names(cols)[i] := NA)
+        } else {
+            ret <- ret |> dplyr::rename(!!names(cols)[i] := !!cols[[i]])
+        }
+    }
+
+    ret |> dplyr::select(!!!names(cols))
+}

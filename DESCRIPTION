@@ -12,6 +12,7 @@ Imports:
     httr2,
     jsonlite,
     purrr,
+    rlang,
     tidyr,
     tibble,
     stringr

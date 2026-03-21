@@ -25,24 +25,24 @@ format_sales_data_from_json <- function(json) {
 
     df |>
         # Unnest listing field
-        tidyr::unnest_wider(listing, names_sep = "_") |>
+        unnest_wider_safe(listing) |>
         # Unnest features field
-        tidyr::unnest_wider(features, names_sep = "_") |>
-        tidyr::unnest_wider(features_bathrooms, names_sep = "_") |>
-        tidyr::unnest_wider(features_parking, names_sep = "_") |>
+        unnest_wider_safe(features) |>
+        unnest_wider_safe(features_bathrooms) |>
+        unnest_wider_safe(features_parking) |>
         # Unnest address field
-        tidyr::unnest_wider(address, names_sep = "_") |>
-        tidyr::unnest_wider(address_division, names_sep = "_") |>
-        tidyr::unnest_wider(address_state, names_sep = "_") |>
+        unnest_wider_safe(address) |>
+        unnest_wider_safe(address_division) |>
+        unnest_wider_safe(address_state) |>
         # Unnest agents field
-        tidyr::unnest_wider(agents, names_sep = "_") |>
-        tidyr::unnest_wider(agents_1, names_sep = "_") |>
-        tidyr::unnest_wider(agents_2, names_sep = "_") |>
-        tidyr::unnest_wider(agents_1_agency, names_sep = "_") |>
+        unnest_wider_safe(agents) |>
+        unnest_wider_safe(agents_1) |>
+        unnest_wider_safe(agents_2) |>
+        unnest_wider_safe(agents_1_agency) |>
         # Unnest transfer field
-        tidyr::unnest_wider(transfer, names_sep = "_") |>
+        unnest_wider_safe(transfer) |>
         # Clean up
-        dplyr::select(
+        select_rename_safe(
             contract_date = transfer_contractDate,
             address = address_line1,
             division = address_division_name,
