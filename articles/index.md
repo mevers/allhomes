@@ -10,7 +10,5 @@
 
 ### Case studies
 
-- [Modelling the unimproved value in the ACT's Woden
-  Valley](https://mevers.github.io/allhomes/articles/UV_model.md):
 - [Variability of the unimproved value per sqm across the
   ACT](https://mevers.github.io/allhomes/articles/spatial_median_price.md):

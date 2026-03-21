@@ -14,9 +14,9 @@ suburbs within the SA3 Leichhardt area.
 
 ``` r
 # Get all Leichhardt suburbs
-suburbs <- divisions_NSW %>%
-    filter(sa3_name_2016 == "Leichhardt") %>%
-    unite(suburb, division, state, sep = ", ") %>%
+suburbs <- divisions_NSW |>
+    filter(sa3_name_2016 == "Leichhardt") |>
+    unite(suburb, division, state, sep = ", ") |>
     pull(suburb)
 suburbs
 #> [1] "Annandale, NSW"    "Balmain, NSW"      "Balmain East, NSW"

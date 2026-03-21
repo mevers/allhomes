@@ -41,7 +41,6 @@
     <li><a class="dropdown-item" href="articles/median_price_Leichhardt.html">Median sale prices across Sydney Leichhardt suburbs in 2021</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Case studies</h6></li>
-    <li><a class="dropdown-item" href="articles/UV_model.html">Modelling the unimproved value in the ACT's Woden Valley</a></li>
     <li><a class="dropdown-item" href="articles/spatial_median_price.html">Variability of the unimproved value per sqm across the ACT</a></li>
   </ul>
 </li>
@@ -63,7 +62,7 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of allhomes is to extract past sales data for specific suburb(s) and year(s) from the Australian property website <a href="https://www.allhomes.com.au/" class="external-link">allhomes.com.au</a>. Allhomes data include the address and property details, date and price of the sale, block size and unimproved value of properties mainly in the ACT and NSW.</p>
+<p>The goal of <code>allhomes</code> is to extract past sales data for specific suburb(s) and year(s) from the Australian property website <a href="https://www.allhomes.com.au/" class="external-link">allhomes.com.au</a>. Allhomes data include the address and property details, date and price of the sale, block size and unimproved value of properties mainly in the ACT and NSW.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -114,7 +113,7 @@
 <li>
 <strong>Efficiency</strong>: Paginated data is fetched directly, avoiding the need to scrape multiple HTML pages.</li>
 </ul>
-<p>For technical details on the GraphQL implementation, refer to the internal documentation (<code>allhomes_graphql_scraping_brief.md</code>).</p>
+<p>For technical details on the GraphQL implementation, refer to the <a href="https://github.com/mevers/allhomes/blob/main/allhomes_data_extraction_brief.md" class="external-link">data extraction brief</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="datasets">Datasets<a class="anchor" aria-label="anchor" href="#datasets"></a>
@@ -172,7 +171,6 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/mevers/allhomes/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/mevers/allhomes/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://app.codecov.io/gh/mevers/allhomes?branch=main" class="external-link"><img src="https://codecov.io/gh/mevers/allhomes/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://app.codecov.io/gh/mevers/allhomes" class="external-link"><img src="https://codecov.io/gh/mevers/allhomes/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>

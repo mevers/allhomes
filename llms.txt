@@ -1,6 +1,6 @@
 # allhomes
 
-The goal of allhomes is to extract past sales data for specific
+The goal of `allhomes` is to extract past sales data for specific
 suburb(s) and year(s) from the Australian property website
 [allhomes.com.au](https://www.allhomes.com.au/). Allhomes data include
 the address and property details, date and price of the sale, block size
@@ -71,8 +71,9 @@ for sales history data. Key improvements include:
 - **Efficiency**: Paginated data is fetched directly, avoiding the need
   to scrape multiple HTML pages.
 
-For technical details on the GraphQL implementation, refer to the
-internal documentation (`allhomes_graphql_scraping_brief.md`).
+For technical details on the GraphQL implementation, refer to the [data
+extraction
+brief](https://github.com/mevers/allhomes/blob/main/allhomes_data_extraction_brief.md).
 
 ## Datasets
 
@@ -119,7 +120,5 @@ Conditions](https://www.domain.com.au/group/domain-general-terms-and-conditions/
 
 ### Case studies
 
-- [Modelling the unimproved value in the ACT's Woden
-  Valley](https://mevers.github.io/allhomes/articles/UV_model.md):
 - [Variability of the unimproved value per sqm across the
   ACT](https://mevers.github.io/allhomes/articles/spatial_median_price.md):
