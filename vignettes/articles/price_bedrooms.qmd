@@ -1,0 +1,107 @@
+---
+title: "Analysing property prices by number of bedrooms in North Canberra suburbs"
+format: html
+vignette: >
+  %\VignetteIndexEntry{Analysing property prices by number of bedrooms in North Canberra suburbs}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+This vignette demonstrates how to use the `allhomes` package to extract and analyse historical property sales data from [allhomes.com.au](https://www.allhomes.com.au). We'll focus on exploring the relationship between property prices and the number of bedrooms in three northern Canberra suburbs: Watson, Ainslie, and Downer. By analysing sales data from 2018 to 2022, we'll create visualisations to understand price distributions across different bedroom counts.
+
+The `allhomes` package provides access to detailed sales data, including property features, sale prices, and dates. This example shows how to collect data for multiple suburbs and years, clean it, and perform basic exploratory data analysis.
+
+## Setup
+
+First, load the required packages. We'll use `allhomes` for Allhomes sales data extraction and `tidyverse` for data manipulation and visualisation.
+
+```{r setup, warning = FALSE, message = FALSE}
+library(allhomes)
+library(tidyverse)
+```
+
+## Data collection
+
+The `get_past_sales_data()` function retrieves sales data for a specific suburb and year. We'll collect data for three suburbs over five years (2018-2022) using a nested `purrr::map_dfr` approach.
+
+```{r download-data, cache = TRUE}
+# Define suburbs and years
+suburbs <- c("Watson, ACT", "Ainslie, ACT", "Downer, ACT")
+years <- 2018L:2022L
+
+# Collect data using nested map_dfr
+data <- suburbs |> 
+    map_dfr(function(burb) 
+        map_dfr(years, function(yr) 
+            get_past_sales_data(burb, yr) |> 
+                mutate(suburb_name = burb, sale_year = yr)))
+
+# Check the structure of the collected data
+glimpse(data)
+```
+
+## Data exploration
+
+Let's examine the collected data. We'll look at the total number of sales, data completeness, and basic statistics.
+
+```{r data-summary}
+# Summary statistics
+data %>%
+    group_by(suburb_name, sale_year) |>
+    summarise(
+        total_sales = n(),
+        sales_with_bedrooms = sum(!is.na(bedrooms) & bedrooms > 0),
+        sales_with_price = sum(!is.na(price) & price > 0),
+        median_price = median(price, na.rm = TRUE),
+        .groups = "drop") |>
+    knitr::kable(caption = "Summary of sales data by suburb and year")
+```
+
+## Price analysis by bedrooms
+
+Now we'll analyse how property prices vary with the number of bedrooms. We'll filter for valid data and create a boxplot to visualise price distributions.
+
+```{r plot-sales-prices, fig.height = 6, out.width = "100%"}
+# Filter and prepare data for plotting
+plot_data <- data |>
+    filter(
+        !is.na(bedrooms), bedrooms > 0, bedrooms <= 6, # Reasonable bedroom range
+         !is.na(price), price > 0, price < 10e6)       # Reasonable price range
+
+# Create boxplot
+plot_data |>
+    ggplot(aes(x = as.factor(bedrooms), y = price)) +
+    geom_boxplot() +
+    scale_y_continuous(
+        labels = scales::label_dollar(scale = 1e-6, suffix = "M")) +
+    facet_wrap(~ suburb_name) +
+    labs(
+        title = "Property sale prices by number of bedrooms",
+        subtitle = "Data from Watson, Ainslie, and Downer (ACT); 2018-2022",
+        x = "Number of bedrooms",
+        y = "Sale price (AUD)") +
+    theme_minimal()
+```
+
+## Insights
+
+From the visualisation, we can observe:
+
+- **Price trends**: Generally & unsurprisingly, properties with more bedrooms result in higher sale prices, though there exists significant variation within each category.
+- **Suburb differences**: Price distributions vary between suburbs, reflecting local market conditions.
+- **Data considerations**: Not all sales records include bedroom information, and some outliers may affect the distributions.
+
+This analysis provides a starting point for deeper exploration. Potential extensions could include:
+
+- Analysing price per bedroom
+- Examining trends over time
+- Including additional property features like bathrooms or land size

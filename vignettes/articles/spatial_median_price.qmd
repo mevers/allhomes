@@ -1,0 +1,184 @@
+---
+title: "Variability of the unimproved value per sqm across the ACT"
+format: html
+vignette: >
+  %\VignetteIndexEntry{Variability of the unimproved value per sqm across the ACT}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+This vignette demonstrates how to combine geospatial and property sales data to analyse the variability of unimproved land values across the Australian Capital Territory (ACT). We'll use the `allhomes` package to extract historical property sales data, combine it with Australian Bureau of Statistics (ABS) geospatial boundaries, and create interactive visualisations to understand spatial patterns in land values.
+
+The analysis focuses on unimproved values per square metre across ACT suburbs, providing insights into local property markets. By integrating sales data with statistical area boundaries, we can create detailed spatial analyses that reveal how land values vary across different regions of Canberra and surrounding areas.
+
+Key packages used include:
+
+- [`allhomes`](https://github.com/mevers/allhomes) for extracting Allhomes past sales data
+- [`strayr`](https://github.com/runapp-aus/strayr) for ABS statistical area geometries
+- [`leaflet`](https://github.com/rstudio/leaflet) for interactive maps
+- [`sf`](https://github.com/r-spatial/sf) for spatial data operations
+
+## Setup
+
+Load the required packages for data extraction, spatial analysis, and visualisation.
+
+```{r setup, warning = FALSE, message = FALSE}
+library(allhomes)
+library(tidyverse)
+library(strayr)    # Install with `remotes::install_github("runapp-aus/strayr")`
+library(sf)
+library(leaflet)
+library(htmltools)
+```
+
+## Data collection
+
+### Geospatial boundaries
+
+We obtain 2021 Statistical Area Level 2 (SA2) boundaries from the ABS through the [`strayr`](https://github.com/runapp-aus/strayr) package. SA2 regions typically represent suburbs within cities. We filter for ACT regions and clean the area names by removing territory suffixes.
+
+```{r spatial-data-ACT, cache = TRUE, message = FALSE, warning = FALSE}
+# Get ACT SA2 boundaries
+data_spatial <- read_absmap("sa22021") |>
+    filter(state_name_2021 == "Australian Capital Territory") |>
+    mutate(sa2_name_2021 = str_remove_all(sa2_name_2021, "\\s\\(ACT\\).*$"))
+
+# Extract unique suburb names for data collection
+sa2_names <- data_spatial |> 
+    pull(sa2_name_2021) %>% 
+    unique() |> 
+    sort() |>
+    str_subset("-|No usual", negate = TRUE)  # Remove non-standard areas
+
+# Display the suburbs we'll analyse
+sa2_names
+```
+
+### Property sales data
+
+Using the suburb names, we collect past sales data for 2021 and 2022 from Allhomes. The `get_past_sales_data()` function requires suburb names in the format "suburb_name, state/territory_abbreviation".
+
+```{r get-allhomes-data, message = FALSE, cache = TRUE}
+# Collect sales data for all ACT suburbs (2021-2022)
+# This may take several minutes depending on the number of suburbs
+data_allhomes <- sa2_names |> 
+    paste0(", ACT") |> 
+    map_dfr(function(suburb) 
+        map_dfr(2021L:2022L, function(year) 
+            get_past_sales_data(suburb, year)))
+```
+
+## Data exploration
+
+Let's examine the collected data to understand its structure and completeness.
+
+```{r data-summary}
+# Summary statistics by suburb
+data_summary <- data_allhomes %>%
+    group_by(division) |>
+    summarise(
+        total_sales = n(),
+        sales_with_uv = sum(!is.na(unimproved_value) & unimproved_value > 0),
+        sales_with_block_size = sum(!is.na(block_size) & block_size > 0),
+        median_uv = median(unimproved_value, na.rm = TRUE),
+        median_block_size = median(block_size, na.rm = TRUE),
+        .groups = "drop") |>
+    arrange(division)
+
+# Display summary table
+data_summary |>
+    knitr::kable(
+        caption = "Summary of sales data by ACT suburb (2021-2022)",
+        digits = 0,
+        format.args = list(big.mark = ","))
+```
+
+## Spatial analysis
+
+### Data preparation
+
+We combine the geospatial boundaries with sales data, filtering for valid property sales and calculating unimproved value per square metre. We focus on residential properties with block sizes between 100-2000 sqm and positive unimproved values to exclude commercial properties and outliers.
+
+```{r join-data-for-plotting}
+# Join spatial and sales data, calculate UV per sqm statistics
+data_combined <- data_spatial |>
+    inner_join(
+        data_allhomes |>
+            # Filter for residential properties
+            filter(between(block_size, 100, 2000), unimproved_value > 100) |>
+            # Calculate UV per square metre
+            mutate(uv_per_sqm = unimproved_value / block_size) |>
+            # Calculate quantiles by suburb
+            reframe(
+                uv_per_sqm = quantile(uv_per_sqm, probs = c(0.025, 0.5, 0.975), na.rm = TRUE),
+                quantile = c("lower_95", "median", "upper_95"),
+                .by = division) |>
+            # Reshape to wide format for mapping
+            pivot_wider(names_from = "quantile", values_from = "uv_per_sqm"),
+        by = c("sa2_name_2021" = "division"))
+```
+
+### Interactive map visualisation
+
+Create an interactive Leaflet map showing median unimproved values per square metre across ACT suburbs. The map includes hover information showing the 95% confidence interval for each area.
+
+```{r plot-interactive-ACT, out.width = "100%"}
+# Create color palette based on median UV values
+pal <- colorNumeric("YlOrRd", domain = data_combined$median)
+
+# Generate interactive map
+leaflet(data = data_combined, height = 600) %>%
+    addTiles() %>%
+    addPolygons(
+        fillColor = ~pal(median),
+        fillOpacity = 0.7,
+        color = "white",
+        weight = 1,
+        smoothFactor = 0.2,
+        highlightOptions = highlightOptions(
+            weight = 5,
+            color = "#666",
+            fillOpacity = 0.7,
+            bringToFront = TRUE),
+        label = sprintf(
+            "<strong>%s</strong><br/>Median UV/m²: %s<br/>95%% CI: [%s, %s]",
+            data_combined$sa2_name_2021, 
+            sprintf("$%.0f", data_combined$median),
+            sprintf("$%.0f", data_combined$lower_95), 
+            sprintf("$%.0f", data_combined$upper_95)) %>% 
+            map(HTML),
+        labelOptions = labelOptions(
+            style = list("font-weight" = "normal", padding = "3px 8px"),
+            textsize = "15px",
+            direction = "auto")) %>%
+    addLegend(
+        pal = pal, 
+        values = ~median, 
+        opacity = 0.7, 
+        title = "Unimproved Value (UV) per m²",
+        position = "bottomright")
+```
+
+## Insights
+
+From this spatial analysis of unimproved land values across the ACT, we can observe:
+
+- **Geographic variation**: Clear spatial patterns in land values across Canberra suburbs, reflecting proximity to major urban centers (Civic, Woden, Belconnen, etc.), amenities, and local market conditions
+- **Value ranges**: The 95% confidence intervals show the variability within each suburb, highlighting areas with more consistent vs. diverse land values
+- **Data quality**: The analysis excludes commercial properties and outliers to focus on residential land values
+
+This approach provides a foundation for understanding ACT property markets spatially. Potential extensions could include:
+
+- Analysing trends over multiple years to identify value changes
+- Incorporating additional property features (bedrooms, land size categories)
+- Comparing with other capital cities using similar methodologies
+- Investigating correlations with demographic or economic indicators
