@@ -2,8 +2,7 @@
 
 ### Simple examples
 
-- [Price as a function of the no. of bedrooms across three North
-  Canberra
+- [Analysing property prices by number of bedrooms in North Canberra
   suburbs](https://mevers.github.io/allhomes/articles/price_bedrooms.md):
 - [Median sale prices across Sydney Leichhardt suburbs in
   2021](https://mevers.github.io/allhomes/articles/median_price_Leichhardt.md):

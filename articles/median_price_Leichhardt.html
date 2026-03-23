@@ -10,7 +10,9 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Median sale prices across Sydney Leichhardt suburbs in 2021">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="median_price_Leichhardt_files/libs/quarto-html/popper.min.js"></script><script src="median_price_Leichhardt_files/libs/quarto-html/tippy.umd.min.js"></script><link href="median_price_Leichhardt_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="median_price_Leichhardt_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Median sale prices across Sydney Leichhardt suburbs in 2021">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -35,7 +37,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Simple examples</h6></li>
-    <li><a class="dropdown-item" href="../articles/price_bedrooms.html">Price as a function of the no. of bedrooms across three North Canberra suburbs</a></li>
+    <li><a class="dropdown-item" href="../articles/price_bedrooms.html">Analysing property prices by number of bedrooms in North Canberra suburbs</a></li>
     <li><a class="dropdown-item" href="../articles/median_price_Leichhardt.html">Median sale prices across Sydney Leichhardt suburbs in 2021</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Case studies</h6></li>
@@ -53,38 +55,49 @@
 
 
   </div>
-</nav><div class="container template-article">
-
-
-
-
+</nav><div class="container template-quarto">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Median sale prices across Sydney Leichhardt suburbs in 2021</h1>
-            
-      
 
-      <div class="d-none name"><code>median_price_Leichhardt.Rmd</code></div>
+
+
+
+
+      <div class="d-none name"><code></code></div>
     </div>
 
-    
-    
-<p>We load necessary non-base R libraries.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+
+
+
+
+
+    <section class="level2"><h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p>This vignette demonstrates how to use the <code>allhomes</code> package to extract and analyse historical property sales data from <a href="https://www.allhomes.com.au" class="external-link">allhomes.com.au</a>. We’ll focus on exploring median property sale prices across suburbs in the Sydney Leichhardt area during 2021. By analysing sales data from multiple suburbs, we’ll create visualisations to understand price distributions and identify patterns in the local property market.</p>
+<p>The <code>allhomes</code> package provides access to detailed sales data, including property features, sale prices, and dates. This example shows how to collect data for multiple suburbs, clean it, and perform basic exploratory data analysis to understand median price variations.</p>
+</section><section class="level2"><h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
+</h2>
+<p>First, load the required packages. We’ll use <code>allhomes</code> for Allhomes sales data extraction, <code>tidyverse</code> for data manipulation and visualisation, and <code>ggbeeswarm</code> for creating bee swarm plots.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mevers.github.io/allhomes/">allhomes</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/eclarke/ggbeeswarm" class="external-link">ggbeeswarm</a></span><span class="op">)</span></span></code></pre></div>
-<p>Download 2021 past sales data for all Leichhardt suburbs. We use the
-internal dataset <code>divisions_NSW</code> to create a
-<code>character</code> vector of all suburbs within the SA3 Leichhardt
-area.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+</div>
+</section><section class="level2"><h2 id="data-collection">Data collection<a class="anchor" aria-label="anchor" href="#data-collection"></a>
+</h2>
+<p>The <code><a href="../reference/get_past_sales_data.html">get_past_sales_data()</a></code> function retrieves sales data for a specific suburb and year. We’ll collect data for all suburbs in the Leichhardt SA3 area using the internal <code>divisions_NSW</code> dataset to identify the relevant suburbs.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get all Leichhardt suburbs</span></span>
 <span><span class="va">suburbs</span> <span class="op">&lt;-</span> <span class="va">divisions_NSW</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">sa3_name_2016</span> <span class="op">==</span> <span class="st">"Leichhardt"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html" class="external-link">unite</a></span><span class="op">(</span><span class="va">suburb</span>, <span class="va">division</span>, <span class="va">state</span>, sep <span class="op">=</span> <span class="st">", "</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">suburb</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Display the suburbs we're analysing</span></span>
 <span><span class="va">suburbs</span></span>
 <span><span class="co">#&gt; [1] "Annandale, NSW"    "Balmain, NSW"      "Balmain East, NSW"</span></span>
 <span><span class="co">#&gt; [4] "Birchgrove, NSW"   "Leichhardt, NSW"   "Lilyfield, NSW"   </span></span>
@@ -93,27 +106,398 @@ area.</p>
 <span><span class="co"># Get data for Leichhardt suburbs</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">suburbs</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">get_past_sales_data</span>, year <span class="op">=</span> <span class="fl">2021L</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in .f(.x[[i]], ...): No sales data for suburb 'Balmain East, NSW'</span></span></code></pre></div>
-<p>We show the distribution and median value of sale prices of
-properties across different suburbs in the Sydney Leichhardt area in
-2021.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Plot</span></span>
-<span><span class="va">data</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span>, <span class="va">price</span> <span class="op">&gt;</span> <span class="fl">1e3</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>median_price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">property_type</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+</div>
+</section><section class="level2"><h2 id="data-exploration">Data exploration<a class="anchor" aria-label="anchor" href="#data-exploration"></a>
+</h2>
+<p>Let’s examine the collected data. We’ll look at the total number of sales, data completeness, and basic statistics by suburb and property type.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Summary statistics by suburb and property type</span></span>
+<span><span class="va">data_summary</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">division</span>, <span class="va">property_type</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
+<span>        total_sales <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>        sales_with_price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">price</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>        median_price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">price</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>        mean_price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">price</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>        .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">division</span>, <span class="va">property_type</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Display summary table</span></span>
+<span><span class="va">data_summary</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
+<span>        caption <span class="op">=</span> <span class="st">"Summary of sales data by suburb and property type (2021)"</span>,</span>
+<span>        digits <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>        format.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>big.mark <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<table class="table caption-top">
+<caption>Summary of sales data by suburb and property type (2021)</caption>
+<colgroup>
+<col style="width: 14%">
+<col style="width: 17%">
+<col style="width: 15%">
+<col style="width: 21%">
+<col style="width: 16%">
+<col style="width: 14%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">division</th>
+<th style="text-align: left;">property_type</th>
+<th style="text-align: right;">total_sales</th>
+<th style="text-align: right;">sales_with_price</th>
+<th style="text-align: right;">median_price</th>
+<th style="text-align: right;">mean_price</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Annandale</td>
+<td style="text-align: left;">APARTMENT</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1,180,000</td>
+<td style="text-align: right;">1,180,000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Annandale</td>
+<td style="text-align: left;">HOUSE</td>
+<td style="text-align: right;">108</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">1,787,500</td>
+<td style="text-align: right;">2,185,000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Annandale</td>
+<td style="text-align: left;">TOWNHOUSE</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1,862,500</td>
+<td style="text-align: right;">1,862,500</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Annandale</td>
+<td style="text-align: left;">UNIT</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">500,000</td>
+<td style="text-align: right;">500,000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Annandale</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">1,190,000</td>
+<td style="text-align: right;">1,157,981</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Balmain</td>
+<td style="text-align: left;">APARTMENT</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">860,000</td>
+<td style="text-align: right;">833,643</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Balmain</td>
+<td style="text-align: left;">HOUSE</td>
+<td style="text-align: right;">126</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">2,056,000</td>
+<td style="text-align: right;">2,738,455</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Balmain</td>
+<td style="text-align: left;">TOWNHOUSE</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1,396,000</td>
+<td style="text-align: right;">1,396,000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Balmain</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">82</td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">1,662,500</td>
+<td style="text-align: right;">1,788,098</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Birchgrove</td>
+<td style="text-align: left;">APARTMENT</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1,030,000</td>
+<td style="text-align: right;">1,030,000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Birchgrove</td>
+<td style="text-align: left;">HOUSE</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3,800,000</td>
+<td style="text-align: right;">3,800,000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Birchgrove</td>
+<td style="text-align: left;">TOWNHOUSE</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2,000,000</td>
+<td style="text-align: right;">2,000,000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Birchgrove</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">1,750,000</td>
+<td style="text-align: right;">1,900,952</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Leichhardt</td>
+<td style="text-align: left;">APARTMENT</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">725,000</td>
+<td style="text-align: right;">820,000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Leichhardt</td>
+<td style="text-align: left;">HOUSE</td>
+<td style="text-align: right;">171</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">1,505,000</td>
+<td style="text-align: right;">1,582,156</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Leichhardt</td>
+<td style="text-align: left;">LAND</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NaN</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Leichhardt</td>
+<td style="text-align: left;">TOWNHOUSE</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1,100,000</td>
+<td style="text-align: right;">1,100,000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Leichhardt</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">107</td>
+<td style="text-align: right;">79</td>
+<td style="text-align: right;">1,265,000</td>
+<td style="text-align: right;">1,103,242</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lilyfield</td>
+<td style="text-align: left;">APARTMENT</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">857,500</td>
+<td style="text-align: right;">857,500</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lilyfield</td>
+<td style="text-align: left;">HOUSE</td>
+<td style="text-align: right;">85</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1,787,500</td>
+<td style="text-align: right;">2,048,000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lilyfield</td>
+<td style="text-align: left;">TOWNHOUSE</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">979,000</td>
+<td style="text-align: right;">979,000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lilyfield</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">1,475,000</td>
+<td style="text-align: right;">1,206,052</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rozelle</td>
+<td style="text-align: left;">APARTMENT</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">1,395,000</td>
+<td style="text-align: right;">1,545,667</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Rozelle</td>
+<td style="text-align: left;">HOUSE</td>
+<td style="text-align: right;">110</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">1,626,000</td>
+<td style="text-align: right;">1,783,200</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rozelle</td>
+<td style="text-align: left;">TOWNHOUSE</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1,330,000</td>
+<td style="text-align: right;">1,330,000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Rozelle</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">78</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">1,314,250</td>
+<td style="text-align: right;">1,255,769</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section><section class="level2"><h2 id="median-price-analysis">Median price analysis<a class="anchor" aria-label="anchor" href="#median-price-analysis"></a>
+</h2>
+<p>Now we’ll analyse the median sale prices across Leichhardt suburbs. We’ll filter for valid data and create a visualisation showing price distributions and median values for different property types.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Prepare data for plotting</span></span>
+<span><span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span>, <span class="va">price</span> <span class="op">&gt;</span> <span class="fl">1e3</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># Remove invalid prices</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>median_price <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">property_type</span><span class="op">)</span>  <span class="co"># Calculate median per property type</span></span>
+<span></span>
+<span><span class="co"># Create bee swarm plot with median lines</span></span>
+<span><span class="va">plot_data</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">division</span>, <span class="va">price</span>, colour <span class="op">=</span> <span class="va">property_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/ggbeeswarm/man/geom_quasirandom.html" class="external-link">geom_quasirandom</a></span><span class="op">(</span>dodge.width <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/ggbeeswarm/man/geom_quasirandom.html" class="external-link">geom_quasirandom</a></span><span class="op">(</span>dodge.width <span class="op">=</span> <span class="fl">0.8</span>, alpha <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_errorbar</a></span><span class="op">(</span></span>
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">median_price</span>, ymax <span class="op">=</span> <span class="va">median_price</span><span class="op">)</span>, </span>
-<span>        position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html" class="external-link">position_dodge</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>,</span>
+<span>        linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span></span>
 <span>        labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/dollar_format.html" class="external-link">label_dollar</a></span><span class="op">(</span>scale <span class="op">=</span> <span class="fl">1e-6</span>, suffix <span class="op">=</span> <span class="st">"M"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Leichhardt suburb"</span>, y <span class="op">=</span> <span class="st">"Sales price"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
+<span>        title <span class="op">=</span> <span class="st">"Property sale prices across Leichhardt suburbs (2021)"</span>,</span>
+<span>        subtitle <span class="op">=</span> <span class="st">"Bee swarm plot showing individual sales with median price lines"</span>,</span>
+<span>        x <span class="op">=</span> <span class="st">"Leichhardt suburb"</span>, </span>
+<span>        y <span class="op">=</span> <span class="st">"Sales price (AUD)"</span>,</span>
+<span>        colour <span class="op">=</span> <span class="st">"Property type"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="median_price_Leichhardt_files/figure-html/plot-sales-data-1.png" class="r-plt" alt="" width="100%"></p>
-  </main>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="median_price_Leichhardt_files/figure-html/plot-sales-data-1.png" style="width:100.0%"></p>
+</figure>
 </div>
-
+</div>
+</div>
+</section><section class="level2"><h2 id="insights">Insights<a class="anchor" aria-label="anchor" href="#insights"></a>
+</h2>
+<p>From the visualisation and data analysis, we can observe:</p>
+<ul>
+<li>
+<strong>Price variation by suburb</strong>: There are clear differences in median property prices between suburbs within the Leichhardt area, reflecting local market conditions and property characteristics.</li>
+<li>
+<strong>Property type differences</strong>: As expected, different property types (houses, units, etc.) show distinct price distributions, with houses generally resulting in higher prices.</li>
+<li>
+<strong>Data considerations</strong>: The bee swarm plot reveals the distribution of individual sales, while the horizontal lines show median prices for each property type across all suburbs.</li>
+</ul>
+<p>This analysis provides a foundation for understanding the Leichhardt property market in 2021. Potential extensions could include:</p>
+<ul>
+<li>Analysing price trends over multiple years</li>
+<li>Examining the relationship between price and property features (bedrooms, bathrooms, land size)</li>
+<li>Investigating seasonal patterns in sales</li>
+<li>Comparing Leichhardt prices with other Sydney areas</li>
+</ul></section><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
+    }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
+</div>
 
 
     <footer><div class="pkgdown-footer-left">
