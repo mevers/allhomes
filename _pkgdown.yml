@@ -6,9 +6,9 @@ articles:
 - title: Simple examples
   navbar: Simple examples
   contents:
-  - articles/price_bedrooms
-  - articles/median_price_Leichhardt
+  - price_bedrooms
+  - median_price_Leichhardt
 - title: Case studies
   navbar: Case studies
   contents:
-  - articles/spatial_median_price
+  - spatial_median_price
