@@ -46,4 +46,10 @@ test_that("Valid slug is generated", {
     expect_equal(
         format_slug("McKellar, ACT"),
         "mckellar-act-2617")
+    expect_equal(
+        format_slug("Curtin, ACT"),
+        "curtin-act-2605")
+    expect_equal(
+        format_slug("Isabella Plains, ACT"),
+        "isabella-plains-act-2905")
 })

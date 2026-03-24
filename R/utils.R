@@ -8,8 +8,8 @@ validate_suburb <- function(suburb) {
     locality <- stringr::str_split(suburb, ",\\s*") |> unlist()
     if (length(locality) != 2)
         stop("`suburb` must contain name and postcode, separated by a comma")
-    div <- stringr::str_to_lower(locality[1])
-    state <- stringr::str_to_lower(locality[2])
+    div <- locality[1] |> stringr::str_to_lower()
+    state <- locality[2] |> stringr::str_to_lower()
 
     # Currently: `suburb` must be one of ACT or NSW
     if (state == "act") {
@@ -30,7 +30,10 @@ validate_suburb <- function(suburb) {
 
 
     # Return
-    list(division = div, state = state, postcode = postcode)
+    list(
+        division = div,
+        state = state,
+        postcode = postcode)
 
 }
 
@@ -39,7 +42,8 @@ format_slug <- function(suburb) {
 
     validate_suburb(suburb) |>
         purrr::reduce(paste, sep = "-") |>
-        stringr::str_to_lower()
+        stringr::str_to_lower() |>
+        stringr::str_replace_all(" ", "-")
 
 }
 
