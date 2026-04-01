@@ -157,10 +157,6 @@ data_allhomes <- sa2_names |>
 #> Warning in validate_suburb(suburb): Could not validate suburb 'Civic, ACT'
 #> Warning in get_past_sales_data(suburb, year): No sales data for suburb 'Civic,
 #> ACT'
-#> Warning in get_past_sales_data(suburb, year): No sales data for suburb 'Denman
-#> Prospect, ACT'
-#> Warning in get_past_sales_data(suburb, year): No sales data for suburb 'Denman
-#> Prospect, ACT'
 #> Warning in validate_suburb(suburb): Could not validate suburb 'Duntroon, ACT'
 #> Warning in get_past_sales_data(suburb, year): No sales data for suburb
 #> 'Duntroon, ACT'
@@ -173,10 +169,6 @@ data_allhomes <- sa2_names |>
 #> Warning in validate_suburb(suburb): Could not validate suburb 'Gooromon, ACT'
 #> Warning in get_past_sales_data(suburb, year): No sales data for suburb
 #> 'Gooromon, ACT'
-#> Warning in get_past_sales_data(suburb, year): No sales data for suburb
-#> 'Isabella Plains, ACT'
-#> Warning in get_past_sales_data(suburb, year): No sales data for suburb
-#> 'Isabella Plains, ACT'
 #> Warning in validate_suburb(suburb): Could not validate suburb 'Kenny, ACT'
 #> Warning in get_past_sales_data(suburb, year): No sales data for suburb 'Kenny,
 #> ACT'
@@ -245,10 +237,6 @@ data_allhomes <- sa2_names |>
 #> 'O'Malley, ACT'
 #> Warning in get_past_sales_data(suburb, year): No sales data for suburb 'Parkes,
 #> ACT'
-#> Warning in get_past_sales_data(suburb, year): No sales data for suburb 'Red
-#> Hill, ACT'
-#> Warning in get_past_sales_data(suburb, year): No sales data for suburb 'Red
-#> Hill, ACT'
 #> Warning in get_past_sales_data(suburb, year): No sales data for suburb
 #> 'Russell, ACT'
 #> Warning in get_past_sales_data(suburb, year): No sales data for suburb
@@ -299,111 +287,114 @@ data_summary |>
         format.args = list(big.mark = ","))
 ```
 
-| division    | total_sales | sales_with_uv | sales_with_block_size | median_uv | median_block_size |
-|:------------|------------:|--------------:|----------------------:|----------:|------------------:|
-| Acton       |           2 |             0 |                     0 |        NA |                 0 |
-| Ainslie     |         153 |            55 |                   147 |   796,000 |               832 |
-| Amaroo      |         216 |            92 |                   213 |   364,000 |               554 |
-| Aranda      |         102 |            37 |                    92 |   644,000 |               864 |
-| Banks       |         225 |            78 |                   218 |   327,500 |               719 |
-| Barton      |         216 |            57 |                   123 |   391,790 |             4,429 |
-| Belconnen   |         450 |           133 |                   164 |   130,074 |               214 |
-| Bonner      |         328 |           173 |                   323 |   326,000 |               450 |
-| Bonython    |         153 |            43 |                   148 |   339,000 |               938 |
-| Braddon     |         771 |           195 |                   514 |   148,590 |             2,627 |
-| Bruce       |         579 |           124 |                   474 |   118,584 |             5,975 |
-| Calwell     |         257 |           112 |                   249 |   360,500 |               811 |
-| Campbell    |         282 |           117 |                   230 |   918,000 |             1,278 |
-| Casey       |         363 |           157 |                   321 |   373,000 |               412 |
-| Chapman     |          98 |            57 |                    94 |   597,000 |               927 |
-| Charnwood   |         159 |            53 |                   158 |   313,000 |               658 |
-| Chifley     |         184 |            75 |                   173 |   573,000 |             1,071 |
-| Chisholm    |         205 |            81 |                   199 |   349,000 |               866 |
-| Conder      |         210 |            77 |                   205 |   340,000 |               798 |
-| Cook        |          95 |            30 |                    86 |   499,500 |               835 |
-| Coombs      |         315 |           117 |                   252 |   445,000 |             2,446 |
-| Crace       |         222 |           107 |                   211 |   416,000 |               450 |
-| Curtin      |         246 |           153 |                   221 |   649,000 |               812 |
-| Deakin      |         201 |            99 |                   179 | 1,013,000 |               870 |
-| Dickson     |         372 |            96 |                   308 |   649,000 |             1,626 |
-| Downer      |         213 |            68 |                   206 |   637,000 |               804 |
-| Duffy       |         128 |            61 |                   126 |   466,000 |               847 |
-| Dunlop      |         262 |            93 |                   260 |   327,000 |               524 |
-| Evatt       |         197 |            93 |                   189 |   371,000 |               773 |
-| Fadden      |         121 |            78 |                   119 |   477,500 |               845 |
-| Farrer      |         147 |            92 |                   141 |   650,500 |               973 |
-| Fisher      |         162 |            66 |                   155 |   452,000 |               878 |
-| Florey      |         170 |            77 |                   168 |   439,000 |               808 |
-| Flynn       |         140 |            73 |                   136 |   355,000 |               887 |
-| Forde       |         166 |           109 |                   151 |   405,000 |               465 |
-| Forrest     |         185 |            54 |                   150 | 1,774,500 |             2,275 |
-| Franklin    |         371 |           148 |                   317 |   408,000 |             5,933 |
-| Fraser      |          67 |            29 |                    66 |   420,000 |             1,130 |
-| Fyshwick    |         177 |             0 |                   177 |        NA |             2,230 |
-| Garran      |         177 |            65 |                   167 |   749,000 |             1,083 |
-| Gilmore     |          92 |            44 |                    91 |   354,500 |               889 |
-| Giralang    |         122 |            53 |                   117 |   426,000 |               849 |
-| Gordon      |         307 |           111 |                   283 |   354,000 |               784 |
-| Gowrie      |          97 |            49 |                    97 |   374,000 |               834 |
-| Greenway    |         581 |           119 |                   480 |    78,912 |             7,286 |
-| Griffith    |         541 |           143 |                   486 |   980,000 |             3,419 |
-| Gungahlin   |         459 |           191 |                   325 |   352,000 |               528 |
-| Hackett     |         112 |            56 |                   104 |   668,000 |               766 |
-| Hall        |           9 |             0 |                     8 |        NA |             2,027 |
-| Harrison    |         363 |           180 |                   298 |   390,500 |               486 |
-| Hawker      |         138 |            48 |                   132 |   535,000 |             1,258 |
-| Higgins     |         136 |            54 |                   136 |   374,000 |               786 |
-| Holder      |         127 |            64 |                   122 |   426,000 |               818 |
-| Holt        |         389 |            91 |                   377 |   344,000 |               870 |
-| Hughes      |         135 |            69 |                   131 |   725,000 |               853 |
-| Hume        |          73 |             0 |                    73 |        NA |             6,919 |
-| Isaacs      |          91 |            43 |                    86 |   590,000 |               911 |
-| Jacka       |          16 |             4 |                     9 |   291,500 |               451 |
-| Kaleen      |         231 |            88 |                   229 |   506,000 |               810 |
-| Kambah      |         627 |           278 |                   602 |   380,000 |               846 |
-| Kingston    |         691 |           202 |                   426 |   194,340 |             2,508 |
-| Latham      |         174 |            75 |                   167 |   365,000 |               835 |
-| Lawson      |         143 |            40 |                    80 |   383,000 |             5,694 |
-| Lyneham     |         353 |           123 |                   295 |   550,000 |             2,155 |
-| Lyons       |         171 |            80 |                   158 |   604,000 |             1,004 |
-| MacGregor   |         315 |           151 |                   297 |   328,000 |               584 |
-| Macarthur   |          54 |            23 |                    54 |   396,000 |               896 |
-| Macquarie   |         187 |            65 |                   153 |   508,000 |               969 |
-| Mawson      |         244 |            75 |                   222 |   588,000 |             1,618 |
-| McKellar    |          97 |            52 |                    97 |   418,000 |               776 |
-| Melba       |         143 |            50 |                   140 |   364,500 |               884 |
-| Mitchell    |          43 |             0 |                    43 |        NA |             3,382 |
-| Monash      |         195 |            94 |                   187 |   376,500 |               868 |
-| Moncrieff   |         239 |           118 |                   190 |   351,500 |               457 |
-| Narrabundah |         344 |           196 |                   310 |   707,000 |               780 |
-| Ngunnawal   |         552 |           255 |                   535 |   329,000 |               445 |
-| Nicholls    |         238 |           128 |                   231 |   506,000 |               827 |
-| Oxley       |          71 |            23 |                    70 |   402,000 |               921 |
-| Page        |         141 |            47 |                   136 |   424,000 |               868 |
-| Palmerston  |         187 |            83 |                   173 |   417,000 |               770 |
-| Parkes      |           4 |             0 |                     2 |        NA |            14,495 |
-| Pearce      |         145 |            65 |                   128 |   710,000 |               943 |
-| Phillip     |         698 |           157 |                   525 | 2,370,000 |             3,686 |
-| Reid        |         280 |            42 |                   244 | 1,278,000 |            10,626 |
-| Richardson  |         147 |            67 |                   145 |   340,000 |               816 |
-| Rivett      |         154 |            83 |                   148 |   423,000 |               782 |
-| Scullin     |         158 |            62 |                   152 |   386,000 |               826 |
-| Spence      |          95 |            47 |                    93 |   369,000 |               903 |
-| Stirling    |          68 |            44 |                    64 |   455,500 |               854 |
-| Strathnairn |         273 |             0 |                   260 |        NA |               350 |
-| Taylor      |         576 |            36 |                   560 |   391,000 |               506 |
-| Theodore    |         130 |            42 |                   122 |   332,000 |               864 |
-| Throsby     |         229 |            37 |                   213 |   540,000 |               438 |
-| Torrens     |          99 |            67 |                    94 |   564,000 |               881 |
-| Turner      |         400 |           126 |                   257 |   999,000 |             2,195 |
-| Wanniassa   |         297 |           129 |                   286 |   384,000 |               857 |
-| Waramanga   |         116 |            67 |                   109 |   450,000 |               778 |
-| Watson      |         508 |           103 |                   439 |   610,000 |               797 |
-| Weetangera  |         100 |            47 |                    96 |   592,000 |             1,114 |
-| Weston      |         157 |            73 |                   150 |   458,000 |               794 |
-| Whitlam     |         247 |             0 |                   241 |        NA |               450 |
-| Wright      |         334 |           109 |                   227 |   423,000 |               678 |
-| Yarralumla  |         180 |           109 |                   165 | 1,178,000 |               862 |
+| division        | total_sales | sales_with_uv | sales_with_block_size | median_uv | median_block_size |
+|:----------------|------------:|--------------:|----------------------:|----------:|------------------:|
+| Acton           |           2 |             0 |                     0 |        NA |                 0 |
+| Ainslie         |         153 |            55 |                   147 |   796,000 |               832 |
+| Amaroo          |         216 |            92 |                   213 |   364,000 |               554 |
+| Aranda          |         102 |            37 |                    92 |   644,000 |               864 |
+| Banks           |         225 |            78 |                   218 |   327,500 |               719 |
+| Barton          |         216 |            57 |                   123 |   391,790 |             4,429 |
+| Belconnen       |         450 |           133 |                   164 |   130,074 |               214 |
+| Bonner          |         328 |           173 |                   323 |   326,000 |               450 |
+| Bonython        |         153 |            43 |                   148 |   339,000 |               938 |
+| Braddon         |         771 |           195 |                   514 |   148,590 |             2,627 |
+| Bruce           |         579 |           124 |                   474 |   118,584 |             5,975 |
+| Calwell         |         257 |           112 |                   249 |   360,500 |               811 |
+| Campbell        |         282 |           117 |                   230 |   918,000 |             1,278 |
+| Casey           |         363 |           157 |                   321 |   373,000 |               412 |
+| Chapman         |          98 |            57 |                    94 |   597,000 |               927 |
+| Charnwood       |         159 |            53 |                   158 |   313,000 |               658 |
+| Chifley         |         184 |            75 |                   173 |   573,000 |             1,071 |
+| Chisholm        |         205 |            81 |                   199 |   349,000 |               866 |
+| Conder          |         210 |            77 |                   205 |   340,000 |               798 |
+| Cook            |          95 |            30 |                    86 |   499,500 |               835 |
+| Coombs          |         315 |           117 |                   252 |   445,000 |             2,446 |
+| Crace           |         222 |           107 |                   211 |   416,000 |               450 |
+| Curtin          |         246 |           153 |                   221 |   649,000 |               812 |
+| Deakin          |         201 |            99 |                   179 | 1,013,000 |               870 |
+| Denman Prospect |         648 |            69 |                   602 |   470,000 |               585 |
+| Dickson         |         372 |            96 |                   308 |   649,000 |             1,626 |
+| Downer          |         213 |            68 |                   206 |   637,000 |               804 |
+| Duffy           |         128 |            61 |                   126 |   466,000 |               847 |
+| Dunlop          |         262 |            93 |                   260 |   327,000 |               524 |
+| Evatt           |         197 |            93 |                   189 |   371,000 |               773 |
+| Fadden          |         121 |            78 |                   119 |   477,500 |               845 |
+| Farrer          |         147 |            92 |                   141 |   650,500 |               973 |
+| Fisher          |         162 |            66 |                   155 |   452,000 |               878 |
+| Florey          |         170 |            77 |                   168 |   439,000 |               808 |
+| Flynn           |         140 |            73 |                   136 |   355,000 |               887 |
+| Forde           |         166 |           109 |                   151 |   405,000 |               465 |
+| Forrest         |         185 |            54 |                   150 | 1,774,500 |             2,275 |
+| Franklin        |         371 |           148 |                   317 |   408,000 |             5,933 |
+| Fraser          |          67 |            29 |                    66 |   420,000 |             1,130 |
+| Fyshwick        |         177 |             0 |                   177 |        NA |             2,230 |
+| Garran          |         177 |            65 |                   167 |   749,000 |             1,083 |
+| Gilmore         |          92 |            44 |                    91 |   354,500 |               889 |
+| Giralang        |         122 |            53 |                   117 |   426,000 |               849 |
+| Gordon          |         307 |           111 |                   283 |   354,000 |               784 |
+| Gowrie          |          97 |            49 |                    97 |   374,000 |               834 |
+| Greenway        |         581 |           119 |                   480 |    78,912 |             7,286 |
+| Griffith        |         542 |           143 |                   486 |   980,000 |             3,419 |
+| Gungahlin       |         459 |           191 |                   325 |   352,000 |               528 |
+| Hackett         |         112 |            56 |                   104 |   668,000 |               766 |
+| Hall            |           9 |             0 |                     8 |        NA |             2,027 |
+| Harrison        |         363 |           180 |                   298 |   390,500 |               486 |
+| Hawker          |         138 |            48 |                   132 |   535,000 |             1,258 |
+| Higgins         |         136 |            54 |                   136 |   374,000 |               786 |
+| Holder          |         127 |            64 |                   122 |   426,000 |               818 |
+| Holt            |         389 |            91 |                   377 |   344,000 |               870 |
+| Hughes          |         135 |            69 |                   131 |   725,000 |               853 |
+| Hume            |          73 |             0 |                    73 |        NA |             6,919 |
+| Isaacs          |          91 |            43 |                    86 |   590,000 |               911 |
+| Isabella Plains |         183 |            55 |                   168 |   343,000 |               839 |
+| Jacka           |          16 |             4 |                     9 |   291,500 |               451 |
+| Kaleen          |         231 |            88 |                   229 |   506,000 |               810 |
+| Kambah          |         627 |           278 |                   602 |   380,000 |               846 |
+| Kingston        |         691 |           201 |                   426 |   194,340 |             2,508 |
+| Latham          |         174 |            75 |                   167 |   365,000 |               835 |
+| Lawson          |         143 |            40 |                    80 |   383,000 |             5,694 |
+| Lyneham         |         353 |           123 |                   295 |   550,000 |             2,155 |
+| Lyons           |         171 |            80 |                   158 |   604,000 |             1,004 |
+| MacGregor       |         315 |           151 |                   297 |   328,000 |               584 |
+| Macarthur       |          54 |            23 |                    54 |   396,000 |               896 |
+| Macquarie       |         187 |            65 |                   153 |   508,000 |               969 |
+| Mawson          |         244 |            75 |                   222 |   588,000 |             1,618 |
+| McKellar        |          97 |            52 |                    97 |   418,000 |               776 |
+| Melba           |         143 |            50 |                   140 |   364,500 |               884 |
+| Mitchell        |          45 |             0 |                    45 |        NA |             3,382 |
+| Monash          |         195 |            94 |                   187 |   376,500 |               868 |
+| Moncrieff       |         239 |           118 |                   190 |   351,500 |               457 |
+| Narrabundah     |         344 |           196 |                   310 |   707,000 |               780 |
+| Ngunnawal       |         552 |           255 |                   535 |   329,000 |               445 |
+| Nicholls        |         238 |           128 |                   231 |   506,000 |               827 |
+| Oxley           |          71 |            23 |                    70 |   402,000 |               921 |
+| Page            |         141 |            47 |                   136 |   424,000 |               868 |
+| Palmerston      |         187 |            83 |                   173 |   417,000 |               770 |
+| Parkes          |           4 |             0 |                     2 |        NA |            14,495 |
+| Pearce          |         145 |            65 |                   128 |   710,000 |               943 |
+| Phillip         |         698 |           157 |                   525 | 2,370,000 |             3,686 |
+| Red Hill        |         210 |            97 |                   187 | 1,160,000 |               774 |
+| Reid            |         280 |            42 |                   244 | 1,278,000 |            10,626 |
+| Richardson      |         147 |            67 |                   145 |   340,000 |               816 |
+| Rivett          |         154 |            83 |                   148 |   423,000 |               782 |
+| Scullin         |         158 |            62 |                   152 |   386,000 |               826 |
+| Spence          |          95 |            47 |                    93 |   369,000 |               903 |
+| Stirling        |          68 |            44 |                    64 |   455,500 |               854 |
+| Strathnairn     |         273 |             0 |                   260 |        NA |               350 |
+| Taylor          |         576 |            36 |                   560 |   391,000 |               506 |
+| Theodore        |         130 |            42 |                   122 |   332,000 |               864 |
+| Throsby         |         229 |            37 |                   213 |   540,000 |               438 |
+| Torrens         |          99 |            67 |                    94 |   564,000 |               881 |
+| Turner          |         400 |           126 |                   257 |   999,000 |             2,195 |
+| Wanniassa       |         297 |           129 |                   286 |   384,000 |               857 |
+| Waramanga       |         116 |            67 |                   109 |   450,000 |               778 |
+| Watson          |         508 |           103 |                   439 |   610,000 |               797 |
+| Weetangera      |         100 |            47 |                    96 |   592,000 |             1,114 |
+| Weston          |         157 |            73 |                   150 |   458,000 |               794 |
+| Whitlam         |         247 |             0 |                   241 |        NA |               450 |
+| Wright          |         334 |           109 |                   227 |   423,000 |               678 |
+| Yarralumla      |         180 |           109 |                   165 | 1,178,000 |               862 |
 
 Summary of sales data by ACT suburb (2021-2022)
 

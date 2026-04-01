@@ -50,7 +50,6 @@ suburbs
 
 # Get data for Leichhardt suburbs
 data <- suburbs |> map(get_past_sales_data, year = 2021L) |> bind_rows()
-#> Warning in .f(.x[[i]], ...): No sales data for suburb 'Balmain East, NSW'
 ```
 
 ## Data exploration
@@ -79,34 +78,38 @@ data_summary |>
         format.args = list(big.mark = ","))
 ```
 
-| division   | property_type | total_sales | sales_with_price | median_price | mean_price |
-|:-----------|:--------------|------------:|-----------------:|-------------:|-----------:|
-| Annandale  | APARTMENT     |          30 |                2 |    1,180,000 |  1,180,000 |
-| Annandale  | HOUSE         |         108 |               14 |    1,787,500 |  2,185,000 |
-| Annandale  | TOWNHOUSE     |          11 |                2 |    1,862,500 |  1,862,500 |
-| Annandale  | UNIT          |           1 |                1 |      500,000 |    500,000 |
-| Annandale  | NA            |          77 |               52 |    1,190,000 |  1,157,981 |
-| Balmain    | APARTMENT     |          48 |                7 |      860,000 |    833,643 |
-| Balmain    | HOUSE         |         126 |               22 |    2,056,000 |  2,738,455 |
-| Balmain    | TOWNHOUSE     |           7 |                1 |    1,396,000 |  1,396,000 |
-| Balmain    | NA            |          82 |               63 |    1,662,500 |  1,788,098 |
-| Birchgrove | APARTMENT     |          11 |                1 |    1,030,000 |  1,030,000 |
-| Birchgrove | HOUSE         |          40 |                2 |    3,800,000 |  3,800,000 |
-| Birchgrove | TOWNHOUSE     |           5 |                1 |    2,000,000 |  2,000,000 |
-| Birchgrove | NA            |          21 |               13 |    1,750,000 |  1,900,952 |
-| Leichhardt | APARTMENT     |          55 |                5 |      725,000 |    820,000 |
-| Leichhardt | HOUSE         |         171 |               16 |    1,505,000 |  1,582,156 |
-| Leichhardt | LAND          |           1 |                0 |           NA |        NaN |
-| Leichhardt | TOWNHOUSE     |          26 |                2 |    1,100,000 |  1,100,000 |
-| Leichhardt | NA            |         107 |               79 |    1,265,000 |  1,103,242 |
-| Lilyfield  | APARTMENT     |          12 |                2 |      857,500 |    857,500 |
-| Lilyfield  | HOUSE         |          85 |               10 |    1,787,500 |  2,048,000 |
-| Lilyfield  | TOWNHOUSE     |           6 |                1 |      979,000 |    979,000 |
-| Lilyfield  | NA            |          64 |               42 |    1,475,000 |  1,206,052 |
-| Rozelle    | APARTMENT     |          48 |                9 |    1,395,000 |  1,545,667 |
-| Rozelle    | HOUSE         |         110 |               15 |    1,626,000 |  1,783,200 |
-| Rozelle    | TOWNHOUSE     |           8 |                1 |    1,330,000 |  1,330,000 |
-| Rozelle    | NA            |          78 |               60 |    1,314,250 |  1,255,769 |
+| division     | property_type | total_sales | sales_with_price | median_price | mean_price |
+|:-------------|:--------------|------------:|-----------------:|-------------:|-----------:|
+| Annandale    | APARTMENT     |          30 |                2 |    1,180,000 |  1,180,000 |
+| Annandale    | HOUSE         |         108 |               14 |    1,787,500 |  2,185,000 |
+| Annandale    | TOWNHOUSE     |          11 |                2 |    1,862,500 |  1,862,500 |
+| Annandale    | UNIT          |           1 |                1 |      500,000 |    500,000 |
+| Annandale    | NA            |          77 |               52 |    1,190,000 |  1,157,981 |
+| Balmain      | APARTMENT     |          48 |                7 |      860,000 |    833,643 |
+| Balmain      | HOUSE         |         126 |               22 |    2,056,000 |  2,738,455 |
+| Balmain      | TOWNHOUSE     |           7 |                1 |    1,396,000 |  1,396,000 |
+| Balmain      | NA            |          82 |               63 |    1,662,500 |  1,788,098 |
+| Balmain East | APARTMENT     |           8 |                2 |    1,270,000 |  1,270,000 |
+| Balmain East | HOUSE         |          14 |                1 |    2,700,000 |  2,700,000 |
+| Balmain East | TOWNHOUSE     |           2 |                0 |           NA |        NaN |
+| Balmain East | NA            |          16 |               10 |    1,743,500 |  2,009,188 |
+| Birchgrove   | APARTMENT     |          11 |                1 |    1,030,000 |  1,030,000 |
+| Birchgrove   | HOUSE         |          40 |                2 |    3,800,000 |  3,800,000 |
+| Birchgrove   | TOWNHOUSE     |           5 |                1 |    2,000,000 |  2,000,000 |
+| Birchgrove   | NA            |          21 |               13 |    1,750,000 |  1,900,952 |
+| Leichhardt   | APARTMENT     |          55 |                5 |      725,000 |    820,000 |
+| Leichhardt   | HOUSE         |         171 |               16 |    1,505,000 |  1,582,156 |
+| Leichhardt   | LAND          |           1 |                0 |           NA |        NaN |
+| Leichhardt   | TOWNHOUSE     |          26 |                2 |    1,100,000 |  1,100,000 |
+| Leichhardt   | NA            |         107 |               79 |    1,265,000 |  1,103,242 |
+| Lilyfield    | APARTMENT     |          12 |                2 |      857,500 |    857,500 |
+| Lilyfield    | HOUSE         |          85 |               10 |    1,787,500 |  2,048,000 |
+| Lilyfield    | TOWNHOUSE     |           6 |                1 |      979,000 |    979,000 |
+| Lilyfield    | NA            |          64 |               42 |    1,475,000 |  1,206,052 |
+| Rozelle      | APARTMENT     |          48 |                9 |    1,395,000 |  1,545,667 |
+| Rozelle      | HOUSE         |         110 |               15 |    1,626,000 |  1,783,200 |
+| Rozelle      | TOWNHOUSE     |           8 |                1 |    1,330,000 |  1,330,000 |
+| Rozelle      | NA            |          78 |               60 |    1,314,250 |  1,255,769 |
 
 Summary of sales data by suburb and property type (2021)
 

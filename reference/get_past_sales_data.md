@@ -19,16 +19,29 @@ get_past_sales_data(suburb, year, max_entries = 5000)
 - year:
 
   An `integer` scalar denoting the year. If `NULL`, then *all*
-  historical data for `suburb` are returned. Otherwise sales data for
+  historical data for `suburb` are returned; otherwise sales data for
   the indicated `year` are returned.
 
 - max_entries:
 
-  The maximum number of records returned. Defaults to 5000.
+  The maximum number of records returned. Must not exceed 5000 (the
+  default value).
 
 ## Value
 
 A `tibble`.
+
+## Details
+
+Data are extracted from `allhomes.com.au` using their GraphQL API
+endpoint. The package uses a persisted query (hash-based) to request
+sales history data. If Allhomes changes the underlying query hash,
+requests can fail unexpectedly. Data extraction allows for up to 5
+retries on transient errors (e.g. short- lived 503 responses or
+temporary network blips).
+
+Users should use this function responsibly to avoid API rate limiting
+and repeated 503 timeouts from aggressive polling or bulk query loops.
 
 ## Examples
 

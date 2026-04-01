@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">allhomes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -104,8 +104,7 @@
 <span><span class="co">#&gt; [7] "Rozelle, NSW"</span></span>
 <span></span>
 <span><span class="co"># Get data for Leichhardt suburbs</span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">suburbs</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">get_past_sales_data</span>, year <span class="op">=</span> <span class="fl">2021L</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in .f(.x[[i]], ...): No sales data for suburb 'Balmain East, NSW'</span></span></code></pre></div>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">suburbs</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">get_past_sales_data</span>, year <span class="op">=</span> <span class="fl">2021L</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h2 id="data-exploration">Data exploration<a class="anchor" aria-label="anchor" href="#data-exploration"></a>
 </h2>
@@ -133,12 +132,12 @@
 <table class="table caption-top">
 <caption>Summary of sales data by suburb and property type (2021)</caption>
 <colgroup>
-<col style="width: 14%">
+<col style="width: 16%">
 <col style="width: 17%">
 <col style="width: 15%">
 <col style="width: 21%">
 <col style="width: 16%">
-<col style="width: 14%">
+<col style="width: 13%">
 </colgroup>
 <thead><tr class="header">
 <th style="text-align: left;">division</th>
@@ -220,6 +219,38 @@
 <td style="text-align: right;">63</td>
 <td style="text-align: right;">1,662,500</td>
 <td style="text-align: right;">1,788,098</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Balmain East</td>
+<td style="text-align: left;">APARTMENT</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1,270,000</td>
+<td style="text-align: right;">1,270,000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Balmain East</td>
+<td style="text-align: left;">HOUSE</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2,700,000</td>
+<td style="text-align: right;">2,700,000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Balmain East</td>
+<td style="text-align: left;">TOWNHOUSE</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NaN</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Balmain East</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1,743,500</td>
+<td style="text-align: right;">2,009,188</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Birchgrove</td>
