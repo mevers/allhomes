@@ -11,16 +11,27 @@ get_past_sales_data(suburb, year, max_entries = 5000)
 be "<suburb_name>, <state/territory_abbreviation>", e.g. "Balmain, ACT".}
 
 \item{year}{An \code{integer} scalar denoting the year. If \code{NULL}, then \emph{all}
-historical data for \code{suburb} are returned. Otherwise sales data for the
+historical data for \code{suburb} are returned; otherwise sales data for the
 indicated \code{year} are returned.}
 
-\item{max_entries}{The maximum number of records returned. Defaults to 5000.}
+\item{max_entries}{The maximum number of records returned. Must not exceed
+5000 (the default value).}
 }
 \value{
 A \code{tibble}.
 }
 \description{
 Extract historical Allhomes past sales data for an ACT/NSW suburb.
+}
+\details{
+Data are extracted from \code{allhomes.com.au} using their GraphQL API endpoint.
+The package uses a persisted query (hash-based) to request sales history data.
+If Allhomes changes the underlying query hash, requests can fail unexpectedly.
+Data extraction allows for up to 5 retries on transient errors (e.g. short-
+lived 503 responses or temporary network blips).
+
+Users should use this function responsibly to avoid API rate limiting and
+repeated 503 timeouts from aggressive polling or bulk query loops.
 }
 \examples{
 \donttest{

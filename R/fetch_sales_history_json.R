@@ -1,10 +1,9 @@
 construct_sales_history_request <- function(page, page_size, slug, year) {
 
+    # All historical data or historical data for a specific year?
     if (is.null(year)) {
         duration <- list(unit = "ALL")
     } else {
-        if (length(year) != 1)
-            stop("`year` must be NULL or a scalar.", call. = FALSE)
         duration <- list(unit = "SPECIFIC_YEAR", duration = year)
     }
 
@@ -48,7 +47,8 @@ construct_sales_history_request <- function(page, page_size, slug, year) {
         httr2::req_user_agent("Mozilla/5.0") |>
         httr2::req_headers(
             accept = "application/json",
-            `x-apollo-operation-name` = "updateHistoryForLocality")
+            `x-apollo-operation-name` = "updateHistoryForLocality") |>
+        httr2::req_retry(max_tries = 5L, retry_on_failure = TRUE)
 
     # Return request
     req
@@ -56,7 +56,7 @@ construct_sales_history_request <- function(page, page_size, slug, year) {
 }
 
 
-fetch_sales_history_json <- function(page = 1, page_size = 10, slug = "curtin-act-2605", year = NULL) {
+fetch_sales_history_json <- function(page = 1, page_size = 10, slug, year) {
 
     construct_sales_history_request(
         page = page, page_size = page_size, slug = slug, year = year) |>
