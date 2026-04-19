@@ -5,7 +5,7 @@
 \alias{divisions_NSW}
 \title{Allhomes NSW suburb (division) names and IDs}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2715 rows and 6 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 5271 rows and 5 columns.
 }
 \usage{
 data(divisions_NSW)

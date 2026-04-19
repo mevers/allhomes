@@ -5,7 +5,7 @@
 \alias{divisions_ACT}
 \title{Allhomes ACT suburb (division) names and IDs}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 126 rows and 6 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 156 rows and 5 columns.
 }
 \usage{
 data(divisions_ACT)
